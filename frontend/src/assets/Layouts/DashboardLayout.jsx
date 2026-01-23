@@ -1,7 +1,28 @@
 import { Link, Outlet } from "react-router-dom";
 import styles from "./DashboardLayout.module.css";
+import { useEffect, useState } from "react";
+import UsuarioAPI from "../../client/UsuarioAPI";
 
 export function DashboardLayout() {
+  const usuarioId = localStorage.getItem("usuarioId");
+  const token = localStorage.getItem("token");
+
+  const [usuario, setUsuario] = useState(null);
+
+  useEffect(() => {
+    async function carregarUsuario() {
+      if (!usuarioId || !token) return;
+
+      const dados = await UsuarioAPI.obterAsync(usuarioId, token);
+      setUsuario(dados);
+    }
+
+    carregarUsuario();
+  }, [usuarioId, token]);
+
+  const avatarEstilo = usuario?.avatarEstilo || "avataaars";
+  const avatarSeed = usuario?.avatarSeed || "default";
+
   return (
     <div className={styles.container}>
       <aside className={styles.sidebar}>
@@ -13,8 +34,19 @@ export function DashboardLayout() {
           <Link to="/app/exercicios">Exercícios</Link>
           <Link to="/app/evolucao">Evolução</Link>
           <Link to="/app/ia">Chat IA</Link>
-          <Link to="/app/perfil">Perfil</Link>
         </nav>
+
+        {/* PERFIL ABAIXO */}
+        <Link to="/app/perfil" className={styles.perfilSidebar}>
+          <img
+            className={styles.avatarSidebar}
+            src={`https://api.dicebear.com/7.x/${avatarEstilo}/svg?seed=${avatarSeed}`}
+            alt="Avatar"
+          />
+          <div className={styles.nomeSidebar}>
+            {usuario?.nome || "Usuário"}
+          </div>
+        </Link>
       </aside>
 
       <main className={styles.main}>
