@@ -1,0 +1,268 @@
+/* =========================================
+   LAYOUT GERAL
+========================================= */
+.page {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+  background-color: #fff;
+  color: #000;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  overflow: hidden;
+  font-size: 0.85rem; /* Fonte base ligeiramente menor para compactar */
+}
+
+/* Títulos Compactos */
+.title, .subTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #000;
+}
+
+.colunaEsquerda, .colunaDireita {
+  padding: 1.0rem; 
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+}
+
+.colunaEsquerda {
+  width: 35%; 
+  border-right: 1px solid #e0e0e0;
+  background-color: #fafafa;
+}
+
+.colunaDireita {
+  width: 65%;
+  background-color: #fff;
+}
+
+/* Scrollbar fina e discreta */
+.colunaEsquerda::-webkit-scrollbar,
+.colunaDireita::-webkit-scrollbar {
+  width: 4px;
+}
+.colunaEsquerda::-webkit-scrollbar-thumb,
+.colunaDireita::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+}
+
+
+input,
+select {
+  color: #000; 
+}
+
+input, select {
+  width: 100%;
+  padding: 8px 0; /* Padding menor */
+  margin-bottom: 1rem;
+  border: none;
+  border-bottom: 1px solid #242323;
+  background: transparent;
+  font-size: 0.9rem;
+  outline: none;
+  border-radius: 0;
+}
+
+input:focus, select:focus {
+  border-bottom: 1px solid #000;
+}
+
+
+.lista {
+  margin-top: 0.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.exercicioLinha {
+  display: grid;
+  grid-template-columns: 1fr auto; 
+  align-items: center;
+  gap: 12px; 
+  padding: 6px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.exercicioLinha span {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #000;
+  line-height: 1.2;
+}
+
+
+.exercicioLinha button {
+  background: #fff;
+  border: 1px solid #ccc;
+  color: #000;
+  padding: 2px 10px;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+
+
+
+.cardExercicio {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #e0e0e0;
+  padding: 0.6rem 0.8rem;
+  margin-bottom: 0.5rem;
+  background-color: #fff;
+  transition: border-color 0.2s;
+}
+
+.cardExercicio:hover {
+  border-color: #000;
+}
+
+.cardExercicio strong {
+  display: block;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
+  color: #000;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-transform: uppercase;
+}
+
+/* Grid para os 3 campos */
+.campos {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  align-items: end; /* Alinha inputs na base */
+}
+
+/* Container de cada input (Label + Input) */
+.campoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.campoItem label {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #999;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+
+.campos input {
+  width: 100%;
+  margin: 0;
+  padding: 6px 0;
+  text-align: center;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #000;
+  border: 1px solid #ddd;
+
+}
+
+
+.campos input::-webkit-outer-spin-button,
+.campos input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.campos input:focus {
+  border-color: #000;
+  background-color: #fafafa;
+}
+
+/* Tempo estimado */
+.tempo {
+  font-size: 0.65rem;
+  color: #aaa;
+  margin-top: 6px;
+  text-align: right;
+  font-weight: 500;
+}
+
+.footer {
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+}
+
+.footer span {
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.salvar {
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 24px;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+/* =========================================
+   PLACEHOLDERS VISUAIS (TRUQUE CSS)
+   Adiciona labels flutuantes para saber o que são os campos
+========================================= */
+/* Como não podemos mudar o HTML, usamos :before ou placeholders no HTML. 
+   Aqui, ajustamos para que visualmente pareça uma tabela técnica */
+
+@media (max-width: 768px) {
+  .page {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+  .colunaEsquerda, .colunaDireita {
+    width: 100%;
+    overflow: visible;
+    padding: 1rem;
+  }
+  .colunaEsquerda {
+    height: auto;
+    border-bottom: 1px solid #ccc;
+  }
+}
+.inputNome{
+  color : black;
+}
+.botaoAdicionar {
+  all: unset; /* remove TODO estilo herdado */
+  padding: 4px 8px;
+  font-size: 16px;
+  border: 1px solid #000;
+  border-radius: 12px;
+  background: #fff;
+  color: #000;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* HOVER */
+.botaoAdicionar:hover {
+  background: #000;
+  color: #fff;
+}

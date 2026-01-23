@@ -1,0 +1,57 @@
+.dashboardContainer {
+  width: 100%;
+  padding: 24px;
+  background: #f4f6fb;
+  color: #0b1f3a;
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 18px;
+  color: #6b7a99;
+  margin-bottom: 20px;
+}
+
+/* CARD */
+.card {
+  background: #fff;
+  border-radius: 18px;
+  padding: 20px;
+  border: 1px solid #e6e9f5;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+}
+
+.cardTitle {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+.cardText {
+  font-size: 14px;
+  color: #6b7a99;
+}
+
+/* RESPONSIVO */
+@media (max-width: 768px) {
+  .dashboardContainer {
+    padding: 16px;
+  }
+
+  .title {
+    font-size: 26px;
+  }
+
+  .subtitle {
+    font-size: 16px;
+  }
+
+  .card {
+    padding: 16px;
+  }
+}

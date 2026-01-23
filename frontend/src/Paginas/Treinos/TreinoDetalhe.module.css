@@ -1,0 +1,116 @@
+/* TreinoDetalhe.module.css */
+
+.page {
+  max-width: 600px; /* Reduzi um pouco para ficar melhor em mobile/desktop */
+  margin: 0 auto;
+  padding: 24px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  color: #333;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.voltar {
+  background: #f0f0f0; /* Fundo suave no botão */
+  border: none;
+  border-radius: 50%; /* Botão redondo */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+  transition: background 0.2s;
+}
+
+.voltar:hover {
+  background: #e0e0e0;
+}
+
+.titulo {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #111;
+}
+
+.subtitulo {
+  display: block;
+  font-size: 14px;
+  color: #666;
+  margin-top: 4px;
+}
+
+.resumo {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #eee; /* Linha divisória sutil */
+}
+
+.resumo span {
+  background: #eef2ff; /* Um azul bem clarinho para destaque */
+  color: #000000;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.lista {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card {
+  padding: 20px;
+  border-radius: 12px;
+  background: #ffffff;
+  /* Sombra suave em vez de borda preta */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  border: 1px solid #f0f0f0;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: translateY(-2px); /* Efeito sutil ao passar o mouse */
+  border-color: #e0e0e0;
+}
+
+.card strong {
+  display: block;
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #111;
+}
+
+.detalhes {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 14px;
+  color: #555;
+}
+
+
+.detalhes span {
+  background: #f9f9f9;
+  border: 1px solid #eee;
+  padding: 4px 10px;
+  border-radius: 6px;
+}
+
+.loading {
+  text-align: center;
+  padding: 40px;
+  color: #666;
+}
