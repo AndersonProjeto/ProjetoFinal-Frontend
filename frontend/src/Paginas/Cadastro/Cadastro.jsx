@@ -1,17 +1,14 @@
 import { useState, useMemo } from "react";
-import { useNavigate } from "react-router-dom";
-import { client } from "../../client/client";
+import { useNavigate} from "react-router-dom";
 import style from "./Cadastro.module.css";
 import UsuarioAPI from "../../client/UsuarioAPI";
 
 export function Cadastro() {
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [dataNascimento, setDataNascimento] = useState("");
-  const [alturaCm, setAlturaCm] = useState("");
-
-  // Avatar
+ const [nome, setNome] = useState("");
+ const[email,setEmail] = useState("");
+ const [senha,setSenha] = useState("");
+ const [dataNascimento,setDataNascimento] = useState("")
+ const [alturaCm, setAlturaCm] = useState("");
   const estilosAvatar = [
     "avataaars",
     "adventurer",
@@ -61,7 +58,6 @@ export function Cadastro() {
 
   return (
     <div className={style.container}>
-      {/* AVATAR */}
       <div className={style.avatarContainer}>
         <img src={avatarUrl} alt="Avatar" className={style.avatar} />
 
@@ -88,8 +84,6 @@ export function Cadastro() {
           ))}
         </div>
       </div>
-
-      {/* FORMULÁRIO */}
       <form onSubmit={handleSubmit} className={style.form}>
         <input
           className={style.input}

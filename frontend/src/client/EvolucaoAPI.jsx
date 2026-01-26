@@ -1,14 +1,14 @@
 import { client } from "./client";
 const EvolucaoAPI = {
   async criarAsync(dados, token) {
-    const response = await client.post("/Evolução", dados, {
+    const response = await client.post("/Evolucao", dados, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
   },
 
   async atualizarAsync(dados, token) {
-    const response = await client.put("/Evolução", dados, {
+    const response = await client.put("/Evolucao", dados, {
       headers: { Authorization: `Bearer ${token}` },
     });
     return response.data;
@@ -31,12 +31,12 @@ const EvolucaoAPI = {
   },
 
   async historicoAsync(usuarioId, token) {
-    const response = await client.get(
-      `/Evolucao/usuario/${usuarioId}/histórico`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
-    return response.data;
-  },
+  const response = await client.get(
+    `/Evolucao/usuario/${usuarioId}/historico`,
+    { headers: { Authorization: `Bearer ${token}` } }
+  );
+  return response.data;
+},
 
   async pesoInicialAsync(usuarioId, token) {
     const response = await client.get(

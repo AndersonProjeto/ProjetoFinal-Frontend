@@ -29,6 +29,16 @@ const IAAPI = {
     });
     return response.data;
   },
+  async ultimasInteracoesAsync(usuarioId, quantidade, token) {
+  const response = await client.get(
+    `/IAInteracao/ultimas/${usuarioId}/${quantidade}`,
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+  return response.data;
+}
+
 };
 
 export default IAAPI;

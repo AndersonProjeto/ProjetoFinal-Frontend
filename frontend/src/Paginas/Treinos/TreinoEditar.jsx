@@ -6,7 +6,6 @@ import ExercicioAPI from "../../client/ExercicioAPI";
 import TreinoExercicioAPI from "../../client/TreinoExercicioAPI";
 
 
-
 export function TreinoEditar() {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -18,14 +17,12 @@ export function TreinoEditar() {
   const [exerciciosTreino, setExerciciosTreino] = useState([]);
   const [removidos, setRemovidos] = useState([]);
 
-  /* 🔹 CARREGAR TREINO + EXERCÍCIOS */
   useEffect(() => {
     async function carregarTreino() {
       try {
         const treino = await TreinoAPI.obterAsync(id, token);
         setNomeTreino(treino.nomeTreino);
         setGrupoMuscular(treino.grupoMuscular || "");
-
         const treinoExercicios =
           await TreinoExercicioAPI.listarPorTreinoAsync(id, token);
 
@@ -57,7 +54,6 @@ export function TreinoEditar() {
     carregarTreino();
   }, [id]);
 
-  /* 🔹 LISTAR EXERCÍCIOS POR GRUPO */
   useEffect(() => {
     if (!grupoMuscular) return;
 
@@ -66,14 +62,13 @@ export function TreinoEditar() {
       .then(setExerciciosDisponiveis);
   }, [grupoMuscular]);
 
-  /* 🔹 ADICIONAR EXERCÍCIO */
   function adicionarExercicio(ex) {
     if (exerciciosTreino.some(e => e.exercicioId === ex.exercicioId)) return;
 
     setExerciciosTreino([
       ...exerciciosTreino,
       {
-        treinoExercicioId: null, // NOVO
+        treinoExercicioId: null, 
         exercicioId: ex.exercicioId,
         nome: ex.nome,
         series: 4,
@@ -83,7 +78,6 @@ export function TreinoEditar() {
     ]);
   }
 
-  /* 🔹 REMOVER EXERCÍCIO */
   function removerExercicio(exercicioId) {
     const ex = exerciciosTreino.find(e => e.exercicioId === exercicioId);
 
@@ -96,28 +90,21 @@ export function TreinoEditar() {
     );
   }
 
-  /* 🔹 ATUALIZAR CAMPOS */
   function atualizarCampo(index, campo, valor) {
     const copia = [...exerciciosTreino];
     copia[index][campo] = Number(valor);
     setExerciciosTreino(copia);
   }
 
-  /* 🔹 SALVAR */
   async function salvarEdicao() {
     try {
-      // atualiza treino
       await TreinoAPI.atualizarAsync(
         { treinoId: id, nomeTreino },
         token
       );
-
-      // deletar removidos
       for (const treinoExercicioId of removidos) {
         await TreinoExercicioAPI.deletarAsync(treinoExercicioId, token);
       }
-
-      // atualizar ou criar
       for (const ex of exerciciosTreino) {
         if (ex.treinoExercicioId) {
           await TreinoExercicioAPI.atualizarAsync(
@@ -152,7 +139,6 @@ export function TreinoEditar() {
 
   return (
     <div className={style.page}>
-      {/* ESQUERDA */}
       <div className={style.colunaEsquerda}>
         <h2>Editar Treino</h2>
 
@@ -189,8 +175,6 @@ export function TreinoEditar() {
           </div>
         ))}
       </div>
-
-      {/* DIREITA */}
       <div className={style.colunaDireita}>
         <h3>Exercícios do Treino</h3>
 

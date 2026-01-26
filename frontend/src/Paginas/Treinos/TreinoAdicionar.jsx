@@ -59,7 +59,6 @@ async function salvarTreino() {
   }
 
   try {
-    // 1️⃣ CRIA TREINO
     const treinoCriado = await TreinoAPI.criarAsync(
       {
         nomeTreino,
@@ -67,10 +66,6 @@ async function salvarTreino() {
       },
       token
     );
-
-    console.log("TREINO CRIADO:", treinoCriado);
-
-    // ✅ treinoCriado é apenas o ID
     const treinoId = treinoCriado;
 
     if (!treinoId || treinoId <= 0) {
@@ -78,7 +73,6 @@ async function salvarTreino() {
       return;
     }
 
-    // 2️⃣ CRIA TREINO_EXERCICIO
     for (const ex of exerciciosTreino) {
       await TreinoExercicioAPI.adicionarAsync(
         {
@@ -92,7 +86,6 @@ async function salvarTreino() {
       );
     }
 
-    // 3️⃣ VOLTA PRA TREINOS
     navigate("/app/treinos");
   } catch (err) {
     console.error(err);

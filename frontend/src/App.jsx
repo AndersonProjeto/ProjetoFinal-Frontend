@@ -12,6 +12,10 @@ import { TreinoAdicionar } from "./Paginas/Treinos/TreinoAdicionar";
 import { TreinoDetalhe } from "./Paginas/Treinos/TreinoDetalhado";
 import { TreinoEditar } from "./Paginas/Treinos/TreinoEditar";
 import { Perfil } from "./Paginas/Perfil/Perfil";
+import { ChatIA } from "./Paginas/ChatIA/ChatIA";
+import { Evolucao } from "./Paginas/Evolucao/Evolucao";
+import { EvolucaoAdicionar } from "./Paginas/Evolucao/EvolucaoAdicionar";
+import { HistoricoIA } from "./Paginas/HistoricoIA/HistoricoIA";
 
 
 
@@ -37,16 +41,23 @@ function App() {
   <Route index element={<Navigate to="/app/dashboard" />} />
   <Route path="dashboard" element={<Dashboard />} />
   <Route path="exercicios" element={< Exercicios />} />
-<Route path="exercicios/detalhes" element={<ExercicioDetalhado />} />
-<Route path="treinos" element={<Treinos />} />
-<Route path="treinos/novo" element={<TreinoAdicionar />} />
-<Route path="treinos/detalhes/:id" element={<TreinoDetalhe />} />
+  <Route path="exercicios/detalhes" element={<ExercicioDetalhado />} />
 
-<Route path="treinos/editar/:id" element={<TreinoEditar />} />
-<Route path="perfil" element={<Perfil />} />
+  <Route path="treinos" element={<Treinos />} />
+  <Route path="treinos/novo" element={<TreinoAdicionar />} />
+  <Route path="treinos/detalhes/:id" element={<TreinoDetalhe />} />
+
+  <Route path="treinos/editar/:id" element={<TreinoEditar />} />
+  <Route path="perfil" element={<Perfil />} />
+  <Route path="ia" element={<ChatIA />} />
+
+  <Route path="evolucao" element={<Evolucao />}></Route>
+  <Route path="evolucao/adicionar" element={<EvolucaoAdicionar />}></Route>
+
+  <Route path="ia/historico/:usuarioId" element={<HistoricoIA />}></Route>
+  </Route>
 
 
-</Route>
 
     </Routes>
   );

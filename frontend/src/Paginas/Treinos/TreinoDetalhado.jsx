@@ -32,9 +32,9 @@ export function TreinoDetalhe() {
             const exercicioInfo = await ExercicioAPI.obterAsync(te.exercicioId, token);
             
             return {
-              ...te,            // Pega as info do treino (séries, reps, descanso)
-              ...exercicioInfo, // Pega TODAS as info do exercício (descricao, nome, grupo, etc)
-              exercicioNome: exercicioInfo.nome, // Mantém para o seu <strong>
+              ...te,           
+              ...exercicioInfo, 
+              exercicioNome: exercicioInfo.nome, 
             };
           })
         );
@@ -81,7 +81,6 @@ export function TreinoDetalhe() {
           <div 
             key={ex.treinoExercicioId} 
             className={style.card}
-            // Navega passando o objeto 'ex' completo no state para a tela de detalhes
             onClick={() => navigate("/app/exercicios/detalhes", { state: ex })}
           >
             <strong>{ex.exercicioNome}</strong>

@@ -1,10 +1,8 @@
-/* RESET BÁSICO */
 * {
   box-sizing: border-box;
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/* PAGE */
 .page {
   min-height: 100vh;
   display: flex;
@@ -12,19 +10,16 @@
   color: #000000;
 }
 
-/* COLUNAS */
 .colunaEsquerda,
 .colunaDireita {
   flex: 1;
   padding: 24px;
 }
 
-/* DIVISÃO VISUAL */
 .colunaEsquerda {
   border-right: 1px solid #e0e0e0;
 }
 
-/* TÍTULOS */
 h2,
 h3 {
   margin-bottom: 16px;
@@ -32,7 +27,6 @@ h3 {
   font-weight: 600;
 }
 
-/* INPUTS E SELECT */
 input
  {
   width: 100%;
@@ -74,8 +68,6 @@ input
   padding: 4px 6px;
   font-size: 13px;
 }
-
-/* BOTÕES */
 button {
   padding: 4px 8px;
   font-size: 12px;
@@ -87,18 +79,15 @@ button {
 
 
 
-/* BOTÃO REMOVER */
 .cardExercicio button {
   align-self: flex-start;
 }
 
-/* BOTÃO SALVAR */
 .colunaDireita > button {
   margin-top: 16px;
   padding: 6px 12px;
   font-weight: 600;
 }
-/* LINHA LABEL + INPUT */
 .campoLinha {
   display: flex;
   align-items: center;
@@ -116,9 +105,8 @@ button {
   font-size: 12px;
 }
 
-/* BOTÃO ADICIONAR - MICRO / MINIMAL */
 .botaoAdicionar {
-  all: unset; /* REMOVE TUDO DO BUTTON PADRÃO */
+  all: unset;
   padding: 4px 8px;
   font-size: 16px;
   border: 1px solid #000;
@@ -128,7 +116,6 @@ button {
   cursor: pointer;
 }
 
-/* HOVER */
 .botaoAdicionar:hover {
   background: #000;
   color: #fff;

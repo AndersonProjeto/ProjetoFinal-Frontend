@@ -1,6 +1,3 @@
-/* =========================================
-   LAYOUT GERAL
-========================================= */
 .page {
   display: flex;
   height: 100vh;
@@ -9,10 +6,10 @@
   color: #000;
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   overflow: hidden;
-  font-size: 0.85rem; /* Fonte base ligeiramente menor para compactar */
+  font-size: 0.85rem;
 }
 
-/* Títulos Compactos */
+
 .title, .subTitle {
   font-size: 1.1rem;
   font-weight: 700;
@@ -40,7 +37,6 @@
   background-color: #fff;
 }
 
-/* Scrollbar fina e discreta */
 .colunaEsquerda::-webkit-scrollbar,
 .colunaDireita::-webkit-scrollbar {
   width: 4px;
@@ -58,7 +54,7 @@ select {
 
 input, select {
   width: 100%;
-  padding: 8px 0; /* Padding menor */
+  padding: 8px 0;
   margin-bottom: 1rem;
   border: none;
   border-bottom: 1px solid #242323;
@@ -135,15 +131,12 @@ input:focus, select:focus {
   text-transform: uppercase;
 }
 
-/* Grid para os 3 campos */
 .campos {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   gap: 8px;
-  align-items: end; /* Alinha inputs na base */
+  align-items: end;
 }
-
-/* Container de cada input (Label + Input) */
 .campoItem {
   display: flex;
   flex-direction: column;
@@ -183,7 +176,6 @@ input:focus, select:focus {
   background-color: #fafafa;
 }
 
-/* Tempo estimado */
 .tempo {
   font-size: 0.65rem;
   color: #aaa;
@@ -222,13 +214,6 @@ input:focus, select:focus {
 }
 
 
-/* =========================================
-   PLACEHOLDERS VISUAIS (TRUQUE CSS)
-   Adiciona labels flutuantes para saber o que são os campos
-========================================= */
-/* Como não podemos mudar o HTML, usamos :before ou placeholders no HTML. 
-   Aqui, ajustamos para que visualmente pareça uma tabela técnica */
-
 @media (max-width: 768px) {
   .page {
     flex-direction: column;
@@ -248,7 +233,7 @@ input:focus, select:focus {
   color : black;
 }
 .botaoAdicionar {
-  all: unset; /* remove TODO estilo herdado */
+  all: unset; 
   padding: 4px 8px;
   font-size: 16px;
   border: 1px solid #000;
@@ -261,7 +246,6 @@ input:focus, select:focus {
   justify-content: center;
 }
 
-/* HOVER */
 .botaoAdicionar:hover {
   background: #000;
   color: #fff;

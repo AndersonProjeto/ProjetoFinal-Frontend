@@ -58,7 +58,6 @@
   margin-top: 2rem;
 }
 
-/* Botão Novo */
 .botao_novo {
   background-color: #000000;
   color: white;
@@ -76,7 +75,7 @@
   color: white;
 }
 
-/* CARD DO EXERCÍCIO */
+
 .card {
   background: white;
   border-radius: 12px;
@@ -111,7 +110,6 @@
   line-height: 1.3;
   padding-bottom: 1rem;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
@@ -125,7 +123,6 @@
   display: block;
 }
 
-/* Ações (Editar / Deletar) */
 .acoes {
   display: flex;
   gap: 8px;
@@ -150,7 +147,6 @@
 .btnEdit { color: #0062ff; }
 .btnDelete { color: #ef4444; }
 
-/* Badge */
 .badge {
   padding: 0.35rem 0.85rem;
   border-radius: 20px;
@@ -161,8 +157,6 @@
   text-transform: capitalize;
 }
 
-/* PAGINAÇÃO */
-/* PAGINAÇÃO */
 .paginacao {
   display: flex;
   justify-content: center;
@@ -225,7 +219,7 @@
 
 .badgeAzul { background-color: #000000; color: white; }
 
-/* RESPONSIVO */
+
 @media (max-width: 768px) {
   .pagina_conteudo {
     padding: 1.2rem;
