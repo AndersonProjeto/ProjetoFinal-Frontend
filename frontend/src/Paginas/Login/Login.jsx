@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styles from "./Login.module.css";
 import { client } from "../../client/client";
+import logo from "../../assets/logo/logo.svg";
 
 export function Login() {
   const [email, setEmail] = useState("");
@@ -34,7 +35,11 @@ export function Login() {
   return (
     <div className={styles.container}>
       <div className={styles.box}>
-       
+        <img 
+    src={logo} 
+    alt="Logo do sistema" 
+    className={styles.logo}
+  />
 
         <form onSubmit={handleSubmit}>
          <input
