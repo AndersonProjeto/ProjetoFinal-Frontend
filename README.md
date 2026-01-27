@@ -122,7 +122,7 @@ O ACADIA Frontend é a camada responsável pela interface e experiência do usu�
 
 A aplicação oferece dashboards visuais, gráficos de evolução, personalização de perfil com avatares dinâmicos, histórico de interações com a IA e uma navegação intuitiva e responsiva, adaptada para diferentes dispositivos.
 
-O projeto utiliza uma arquitetura baseada em componentes, com organização por páginas, componentes reutilizáveis e serviços para comunicação com o backend, garantindo escalabilidade, manutenibilidade e boa experiência de uso.
+O projeto utiliza uma arquitetura baseada em componentes,com organização em páginas e serviços para comunicação com o backend, garantindo escalabilidade, manutenibilidade e boa experiência de uso.
 
 
 
