@@ -5,3 +5,88 @@ body {
   color: #000;
   font-family: Arial, sans-serif;
 }
+/* ===== CONTAINER DO TOAST ===== */
+.toast-custom {
+  background: #b8d8a9 !important;
+  color: #374151 !important;
+  border-radius: 10px !important;
+  padding: 14px 16px !important;
+  min-width: 260px;
+
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12) !important;
+
+  position: relative;
+  overflow: hidden;
+
+  /* animação entrada */
+  animation: toastSlideIn 0.3s ease forwards;
+}
+
+/* ===== ÍCONE VERDE ===== */
+.toast-custom [data-icon] {
+  color: #22c55e !important;
+}
+
+/* ===== TEXTO ===== */
+.toast-custom span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* ===== BOTÃO FECHAR (X) ===== */
+.toast-custom button {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.toast-custom button:hover {
+  color: #374151;
+}
+
+/* ===== BARRA VERDE ===== */
+.toast-custom::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: #22c55e;
+
+  animation: toastProgress 4s linear forwards;
+}
+
+
+@keyframes toastSlideIn {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes toastSlideOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+}
+
+.react-hot-toast-exit .toast-custom {
+  animation: toastSlideOut 0.25s ease forwards;
+}

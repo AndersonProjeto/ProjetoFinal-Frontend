@@ -1,21 +1,23 @@
 import { useState, useMemo } from "react";
-import { useNavigate} from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import { toast, Toaster } from "react-hot-toast"
 import style from "./Cadastro.module.css";
 import UsuarioAPI from "../../client/UsuarioAPI";
 
 export function Cadastro() {
- const [nome, setNome] = useState("");
- const[email,setEmail] = useState("");
- const [senha,setSenha] = useState("");
- const [dataNascimento,setDataNascimento] = useState("")
- const [alturaCm, setAlturaCm] = useState("");
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
+  const [dataNascimento, setDataNascimento] = useState("");
+  const [alturaCm, setAlturaCm] = useState("");
+
   const estilosAvatar = [
     "avataaars",
     "adventurer",
     "big-smile",
     "bottts",
     "pixel-art",
-    "lorelei"
+    "lorelei",
   ];
 
   const [estiloAvatar, setEstiloAvatar] = useState("avataaars");
@@ -37,7 +39,7 @@ export function Cadastro() {
     e.preventDefault();
 
     try {
-          await UsuarioAPI.registrarAsync({
+      await UsuarioAPI.registrarAsync({
         nome,
         email,
         senha,
@@ -47,92 +49,132 @@ export function Cadastro() {
         avatarSeed: seed,
       });
 
-
-      alert("Cadastro realizado com sucesso!");
+      toast.success("Cadastro realizado com sucesso!");
+      setTimeout(() => {
       navigate("/");
+       }, 5000)
     } catch (error) {
       console.error("Erro no cadastro", error);
-      alert("Erro ao cadastrar");
+      toast.error("Erro ao cadastrar");
     }
   }
 
   return (
     <div className={style.container}>
-      <div className={style.avatarContainer}>
-        <img src={avatarUrl} alt="Avatar" className={style.avatar} />
+      
+      <div className={style.card}>
 
-        <button
-          type="button"
-          className={style.avatarBtn}
-          onClick={gerarAvatar}
-        >
-          Gerar outro
-        </button>
+        <div className={style.avatarSection}>
+          <img src={avatarUrl} alt="Avatar" className={style.avatar} />
 
-        <div className={style.estilos}>
-          {estilosAvatar.map((estilo) => (
-            <button
-              key={estilo}
-              type="button"
-              className={`${style.estiloBtn} ${
-                estilo === estiloAvatar ? style.ativo : ""
-              }`}
-              onClick={() => setEstiloAvatar(estilo)}
-            >
-              {estilo}
-            </button>
-          ))}
+          <div className={style.estilos}>
+            {estilosAvatar.map((estilo) => (
+              <button
+                key={estilo}
+                type="button"
+                className={`${style.estiloBtn} ${
+                  estilo === estiloAvatar ? style.ativo : ""
+                }`}
+                onClick={() => setEstiloAvatar(estilo)}
+              >
+                {estilo}
+              </button>
+            ))}
+          </div>
+
+          <button
+            type="button"
+            className={style.avatarBtn}
+            onClick={gerarAvatar}
+          >
+            Gerar aleatório
+          </button>
         </div>
+
+        <form onSubmit={handleSubmit} className={style.form}>
+
+          <div className={style.field}>
+            <label className={style.label}>Nome </label>
+            <input
+              className={style.input}
+              type="text"
+              placeholder="nome"
+              value={nome}
+              onChange={(e) => setNome(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className={style.field}>
+            <label className={style.label}>E-mail</label>
+            <input
+              className={style.input}
+              type="email"
+              placeholder="seu@email.com"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className={style.field}>
+            <label className={style.label}>Senha</label>
+            <input
+              className={style.input}
+              type="password"
+              placeholder="••••••••"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              required
+            />
+          </div>
+
+          <div className={style.row}>
+            <div className={style.field}>
+              <label className={style.label}>Data de nascimento</label>
+              <input
+                className={style.input}
+                type="date"
+                value={dataNascimento}
+                onChange={(e) => setDataNascimento(e.target.value)}
+                required
+              />
+            </div>
+
+            <div className={style.field}>
+              <label className={style.label}>Altura</label>
+              <input
+                className={style.input}
+                type="number"
+                placeholder="cm"
+                value={alturaCm}
+                onChange={(e) => setAlturaCm(e.target.value)}
+                required
+              />
+            </div>
+          </div>
+
+          <button type="submit" className={style.submitBtn}>
+            Criar minha conta
+          </button>
+        </form>
+
+        <p className={style.loginLink}>
+          Já tem conta? <span onClick={() => navigate("/")}>Entrar</span>
+        </p>
+
       </div>
-      <form onSubmit={handleSubmit} className={style.form}>
-        <input
-          className={style.input}
-          type="text"
-          placeholder="Nome"
-          value={nome}
-          onChange={(e) => setNome(e.target.value)}
-          required
-        />
 
-        <input
-          className={style.input}
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-        />
-
-        <input
-          className={style.input}
-          type="password"
-          placeholder="Senha"
-          value={senha}
-          onChange={(e) => setSenha(e.target.value)}
-          required
-        />
-
-        <input
-          className={style.input}
-          type="date"
-          value={dataNascimento}
-          onChange={(e) => setDataNascimento(e.target.value)}
-          required
-        />
-
-        <input
-          className={style.input}
-          type="number"
-          placeholder="Altura (cm)"
-          value={alturaCm}
-          onChange={(e) => setAlturaCm(e.target.value)}
-          required
-        />
-
-        <div className={style.botao}>
-          <button type="submit">Cadastrar</button>
-        </div>
-      </form>
+     <Toaster
+  position="bottom-right"
+  toastOptions={{
+    duration: 4000,
+    className: "toast-custom",
+  }}
+/>
+<div className={style.footerBar}>
+  ©2026 ACADIA
+</div>
     </div>
   );
 }

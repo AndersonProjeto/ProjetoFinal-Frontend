@@ -1,3 +1,4 @@
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -6,17 +7,17 @@
 }
 
 body {
-  background: radial-gradient(circle at top, #1b1b1b, #000000 70%);
+ background-color: #1f1f20;
   color: #ffffff;
   height: 100vh;
 }
 
 .container {
+  position: relative;
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
 }
 
 .box {
@@ -102,8 +103,21 @@ button {
 
 .logo {
   display: block;
-  margin: 0 auto 20px auto;
-  width: 180px;       
-  max-width: 100%;
-  object-fit: contain;
+  margin: 0 auto 16px auto;
+  width: 160px;
+}
+.footerBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50px;
+  background: #000;
+  color: #888;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  letter-spacing: 1px;
+  border-top: 1px solid rgba(255,255,255,0.1);
 }

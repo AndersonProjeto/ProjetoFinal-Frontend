@@ -31,44 +31,46 @@ export function Login() {
       alert("Erro ao logar: " + (error.response?.data?.mensagem || error.message));
     }
   }
+return (
+  <div className={styles.container}>
+    <div className={styles.box}>
+      <img 
+        src={logo} 
+        alt="Logo do sistema" 
+        className={styles.logo}
+      />
 
-  return (
-    <div className={styles.container}>
-      <div className={styles.box}>
-        <img 
-    src={logo} 
-    alt="Logo do sistema" 
-    className={styles.logo}
-  />
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          className={styles.input}
+          placeholder="E-mail"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
 
-        <form onSubmit={handleSubmit}>
-         <input
-            type="email"
-            className={styles.input}
-            placeholder="E-mail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
+        <input
+          type="password"
+          className={styles.input}
+          placeholder="Senha"
+          value={senha}
+          onChange={(e) => setSenha(e.target.value)}
+        />
 
-          <input
-            type="password"
-            className={styles.input}
-            placeholder="Senha"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-          />
-
-
-          <button type="submit">Entrar</button>
-        </form>
+        <button type="submit">Entrar</button>
+      </form>
 
       <div className={styles.footer}>
-  <span>Não tem conta?</span>
-  <a href="/cadastro" className={styles.link}>
-    Criar agora
-  </a>
-</div>
+        <span>Não tem conta?</span>
+        <a href="/cadastro" className={styles.link}>
+          Criar agora
+        </a>
       </div>
     </div>
-  );
+    <div className={styles.footerBar}>
+  ©2026 ACADIA
+</div>
+  </div>
+  
+);
 }
