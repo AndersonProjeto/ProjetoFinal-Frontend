@@ -18,9 +18,7 @@
   margin-top: 6px;
 }
 
-/* --------------------
-   CARDS EM LINHA
--------------------- */
+
 .cardsRow {
   display: flex;
   gap: 16px;
@@ -57,9 +55,7 @@
   color: #000000;
 }
 
-/* --------------------
-   GRÁFICO MENOR
--------------------- */
+
 .chartCard {
   width: 100%;
   max-width: 520px;
@@ -76,7 +72,7 @@
   color: #000000;
 }
 
-/* MODAL */
+
 .modalOverlay {
   position: fixed;
   inset: 0;

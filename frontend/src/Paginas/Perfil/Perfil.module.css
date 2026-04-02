@@ -68,7 +68,7 @@ width: auto;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
 }
 .avatarPreview {
-  width: 96px;
+  width: 98px;
   height: 96px;
   border-radius: 50%;
   background: #f0f0f0;
@@ -81,9 +81,42 @@ width: auto;
   justify-content: center;
 }
 
+.btnGerar{
+  background-color: transparent;
+  color: #000000;
+  background-color: #cac9c9;
+  font-size: 14px;
+  width: 120px;
+  padding: 10px;
+}
+.btnGerarSalvar{
+  background-color: transparent;
+  color: #000000;
+  background-color:  #8b8b8b52;
+  font-size: 15px;
+  width: 190px;
+  padding: 10px;
+}
+.btnGerarCancelar{
+  background-color: transparent;
+  color: #000000;
+  background-color: #8b8b8b52;
+  font-size: 15px;
+  padding: 10px;
+  width: 90px;
+}
+
+.btnGerarSalvar:hover
+{
+  background-color: rgb(123, 131, 111);
+}
+
+.btnGerarCancelar:hover{
+  background-color: rgb(136, 108, 108);
+}
 
 .estiloAtivo {
-  background: #b9b8b8;
+  background: #ffffff;
   color: #000000;
   border-color: #000;
 }

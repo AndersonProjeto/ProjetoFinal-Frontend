@@ -184,7 +184,8 @@ export function Perfil() {
           <div className={styles.modal}>
             <img src={previewUrl} className={styles.avatarPreview} />
 
-            <button onClick={gerarSeed}>Gerar outro</button>
+            <button className={styles.btnGerar}
+             onClick={gerarSeed}>Gerar outro</button>
 
             <div className={styles.estilos}>
               {EstilosDeAvatar.map((estilo) => (
@@ -202,8 +203,10 @@ export function Perfil() {
               ))}
             </div>
 
-            <button onClick={salvarAvatar}>Salvar</button>
-            <button onClick={() => setModalAvatar(false)}>
+            <button className={styles.btnGerarSalvar}
+             onClick={salvarAvatar}>Salvar</button>
+            <button className={styles.btnGerarCancelar}
+             onClick={() => setModalAvatar(false)}>
               Cancelar
             </button>
           </div>

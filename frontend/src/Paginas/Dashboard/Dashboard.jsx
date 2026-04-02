@@ -87,7 +87,6 @@ export function Dashboard() {
           <div className={styles.treinosValue}>{treinos.length}</div>
         </div>
 
-        {/* CARD FALE COM A ACADIA */}
         <div
           className={styles.faleComAcadiaCard}
           onClick={() => navigate("/app/ia")}
