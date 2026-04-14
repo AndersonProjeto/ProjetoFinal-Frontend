@@ -16,11 +16,7 @@ import { ChatIA } from "./Paginas/ChatIA/ChatIA";
 import { Evolucao } from "./Paginas/Evolucao/Evolucao";
 import { EvolucaoAdicionar } from "./Paginas/Evolucao/EvolucaoAdicionar";
 import { HistoricoIA } from "./Paginas/HistoricoIA/HistoricoIA";
-
-
-
-
-
+import { RelatorioIA } from "./Paginas/Relatorio/RelatorioIA"; // NOVO
 
 function App() {
   return (
@@ -31,34 +27,32 @@ function App() {
       <Route path="/dashboard" element={<Navigate to="/app/dashboard" />} />
 
       <Route
-  path="/app"
-  element={
-    <PrivateRoute>
-      <DashboardLayout />
-    </PrivateRoute>
-  }
->
-  <Route index element={<Navigate to="/app/dashboard" />} />
-  <Route path="dashboard" element={<Dashboard />} />
-  <Route path="exercicios" element={< Exercicios />} />
-  <Route path="exercicios/detalhes" element={<ExercicioDetalhado />} />
+        path="/app"
+        element={
+          <PrivateRoute>
+            <DashboardLayout />
+          </PrivateRoute>
+        }
+      >
+        <Route index element={<Navigate to="/app/dashboard" />} />
+        <Route path="dashboard" element={<Dashboard />} />
+        <Route path="exercicios" element={<Exercicios />} />
+        <Route path="exercicios/detalhes" element={<ExercicioDetalhado />} />
 
-  <Route path="treinos" element={<Treinos />} />
-  <Route path="treinos/novo" element={<TreinoAdicionar />} />
-  <Route path="treinos/detalhes/:id" element={<TreinoDetalhe />} />
+        <Route path="treinos" element={<Treinos />} />
+        <Route path="treinos/novo" element={<TreinoAdicionar />} />
+        <Route path="treinos/detalhes/:id" element={<TreinoDetalhe />} />
+        <Route path="treinos/editar/:id" element={<TreinoEditar />} />
 
-  <Route path="treinos/editar/:id" element={<TreinoEditar />} />
-  <Route path="perfil" element={<Perfil />} />
-  <Route path="ia" element={<ChatIA />} />
+        <Route path="perfil" element={<Perfil />} />
+        <Route path="ia" element={<ChatIA />} />
+        <Route path="ia/historico/:usuarioId" element={<HistoricoIA />} />
 
-  <Route path="evolucao" element={<Evolucao />}></Route>
-  <Route path="evolucao/adicionar" element={<EvolucaoAdicionar />}></Route>
+        <Route path="evolucao" element={<Evolucao />} />
+        <Route path="evolucao/adicionar" element={<EvolucaoAdicionar />} />
 
-  <Route path="ia/historico/:usuarioId" element={<HistoricoIA />}></Route>
-  </Route>
-
-
-
+        <Route path="relatorio" element={<RelatorioIA />} /> {/* NOVO */}
+      </Route>
     </Routes>
   );
 }

@@ -1,150 +1,291 @@
 .dashboardContainer {
-  padding: 24px;
+  padding: 32px 32px 48px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 28px;
+  max-width: 960px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .title {
-  font-size: 28px;
-  font-weight: 700;
-  color: #000000;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 500;
+  color: #14130f;
+  letter-spacing: 0.5px;
   margin: 0;
 }
 
 .subtitle {
-  font-size: 16px;
-  color: #000000;
-  margin-top: 6px;
+  font-size: 14px;
+  font-weight: 400;
+  color: #7a7368;
+  margin: 0;
+  letter-spacing: 0.2px;
 }
 
-
 .cardsRow {
-  display: flex;
-  gap: 16px;
-  align-items: stretch;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background: #d6d1c6;
+  border: 0.5px solid #d6d1c6;
+  border-radius: 10px;
+  overflow: hidden;
+  gap: 0.5px;
 }
 
 .imcCard,
 .treinosCard,
 .faleComAcadiaCard {
-  width: 160px;
-  padding: 18px;
-  border-radius: 16px;
-  background: #ffffff;
-  border: 1px solid #1f1f1f;
+  background: #f8f5ef;
+  padding: 22px 24px;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  transition: background 0.15s;
+  position: relative;
+}
+
+.imcCard::before,
+.treinosCard::before,
+.faleComAcadiaCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+}
+
+.imcCard::before     { background: #c9a84c; }
+.treinosCard::before { background: #8a7fa8; }
+.faleComAcadiaCard::before { background: #6b9e88; }
+
+.imcCard:hover,
+.treinosCard:hover,
+.faleComAcadiaCard:hover {
+  background: #f0ece3;
 }
 
 .imcLabel,
 .treinosLabel,
 .faleComAcadiaLabel {
-  font-size: 18px;
-  color: #000000;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #7a7368;
+  font-weight: 500;
+  margin-bottom: 10px;
 }
 
 .imcValue,
-.treinosValue,
-.faleComAcadiaValue {
-  font-size: 34px;
-  font-weight: 700;
-  color: #000000;
+.treinosValue {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 500;
+  padding-bottom: 16px;
+  color: #14130f;
+  line-height: 1;
 }
 
+.faleComAcadiaValue {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #2e2c28;
+  line-height: 1.5;
+}
+
+.imcTag {
+  display: inline-block;
+  font-size: 14px;
+  padding: 3px 9px;
+  border-radius: 2px;
+  margin-top: 8px;
+  letter-spacing: 0.4px;
+  background: #f5eedb;
+  color: #8a6f30;
+  border: 0.5px solid #d4b870;
+}
+
+.iaArrow {
+  font-size: 13px;
+  color: #6b9e88;
+  margin-top: 6px;
+  display: block;
+}
 
 .chartCard {
-  width: 100%;
-  max-width: 520px;
-  padding: 18px;
-  border-radius: 16px;
-  background: #ffffff;
-  border: 1px solid #1f1f1f;
+  background: #f8f5ef;
+  border: 0.5px solid #d6d1c6;
+  border-radius: 10px;
+  padding: 24px;
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 0.5px solid #d6d1c6;
 }
 
 .chartTitle {
-  font-size: 16px;
-  font-weight: 700;
-  margin-bottom: 12px;
-  color: #000000;
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #9a9180;
 }
 
+.actionsRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.actionCard {
+  background: #f8f5ef;
+  border: 0.5px solid #d6d1c6;
+  border-radius: 10px;
+  padding: 18px 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background 0.15s;
+  text-decoration: none;
+}
+
+.actionCard:hover {
+  background: #f0ece3;
+}
+
+.actionLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #14130f;
+  letter-spacing: 0.2px;
+}
+
+.actionDesc {
+  font-size: 12px;
+  color: #7a7368;
+  margin-top: 2px;
+}
+
+.actionArrow {
+  font-size: 18px;
+  color: #c9b97a;
+}
 
 .modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.65);
+  background: rgba(20, 19, 15, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  backdrop-filter: blur(2px);
 }
 
 .modal {
   width: 90%;
-  max-width: 520px;
-  background: #ffffff;
-  border: 1px solid #1f1f1f;
-  border-radius: 18px;
-  padding: 18px;
+  max-width: 480px;
+  background: #f8f5ef;
+  border: 0.5px solid #d6d1c6;
+  border-radius: 12px;
+  padding: 28px;
 }
 
 .modalHeader {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
+  padding-bottom: 14px;
+  border-bottom: 0.5px solid #d6d1c6;
 }
 
 .modalHeader h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #14130f;
   margin: 0;
-  color: #000000;
+  letter-spacing: 0.5px;
 }
 
 .closeBtn {
   background: transparent;
-  border: 1px solid #2b2b2b;
-  color: #000000;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
+  border: 0.5px solid #c0bab0;
+  color: #9a9180;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
   cursor: pointer;
+  font-size: 12px;
+  transition: all 0.15s;
+}
+
+.closeBtn:hover {
+  background: #ede9df;
+  color: #14130f;
 }
 
 .modalBody {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  color: #000000;
-  font-size: 14px;
+  font-size: 13px;
+  color: #4a4840;
+}
+
+.modalBody b {
+  font-weight: 500;
+  color: #14130f;
+}
+
+.modalRow {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  border-bottom: 0.5px solid #e8e4db;
+}
+
+.modalRow:last-of-type {
+  border-bottom: none;
 }
 
 .modalExplanation {
-  margin-top: 12px;
-  padding: 12px;
-  border: 1px solid #555454;
-  border-radius: 14px;
-  background: #ffffff;
+  margin-top: 14px;
+  padding: 14px 16px;
+  border: 0.5px solid #d6d1c6;
+  border-left: 2px solid #c9b97a;
+  border-radius: 4px;
+  background: #f3efe5;
   white-space: pre-line;
-  line-height: 1.6;
+  line-height: 1.7;
+  font-size: 13px;
+  color: #4a4840;
 }
 
-/* RESPONSIVO */
+/* ── Responsive ──────────────────────────────────── */
 @media (max-width: 768px) {
   .dashboardContainer {
-    padding: 16px;
+    padding: 20px 16px 40px;
+    gap: 20px;
   }
 
   .cardsRow {
-    flex-direction: column;
-    gap: 12px;
+    grid-template-columns: 1fr;
   }
 
-  .chartCard {
-    max-width: 90%;
+  .actionsRow {
+    grid-template-columns: 1fr;
   }
- 
 }

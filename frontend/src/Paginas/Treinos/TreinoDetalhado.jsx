@@ -2,9 +2,17 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import TreinoAPI from "../../client/TreinoAPI";
 import ExercicioAPI from "../../client/ExercicioAPI";
-import { FiArrowLeft } from "react-icons/fi";
 import style from "./TreinoDetalhe.module.css";
 import TreinoExercicioAPI from "../../client/TreinoExercicioAPI";
+
+function IconArrowLeft() {
+  return (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="19" y1="12" x2="5" y2="12"/>
+      <polyline points="12 19 5 12 12 5"/>
+    </svg>
+  );
+}
 
 function formatarData(dataUtc) {
   if (!dataUtc) return "—";
@@ -27,14 +35,14 @@ export function TreinoDetalhe() {
         const treinoDados = await TreinoAPI.obterAsync(id, token);
         const treinoExercicios = await TreinoExercicioAPI.listarPorTreinoAsync(id, token);
 
+        // Mesma lógica do original que funciona
         const completos = await Promise.all(
           treinoExercicios.map(async (te) => {
             const exercicioInfo = await ExercicioAPI.obterAsync(te.exercicioId, token);
-            
             return {
-              ...te,           
-              ...exercicioInfo, 
-              exercicioNome: exercicioInfo.nome, 
+              ...te,
+              exercicioNome: exercicioInfo.nome,
+              exercicioInfo,
             };
           })
         );
@@ -58,38 +66,57 @@ export function TreinoDetalhe() {
 
   return (
     <div className={style.page}>
+      {/* Header */}
       <div className={style.header}>
         <button className={style.voltar} onClick={() => navigate(-1)}>
-          <FiArrowLeft />
+          <IconArrowLeft />
         </button>
-
         <div>
           <h2 className={style.titulo}>{treino.nomeTreino}</h2>
-          <span className={style.subtitulo}>
-            Criado em {formatarData(treino.dataCriacao)}
-          </span>
+          <span className={style.subtitulo}>Criado em {formatarData(treino.dataCriacao)}</span>
         </div>
       </div>
 
+      {/* Resumo */}
       <div className={style.resumo}>
-        <span>{exercicios.length} exercícios</span>
-        <span>{tempoTotal} min estimados</span>
+        <div className={style.resumoItem}>
+          <span className={style.resumoLabel}>Exercícios</span>
+          <span className={style.resumoValor}>{exercicios.length}</span>
+        </div>
+        <div className={style.resumoDivider} />
+        <div className={style.resumoItem}>
+          <span className={style.resumoLabel}>Tempo estimado</span>
+          <span className={style.resumoValor}>{tempoTotal} min</span>
+        </div>
       </div>
 
+      {/* Lista — navigate usa os campos do ...te, igual ao original */}
       <div className={style.lista}>
-        {exercicios.map((ex) => (
-          <div 
-            key={ex.treinoExercicioId} 
+        {exercicios.map((ex, i) => (
+          <div
+            key={ex.treinoExercicioId}
             className={style.card}
-            onClick={() => navigate("/app/exercicios/detalhes", { state: ex })}
+            onClick={() =>
+              navigate("/app/exercicios/detalhes", {
+                state: {
+                  nome: ex.nomeExercicio,
+                  grupoMuscular: ex.grupoMuscular,
+                  equipamento: ex.equipamento,
+                  descricao: ex.descricao,
+                },
+              })
+            }
           >
-            <strong>{ex.exercicioNome}</strong>
-
-            <div className={style.detalhes}>
-              <span>{ex.series} séries</span>
-              <span>{ex.repeticoes} reps</span>
-              <span>{ex.descansoSegundos}s pausa</span>
+            <div className={style.cardNumero}>{String(i + 1).padStart(2, "0")}</div>
+            <div className={style.cardCorpo}>
+              <strong className={style.cardNome}>{ex.exercicioNome}</strong>
+              <div className={style.detalhes}>
+                <span>{ex.series} séries</span>
+                <span>{ex.repeticoes} reps</span>
+                <span>{ex.descansoSegundos}s pausa</span>
+              </div>
             </div>
+            <span className={style.cardArrow}>→</span>
           </div>
         ))}
       </div>

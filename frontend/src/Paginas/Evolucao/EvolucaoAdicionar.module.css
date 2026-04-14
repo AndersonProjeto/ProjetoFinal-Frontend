@@ -1,63 +1,241 @@
-.container {
-  padding: 20px;
+.page {
+  padding: 32px 32px 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  max-width: 960px;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ── Header ── */
+.header {
   display: flex;
   align-items: center;
-  flex-direction: column;
-    gap: 20px;
+  gap: 14px;
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 300px;
-}
-
-input {
-  padding: 8px;
-  border: 1px solid #000000;
-  border-radius: 6px;
-}
-
-.saveButton {
-  padding: 10px;
-  background-color: #000;
-  color: #fff;
-  border: none;
+.voltar {
+  all: unset;
+  box-sizing: border-box;
+  background: #f8f5ef;
+  border: 0.5px solid #d6d1c6;
   border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
-}
-.container {
-  padding: 20px;
+  color: #4a4840;
+  transition: all 0.15s;
+  flex-shrink: 0;
 }
 
+.voltar:hover {
+  background: #ede9df;
+  color: #14130f;
+}
+
+.title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 500;
+  color: #14130f;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #7a7368;
+  margin: 3px 0 0;
+}
+
+/* ── Layout ── */
 .layout {
-  display: flex;
-  align-items: end;
-
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 16px;
+  align-items: start;
 }
 
-.resumoPequeno {
-  width: 180px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  font-size: 12px;
-  background: #f9f9f9;
-}
-
-.form {
-  flex: 1;
+/* ── Form Card ── */
+.formCard {
+  background: #f8f5ef;
+  border: 0.5px solid #d6d1c6;
+  border-radius: 10px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 24px;
 }
 
-.saveButton {
-  padding: 10px;
-  border: none;
-  background: #000000;
-  color: white;
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Campo que ocupa as duas colunas */
+.fieldFull {
+  grid-column: 1 / -1;
+}
+
+.fieldLabel {
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #9a9180;
+  font-weight: 500;
+}
+
+.fieldUnit {
+  font-size: 9px;
+  color: #b0a99e;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  background: #fff;
+  border: 0.5px solid #d6d1c6;
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #14130f;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.input::placeholder {
+  color: #d6d1c6;
+  font-weight: 400;
+}
+
+.input:focus {
+  border-color: #14130f;
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* Normaliza o date picker */
+.input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0.4;
   cursor: pointer;
-  border-radius: 8px;
+}
+
+.btnSalvar {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px;
+  background: #14130f;
+  color: #f8f5ef;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btnSalvar:hover {
+  background: #2e2c28;
+}
+
+/* ── Resumo Card ── */
+.resumoCard {
+  background: #f8f5ef;
+  border: 0.5px solid #d6d1c6;
+  border-radius: 10px;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.resumoTitulo {
+  font-size: 9px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #9a9180;
+  font-weight: 500;
+  padding-bottom: 12px;
+  border-bottom: 0.5px solid #d6d1c6;
+  display: block;
+}
+
+.resumoGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.resumoItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-bottom: 10px;
+  border-bottom: 0.5px solid #ede9df;
+}
+
+.resumoItem:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.resumoLabel {
+  font-size: 12px;
+  color: #7a7368;
+}
+
+.resumoValor {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  color: #14130f;
+}
+
+.resumoValor small {
+  font-size: 11px;
+  font-weight: 400;
+  color: #9a9180;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .page {
+    padding: 20px 16px 40px;
+    gap: 20px;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .fieldFull {
+    grid-column: 1;
+  }
 }

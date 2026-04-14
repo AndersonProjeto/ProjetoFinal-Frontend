@@ -1,10 +1,8 @@
 import { useEffect, useState } from "react";
-import {useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import ExercicioAPI from "../../client/ExercicioAPI";
-
 import style from "./Exercicio.module.css";
 import { SearchBar } from "../../Componentes/Pesquisa/Pesquisa";
-
 
 export function Exercicios() {
   const [exercicios, setExercicios] = useState([]);
@@ -12,7 +10,6 @@ export function Exercicios() {
   const [grupoSelecionado, setGrupoSelecionado] = useState("");
   const [carregando, setCarregando] = useState(true);
 
-  
   const [pagina, setPagina] = useState(1);
   const [tamanhoPagina] = useState(4);
   const [totalPaginas, setTotalPaginas] = useState(0);
@@ -25,21 +22,13 @@ export function Exercicios() {
       setCarregando(true);
 
       if (grupoSelecionado) {
-        const resultado = await ExercicioAPI.listarPorGrupoAsync(
-          grupoSelecionado,
-          token
-        );
+        const resultado = await ExercicioAPI.listarPorGrupoAsync(grupoSelecionado, token);
         setExercicios(resultado);
         setTotalPaginas(1);
         return;
       }
 
-      const resultado = await ExercicioAPI.listarPaginadoAsync(
-        pagina,
-        tamanhoPagina,
-        token
-      );
-
+      const resultado = await ExercicioAPI.listarPaginadoAsync(pagina, tamanhoPagina, token);
       setExercicios(resultado.items);
       setTotalPaginas(resultado.totalPages);
     } catch {
@@ -74,7 +63,6 @@ export function Exercicios() {
             placeholder="Buscar por nome, grupo ou equipamento..."
             width="100%"
           />
-
           <select
             className={style.selectFiltro}
             value={grupoSelecionado}
@@ -88,13 +76,12 @@ export function Exercicios() {
             <option value="Costas">Costas</option>
             <option value="Pernas">Pernas</option>
             <option value="Ombros">Ombros</option>
-            <option value="Biceps">Biceps</option>
-            <option value="Triceps">Triceps</option>
-            <option value="Abdomen">Abdomen</option>
+            <option value="Biceps">Bíceps</option>
+            <option value="Triceps">Tríceps</option>
+            <option value="Abdomen">Abdômen</option>
           </select>
         </div>
 
-        {/* GRID */}
         <div className={style.grid}>
           {carregando ? (
             <div className={style.loading}>
@@ -105,27 +92,19 @@ export function Exercicios() {
               <div
                 key={exercicio.exercicioId || exercicio.id}
                 className={style.card}
-                onClick={() =>
-                  navigate("/app/exercicios/detalhes", { state: exercicio })
-                }
+                onClick={() => navigate("/app/exercicios/detalhes", { state: exercicio })}
               >
                 <div className={style.cardHeader}>
                   <div>
                     <h3 className={style.cardTitle}>{exercicio.nome}</h3>
-                    <span className={style.cardSubtitle}>
-                      {exercicio.grupoMuscular}
-                    </span>
+                    <span className={style.cardSubtitle}>{exercicio.grupoMuscular}</span>
                   </div>
                 </div>
-
                 <p className={style.cardDescription}>
                   {exercicio.descricao || "Sem descrição disponível."}
                 </p>
-
                 {exercicio.equipamento && (
-                  <span className={style.badge}>
-                    {exercicio.equipamento}
-                  </span>
+                  <span className={style.badge}>{exercicio.equipamento}</span>
                 )}
               </div>
             ))
@@ -137,7 +116,7 @@ export function Exercicios() {
           )}
         </div>
 
-              {!grupoSelecionado && (
+        {!grupoSelecionado && (
           <div className={style.paginacao}>
             <button
               className={style.btnPagina}
@@ -146,11 +125,9 @@ export function Exercicios() {
             >
               ←
             </button>
-
             <span className={style.textoPagina}>
-              {pagina} {totalPaginas}
+              {pagina} de {totalPaginas}
             </span>
-
             <button
               className={style.btnPagina}
               disabled={pagina === totalPaginas}
@@ -160,7 +137,6 @@ export function Exercicios() {
             </button>
           </div>
         )}
-
       </div>
     </div>
   );

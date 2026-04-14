@@ -1,138 +1,405 @@
-.perfil {
-  max-width: 420px;
-  margin: 40px auto;
-  padding: 28px 24px;
-  text-align: center;
+.page {
+  padding: 32px;
+  width: 100%;
+  font-family: 'DM Sans', sans-serif;
+}
 
-  background: #ffffff;
-  border-radius: 14px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+/* ── Card Principal — largura total ── */
+.card {
+  background: #f8f5ef;
+  border: 0.5px solid #d6d1c6;
+  border-radius: 12px;
+  padding: 40px 40px 32px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
 
-  color: #000000;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+/* ── Avatar ── */
+.avatarWrapper {
+  position: relative;
+  margin-bottom: 16px;
 }
 
 .avatar {
-  width: 110px;
-  height: 110px;
+  width: 96px;
+  height: 96px;
   border-radius: 50%;
-  background: #e0e0e0;
-  border: 2px solid #ddd;
-  margin-bottom: 12px;
+  background: #ede9df;
+  border: 0.5px solid #d6d1c6;
+  display: block;
 }
 
-
-.perfil h2 {
-  margin: 8px 0 4px;
-  font-size: 20px;
-  font-weight: 600;
+.editarAvatarBtn {
+  all: unset;
+  box-sizing: border-box;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 26px;
+  height: 26px;
+  background: #f8f5ef;
+  border: 0.5px solid #d6d1c6;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s;
 }
 
-.perfil p {
-  margin: 0;
-  font-size: 14px;
-  color: #555;
+.editarAvatarBtn:hover {
+  background: #ede9df;
 }
 
-.editarAvatar{
-  margin-top: 12px;
-  background-color: transparent;
-  color: #000;
+/* ── Nome / Email ── */
+.nome {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
   font-weight: 500;
-border: none;
-width: auto;
-  padding: 8px;
+  color: #14130f;
+  letter-spacing: 0.4px;
+  margin: 0 0 4px;
 }
 
+.email {
+  font-size: 13px;
+  color: #7a7368;
+  margin: 0 0 18px;
+}
+
+/* ── Botão editar perfil ── */
+.btnEditarPerfil {
+  all: unset;
+  box-sizing: border-box;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #7a7368;
+  border: 0.5px solid #d6d1c6;
+  border-radius: 4px;
+  padding: 7px 18px;
+  cursor: pointer;
+  transition: all 0.15s;
+  margin-bottom: 32px;
+}
+
+.btnEditarPerfil:hover {
+  background: #ede9df;
+  color: #14130f;
+  border-color: #14130f;
+}
+
+/* ── Métricas ── */
+.metricas {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border: 0.5px solid #d6d1c6;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #d6d1c6;
+  gap: 0.5px;
+  margin-bottom: 16px;
+}
+
+.metricaItem {
+  background: #f8f5ef;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.metricaLabel {
+  font-size: 9px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: #9a9180;
+  font-weight: 500;
+}
+
+.metricaValor {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  color: #14130f;
+  line-height: 1;
+  display: flex;
+  align-items: baseline;
+  gap: 4px;
+}
+
+.metricaValor small {
+  font-size: 12px;
+  font-weight: 400;
+  color: #9a9180;
+}
+
+/* ── Card IA ── */
+.iaCard {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8f5ef;
+  border: 0.5px solid #d6d1c6;
+  border-radius: 8px;
+  padding: 18px 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+  margin-top: 8px;
+  box-sizing: border-box;
+}
+
+.iaCard:hover {
+  background: #f0ece3;
+}
+
+.iaLabel {
+  font-size: 14px;
+  font-weight: 500;
+  color: #14130f;
+  margin-bottom: 2px;
+}
+
+.iaDesc {
+  font-size: 12px;
+  color: #7a7368;
+}
+
+.iaArrow {
+  font-size: 18px;
+  color: #c9b97a;
+}
+
+/* ── Modal ── */
 .modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
-
+  background: rgba(20, 19, 15, 0.6);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
+  backdrop-filter: blur(2px);
 }
-.modal {
-  width: 340px;
-  padding: 20px;
-  background: #ffffff;
-  border-radius: 14px;
 
+.modal {
+  width: 90%;
+  max-width: 420px;
+  background: #f8f5ef;
+  border: 0.5px solid #d6d1c6;
+  border-radius: 12px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 14px;
-
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+  gap: 16px;
 }
+
+.modalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 14px;
+  border-bottom: 0.5px solid #d6d1c6;
+}
+
+.modalTitulo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 500;
+  color: #14130f;
+  margin: 0;
+  letter-spacing: 0.4px;
+}
+
+.closeBtn {
+  all: unset;
+  box-sizing: border-box;
+  border: 0.5px solid #c0bab0;
+  color: #9a9180;
+  width: 28px;
+  height: 28px;
+  border-radius: 5px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 11px;
+  transition: all 0.15s;
+}
+
+.closeBtn:hover {
+  background: #ede9df;
+  color: #14130f;
+}
+
 .avatarPreview {
-  width: 98px;
-  height: 96px;
+  width: 88px;
+  height: 88px;
   border-radius: 50%;
-  background: #f0f0f0;
+  background: #ede9df;
+  border: 0.5px solid #d6d1c6;
+  display: block;
+  margin: 0 auto;
+}
+
+.btnGerar {
+  all: unset;
+  box-sizing: border-box;
+  display: block;
+  margin: 0 auto;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #7a7368;
+  border: 0.5px solid #d6d1c6;
+  border-radius: 4px;
+  padding: 7px 18px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btnGerar:hover {
+  background: #ede9df;
+  color: #14130f;
+}
+
+.estilosLabel {
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #9a9180;
+  font-weight: 500;
 }
 
 .estilos {
   display: flex;
   flex-wrap: wrap;
   gap: 6px;
-  justify-content: center;
 }
 
-.btnGerar{
-  background-color: transparent;
-  color: #000000;
-  background-color: #cac9c9;
-  font-size: 14px;
-  width: 120px;
-  padding: 10px;
-}
-.btnGerarSalvar{
-  background-color: transparent;
-  color: #000000;
-  background-color:  #8b8b8b52;
-  font-size: 15px;
-  width: 190px;
-  padding: 10px;
-}
-.btnGerarCancelar{
-  background-color: transparent;
-  color: #000000;
-  background-color: #8b8b8b52;
-  font-size: 15px;
-  padding: 10px;
-  width: 90px;
+.estiloBtn {
+  all: unset;
+  box-sizing: border-box;
+  font-size: 11px;
+  padding: 5px 12px;
+  border: 0.5px solid #d6d1c6;
+  border-radius: 3px;
+  background: #f8f5ef;
+  color: #7a7368;
+  cursor: pointer;
+  transition: all 0.15s;
 }
 
-.btnGerarSalvar:hover
-{
-  background-color: rgb(123, 131, 111);
-}
-
-.btnGerarCancelar:hover{
-  background-color: rgb(136, 108, 108);
+.estiloBtn:hover {
+  background: #ede9df;
+  color: #14130f;
 }
 
 .estiloAtivo {
-  background: #ffffff;
-  color: #000000;
-  border-color: #000;
-}
-.dados {
-  margin-top: 20px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  font-size: 15px;
+  background: #14130f !important;
+  color: #f8f5ef !important;
+  border-color: #14130f !important;
 }
 
-.iaPlaceholder {
-  margin-top: 40px;
-  padding: 20px;
-  border: 2px dashed #ccc;
-  border-radius: 12px;
-  text-align: center;
-  color: #666;
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.formLabel {
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #9a9180;
+  font-weight: 500;
+}
+
+.formInput {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 9px 12px;
+  background: #fff;
+  border: 0.5px solid #d6d1c6;
+  border-radius: 6px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  color: #14130f;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.formInput:focus {
+  border-color: #14130f;
+}
+
+.modalFooter {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding-top: 4px;
+  border-top: 0.5px solid #d6d1c6;
+}
+
+.btnCancelar {
+  all: unset;
+  box-sizing: border-box;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #7a7368;
+  border: 0.5px solid #d6d1c6;
+  border-radius: 5px;
+  padding: 8px 18px;
+  cursor: pointer;
+  transition: all 0.15s;
+}
+
+.btnCancelar:hover {
+  background: #ede9df;
+  color: #14130f;
+}
+
+.btnSalvar {
+  all: unset;
+  box-sizing: border-box;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: #f8f5ef;
+  background: #14130f;
+  border-radius: 5px;
+  padding: 8px 20px;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.btnSalvar:hover {
+  background: #2e2c28;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .page {
+    padding: 20px 16px 40px;
+  }
+
+  .metricas {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card {
+    padding: 28px 20px 24px;
+  }
 }

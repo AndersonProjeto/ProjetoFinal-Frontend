@@ -1,67 +1,182 @@
 .page {
-  padding: 32px;
-  display: flex;
-  justify-content: center;
+  padding: 36px;
+  min-height: 100vh;
 }
 
-.card {
-  width: min(800px, 100%);
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 28px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
-
-.title {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 18px;
-  color: #222;
-}
-
-.info {
+/* ── Layout duas colunas ─────────────────────────── */
+.layout {
   display: grid;
-  gap: 16px;
-  margin-top: 14px;
+  grid-template-columns: 1fr 500px;
+  gap: 30px;
+  align-items: start;
+}
+
+/* ── Coluna do vídeo (esquerda, maior) ───────────── */
+.videoCol {
+  position: sticky;
+  top: 36px;
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 0.5px solid #d6d1c6;
+  background: #14130f;
+}
+
+.iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.videoPlaceholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  border: 0.5px solid #d6d1c6;
+  background: #f0ece3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.placeholderIcon {
+  font-size: 36px;
+  color: #c8c3b8;
+}
+
+.placeholderText {
+  font-size: 14px;
+  color: #9a9180;
+  font-family: 'DM Sans', sans-serif;
+}
+
+/* ── Coluna de informações (direita, fixa) ───────── */
+.infoCol {
+  background: #f8f5ef;
+  border: 0.5px solid #d6d1c6;
+  border-radius: 10px;
+  padding: 28px;
+}
+
+/* ── Título ──────────────────────────────────────── */
+.title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 500;
+  color: #14130f;
+  letter-spacing: 0.5px;
+  margin: 0 0 20px;
+  padding-bottom: 16px;
+  border-bottom: 0.5px solid #d6d1c6;
+}
+
+/* ── Info rows ───────────────────────────────────── */
+.info {
+  display: flex;
+  flex-direction: column;
 }
 
 .row {
-  padding: 14px 16px;
-  border: 1px solid #eee;
-  border-radius: 14px;
-  background: #fafafa;
+  padding: 16px 0;
+  border-bottom: 0.5px solid #e8e4db;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.row:last-child {
+  border-bottom: none;
 }
 
 .label {
-  display: block;
-  font-size: 13px;
-  font-weight: 600;
-  color: #777;
+  font-size: 10px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #9a9180;
+  font-weight: 500;
 }
 
 .value {
-  display: block;
-  margin-top: 6px;
-  font-size: 16px;
-  color: #333;
-  line-height: 1.4;
+  font-size: 15px;
+  color: #2e2c28;
+  line-height: 1.65;
+  font-weight: 400;
 }
 
+/* ── Botão Voltar ────────────────────────────────── */
 .button {
-  margin-top: 18px;
-  padding: 6px 10px;   
-  border: none;
-  background: #000000;
-  color: #fff;
-  border-radius: 10px;
+  margin-top: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 20px;
+  border: 0.5px solid #c8c3b8;
+  background: transparent;
+  color: #4a4840;
+  border-radius: 8px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
-  font-weight: 600;
-  font-size: 13px;    
-  width: fit-content; 
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
-
 
 .button:hover {
-  filter: brightness(0.95);
-  transform: translateY(-1px);
+  background: #f0ece3;
+  border-color: #c9b97a;
+  color: #14130f;
+}
+
+/* ── Loading ─────────────────────────────────────── */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px;
+}
+
+.spinner {
+  width: 28px;
+  height: 28px;
+  border: 2px solid #d6d1c6;
+  border-top-color: #c9b97a;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 900px) {
+  .page {
+    padding: 20px 16px;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .videoCol {
+    position: static;
+  }
+
+  .infoCol {
+    padding: 22px 18px;
+  }
+
+  .title {
+    font-size: 22px;
+  }
 }
