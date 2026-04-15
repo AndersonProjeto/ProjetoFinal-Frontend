@@ -14,17 +14,18 @@
 
 .title {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 26px;
-  font-weight: 500;
+  font-size: 44px;
+  font-weight: 600;
   color: #14130f;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
   margin: 0;
+  line-height: 1.1;
 }
 
 .subtitle {
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 400;
-  color: #7a7368;
+  color: #5a5650;
   margin: 0;
   letter-spacing: 0.2px;
 }
@@ -73,19 +74,19 @@
 .imcLabel,
 .treinosLabel,
 .faleComAcadiaLabel {
-  font-size: 12px;
-  letter-spacing: 1.5px;
+  font-size: 11px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  color: #7a7368;
-  font-weight: 500;
+  color: #5a5650;
+  font-weight: 700;
   margin-bottom: 10px;
 }
 
 .imcValue,
 .treinosValue {
   font-family: 'Cormorant Garamond', serif;
-  font-size: 32px;
-  font-weight: 500;
+  font-size: 48px;
+  font-weight: 700;
   padding-bottom: 16px;
   color: #14130f;
   line-height: 1;
@@ -93,7 +94,7 @@
 
 .faleComAcadiaValue {
   font-family: 'DM Sans', sans-serif;
-  font-size: 16px;
+  font-size: 17px;
   font-weight: 400;
   color: #2e2c28;
   line-height: 1.5;
@@ -135,15 +136,16 @@
 }
 
 .chartTitle {
-  font-size: 9px;
+  font-size: 12px;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: #9a9180;
+  color: #5a5650;
+  font-weight: 700;
 }
 
 .actionsRow {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 12px;
 }
 
@@ -165,15 +167,15 @@
 }
 
 .actionLabel {
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
   color: #14130f;
   letter-spacing: 0.2px;
 }
 
 .actionDesc {
-  font-size: 12px;
-  color: #7a7368;
+  font-size: 13px;
+  color: #5a5650;
   margin-top: 2px;
 }
 
@@ -274,7 +276,6 @@
   color: #4a4840;
 }
 
-/* ── Responsive ──────────────────────────────────── */
 @media (max-width: 768px) {
   .dashboardContainer {
     padding: 20px 16px 40px;

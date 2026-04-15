@@ -150,6 +150,15 @@ export function Perfil() {
           </div>
           <span className={styles.iaArrow}>→</span>
         </div>
+
+        {/* Relatório IA */}
+        <div className={styles.iaCard} onClick={() => navigate(`/app/relatorio`)}>
+          <div>
+            <div className={styles.iaLabel}>Relatório IA</div>
+            <div className={styles.iaDesc}>Veja sua análise de desempenho gerada pela AcadIA</div>
+          </div>
+          <span className={styles.iaArrow}>→</span>
+        </div>
       </div>
 
       {/* Modal Avatar */}

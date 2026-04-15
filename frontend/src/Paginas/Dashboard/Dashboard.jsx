@@ -156,6 +156,13 @@ export function Dashboard() {
           </div>
           <span className={styles.actionArrow}>→</span>
         </Link>
+        <Link to="/app/relatorio" className={styles.actionCard}>
+          <div>
+            <div className={styles.actionLabel}>Relatório IA</div>
+            <div className={styles.actionDesc}>Ver análise inteligente</div>
+          </div>
+          <span className={styles.actionArrow}>→</span>
+        </Link>
       </div>
 
       {/* IMC Modal */}
