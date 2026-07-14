@@ -98,10 +98,12 @@ export function TreinoDetalhe() {
             onClick={() =>
               navigate("/app/exercicios/detalhes", {
                 state: {
-                  nome: ex.nomeExercicio,
-                  grupoMuscular: ex.grupoMuscular,
-                  equipamento: ex.equipamento,
-                  descricao: ex.descricao,
+                  exercicioId: ex.exercicioId,
+                  nome: ex.exercicioNome,
+                  grupoMuscular: ex.exercicioInfo?.grupoMuscular,
+                  equipamento: ex.exercicioInfo?.equipamento,
+                  descricao: ex.exercicioInfo?.descricao,
+                  videoUrl: ex.exercicioInfo?.videoUrl,
                 },
               })
             }
