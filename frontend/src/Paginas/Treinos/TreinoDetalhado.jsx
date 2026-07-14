@@ -23,7 +23,6 @@ function formatarData(dataUtc) {
 export function TreinoDetalhe() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
 
   const [treino, setTreino] = useState(null);
   const [exercicios, setExercicios] = useState([]);
@@ -32,13 +31,13 @@ export function TreinoDetalhe() {
   useEffect(() => {
     async function carregar() {
       try {
-        const treinoDados = await TreinoAPI.obterAsync(id, token);
-        const treinoExercicios = await TreinoExercicioAPI.listarPorTreinoAsync(id, token);
+        const treinoDados = await TreinoAPI.obterAsync(id);
+        const treinoExercicios = await TreinoExercicioAPI.listarPorTreinoAsync(id);
 
         // Mesma lógica do original que funciona
         const completos = await Promise.all(
           treinoExercicios.map(async (te) => {
-            const exercicioInfo = await ExercicioAPI.obterAsync(te.exercicioId, token);
+            const exercicioInfo = await ExercicioAPI.obterAsync(te.exercicioId);
             return {
               ...te,
               exercicioNome: exercicioInfo.nome,
@@ -57,7 +56,7 @@ export function TreinoDetalhe() {
       }
     }
     carregar();
-  }, [id, token]);
+  }, [id]);
 
   if (carregando) return <p className={style.loading}>Carregando...</p>;
   if (!treino) return <p>Treino não encontrado</p>;

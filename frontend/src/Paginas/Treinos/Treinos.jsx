@@ -45,13 +45,12 @@ export function Treinos() {
   const [carregando, setCarregando] = useState(true);
 
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
 
   async function carregarTreinos() {
     try {
       setCarregando(true);
       const usuarioId = localStorage.getItem("usuarioId");
-      const resultado = await TreinoAPI.listarPorUsuarioAsync(usuarioId, token);
+      const resultado = await TreinoAPI.listarPorUsuarioAsync(usuarioId);
       setTreinos(resultado);
     } catch {
       alert("Erro ao carregar treinos.");
@@ -125,7 +124,7 @@ export function Treinos() {
                     onClick={(e) => {
                       e.stopPropagation();
                       if (window.confirm("Deseja excluir esse treino?")) {
-                        TreinoAPI.deletarAsync(treino.treinoId, token)
+                        TreinoAPI.deletarAsync(treino.treinoId)
                           .then(carregarTreinos)
                           .catch(() => alert("Erro ao excluir treino"));
                       }

@@ -1,123 +1,152 @@
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: 'Poppins', sans-serif;
-}
-
-body {
- background-color: #1f1f20;
-  color: #ffffff;
-  height: 100vh;
-}
-
+/* Tela de login na identidade Acadia: preto quente + dourado + serifa. */
 .container {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  background: var(--acadia-ink);
+  background-image: radial-gradient(
+    ellipse at 50% -20%,
+    rgba(201, 185, 122, 0.12),
+    transparent 60%
+  );
+  font-family: var(--font-sans);
 }
 
 .box {
   width: 380px;
-  padding: 32px 30px;
-  border-radius: 18px;
-  background: rgba(18, 18, 20, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 40px 34px 32px;
+  border-radius: 14px;
+  background: rgba(24, 23, 18, 0.85);
+  border: 0.5px solid rgba(201, 185, 122, 0.25);
   box-shadow: 0 20px 70px rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(10px);
-  position: relative;
-  overflow: hidden;
-  animation: boxEnter 1s ease-out;
+  animation: boxEnter 0.7s ease-out;
 }
 
 @keyframes boxEnter {
-  0% {
-    transform: translateY(40px);
-    opacity: 0;
-  }
-  100% {
-    transform: translateY(0);
-    opacity: 1;
-  }
+  from { transform: translateY(30px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+
+.brand {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.brandName {
+  font-family: var(--font-serif);
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--acadia-gold);
+  margin: 0;
+}
+
+.brandTagline {
+  display: block;
+  margin-top: 6px;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.label {
+  display: block;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+  margin-bottom: 6px;
 }
 
 .input {
   width: 100%;
-  padding: 14px;
-  margin-bottom: 14px;
-  border-radius: 12px;
-
-  background-color: #000;
-  color: #fff;             
-
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  padding: 13px 14px;
+  margin-bottom: 18px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.45);
+  color: #fff;
+  border: 0.5px solid rgba(255, 255, 255, 0.14);
   outline: none;
   font-size: 14px;
+  font-family: inherit;
+  transition: border-color 0.2s;
 }
 
 .input::placeholder {
-  color: rgba(255, 255, 255, 0.6);
-}
-
-.input:-webkit-autofill {
-  -webkit-box-shadow: 0 0 0 1000px #000 inset !important;
-  -webkit-text-fill-color: #fff !important;
+  color: rgba(255, 255, 255, 0.35);
 }
 
 .input:focus {
-  border-color: #ffffff;
+  border-color: var(--acadia-gold);
 }
 
-button {
+.input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px #0d0c0a inset !important;
+  -webkit-text-fill-color: #fff !important;
+}
+
+.submitBtn {
   width: 100%;
   padding: 14px;
-  border-radius: 12px;
-  border: none;
-  background: #000000;
-  color: #ffffff;
-  font-weight: 700;
-  letter-spacing: 1px;
-  cursor: pointer;
-}
-
-.box .footer {
-  margin-top: 12px;
-  font-size: 13px;
-  color: rgba(84, 86, 92, 0.65);
-  text-align: center;
-}
-
-.box .footer a {
-  color: #ffffff;
-  text-decoration: none;
+  margin-top: 4px;
+  border-radius: 8px;
+  border: 0.5px solid var(--acadia-gold-dim);
+  background: var(--acadia-gold);
+  color: var(--acadia-ink);
   font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-family: inherit;
+  cursor: pointer;
+  transition: filter 0.2s;
 }
 
-.footer a {
-  color: #b0b0b0;
+.submitBtn:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.footer {
+  margin-top: 20px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.35);
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.link {
+  color: var(--acadia-gold);
   text-decoration: none;
+  font-weight: 500;
 }
 
-.logo {
-  display: block;
-  margin: 0 auto 16px auto;
-  width: 160px;
+.link:hover {
+  text-decoration: underline;
 }
+
 .footerBar {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 50px;
-  background: #000;
-  color: #888;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  letter-spacing: 1px;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.25);
+  border-top: 0.5px solid rgba(255, 255, 255, 0.06);
 }

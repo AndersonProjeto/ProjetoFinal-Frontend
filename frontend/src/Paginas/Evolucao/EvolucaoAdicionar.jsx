@@ -22,7 +22,6 @@ function hojeFormatado() {
 
 export function EvolucaoAdicionar() {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
   const usuarioId = localStorage.getItem("usuarioId");
 
   const [peso, setPeso] = useState("");
@@ -34,11 +33,11 @@ export function EvolucaoAdicionar() {
 
   useEffect(() => {
     async function carregarResumo() {
-      const r = await EvolucaoAPI.resumoAsync(usuarioId, token);
+      const r = await EvolucaoAPI.resumoAsync(usuarioId);
       setResumo(r);
     }
     carregarResumo();
-  }, [usuarioId, token]);
+  }, [usuarioId]);
 
   async function salvar() {
     if (!peso) { alert("Informe o peso!"); return; }
@@ -50,7 +49,7 @@ export function EvolucaoAdicionar() {
         bracoCm: braco ? Number(braco) : null,
         coxaCm: coxa ? Number(coxa) : null,
         dataRegistro: data ? new Date(data + "T12:00:00").toISOString() : null,
-      }, token);
+      });
       navigate("/app/evolucao", { state: { atualizou: true } });
     } catch (err) {
       console.error(err);

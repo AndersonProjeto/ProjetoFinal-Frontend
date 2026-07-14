@@ -34,7 +34,6 @@ function IconTendencia({ valor }) {
 
 export function RelatorioIA() {
   const usuarioId = localStorage.getItem("usuarioId");
-  const token = localStorage.getItem("token");
 
   const [relatorio, setRelatorio] = useState(null);
   const [carregando, setCarregando] = useState(false);
@@ -44,11 +43,9 @@ export function RelatorioIA() {
 
   useEffect(() => {
     async function carregarUltimoRelatorio() {
-      if (!usuarioId || !token) { setCarregandoInicial(false); return; }
+      if (!usuarioId) { setCarregandoInicial(false); return; }
       try {
-        const res = await client.get(`/IARelatorio/ultimo/${usuarioId}`, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await client.get(`/IARelatorio/ultimo/${usuarioId}`);
         if (res.data?.relatorio) {
           const json = typeof res.data.relatorio === "string"
             ? JSON.parse(res.data.relatorio)
@@ -56,30 +53,27 @@ export function RelatorioIA() {
           setRelatorio(json);
           setGerado(true);
         }
-      } catch (e) {
+      } catch {
         // sem relatório anterior
       } finally {
         setCarregandoInicial(false);
       }
     }
     carregarUltimoRelatorio();
-  }, [usuarioId, token]);
+  }, [usuarioId]);
 
   async function gerarRelatorio() {
     if (carregando) return;
     setCarregando(true);
     setErro(null);
     try {
-      const res = await client.post(
-        `/IARelatorio/gerar/${usuarioId}`, {},
-        { headers: { Authorization: `Bearer ${token}` } }
-      );
+      const res = await client.post(`/IARelatorio/gerar/${usuarioId}`, {});
       const json = typeof res.data.relatorio === "string"
         ? JSON.parse(res.data.relatorio)
         : res.data.relatorio;
       setRelatorio(json);
       setGerado(true);
-    } catch (e) {
+    } catch {
       setErro("Não foi possível gerar o relatório. Tente novamente.");
     } finally {
       setCarregando(false);

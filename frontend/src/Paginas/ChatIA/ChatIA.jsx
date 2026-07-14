@@ -16,7 +16,6 @@ function IconSend() {
 
 export function ChatIA() {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
   const usuarioId = localStorage.getItem("usuarioId");
 
   const [mensagem, setMensagem] = useState("");
@@ -28,18 +27,18 @@ export function ChatIA() {
 
   useEffect(() => {
     async function carregarAvatar() {
-      if (!token || !usuarioId) return;
-      const usuario = await UsuarioAPI.obterAsync(usuarioId, token);
+      if (!usuarioId) return;
+      const usuario = await UsuarioAPI.obterAsync(usuarioId);
       const url = `https://api.dicebear.com/7.x/${usuario.avatarEstilo}/svg?seed=${usuario.avatarSeed}`;
       setAvatarUrl(url);
     }
     carregarAvatar();
-  }, [usuarioId, token]);
+  }, [usuarioId]);
 
   useEffect(() => {
     async function carregar() {
-      if (!token || !usuarioId) return;
-      const interacoes = await IAAPI.ultimasInteracoesAsync(Number(usuarioId), 10, token);
+      if (!usuarioId) return;
+      const interacoes = await IAAPI.ultimasInteracoesAsync(Number(usuarioId), 10);
       const formatado = interacoes.reverse().map((i) => [
         { tipo: "usuario", texto: i.pergunta, avatar: avatarUrl, hora: i.dataHora },
         { tipo: "bot", texto: i.resposta, hora: i.dataHora },
@@ -47,7 +46,7 @@ export function ChatIA() {
       setChat(formatado);
     }
     carregar();
-  }, [usuarioId, token, avatarUrl]);
+  }, [usuarioId, avatarUrl]);
 
   useEffect(() => {
     if (chatRef.current) {
@@ -75,7 +74,7 @@ export function ChatIA() {
     setMensagem("");
     setCarregando(true);
     try {
-      const resposta = await IAAPI.salvarInteracaoAsync({ UsuarioId: Number(usuarioId), Pergunta: mensagem }, token);
+      const resposta = await IAAPI.salvarInteracaoAsync({ UsuarioId: Number(usuarioId), Pergunta: mensagem });
       digitarResposta(resposta.resposta);
     } catch {
       setChat((prev) => [...prev, { tipo: "bot", texto: "Erro ao obter resposta.", hora: new Date() }]);

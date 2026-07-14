@@ -1,50 +1,88 @@
 .container {
-  padding: 24px;
+  padding: 40px;
+  max-width: 860px;
 }
 
 .title {
-  font-size: 28px;
-  margin-bottom: 20px;
-  color: #222;
-  font-weight: 600;
+  font-family: var(--font-serif);
+  font-size: 32px;
+  font-weight: 500;
+  margin: 0 0 24px;
+  color: var(--acadia-ink);
+  letter-spacing: 0.5px;
+  animation: fadeUp 0.6s var(--ease-lux) both;
 }
 
 /* estados */
 .loading,
 .empty {
   text-align: center;
-  color: #666;
-  margin-top: 20px;
+  color: var(--acadia-muted);
+  margin-top: 32px;
+  padding: 48px;
+  background: var(--acadia-card);
+  border: 0.5px dashed #c0bab0;
+  border-radius: 12px;
+  font-size: 14px;
+  animation: fadeUp 0.6s var(--ease-lux) both;
 }
 
 /* card */
 .card {
-  background: #ffffff;
+  background: var(--acadia-card);
   border-radius: 12px;
-  padding: 16px;
-  border: 1px solid #ddd;
-  margin-bottom: 14px;
+  padding: 20px 24px;
+  border: var(--hairline);
+  margin-bottom: 12px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s var(--ease-lux), box-shadow 0.35s var(--ease-lux), border-color 0.35s;
+  animation: fadeUp 0.55s var(--ease-lux) both;
+}
+
+.card:nth-child(1) { animation-delay: 0.08s; }
+.card:nth-child(2) { animation-delay: 0.14s; }
+.card:nth-child(3) { animation-delay: 0.20s; }
+.card:nth-child(4) { animation-delay: 0.26s; }
+.card:nth-child(n+5) { animation-delay: 0.32s; }
+
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 3px;
+  background: linear-gradient(180deg, var(--acadia-gold), rgba(201, 185, 122, 0.2));
+  transform: scaleY(0);
+  transform-origin: top;
+  transition: transform 0.4s var(--ease-lux);
 }
 
 .card:hover {
-  background: #f5f5f5;
-  transform: translateY(-2px);
+  transform: translateX(4px);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--acadia-gold-dim);
+}
+
+.card:hover::before {
+  transform: scaleY(1);
 }
 
 /* linha da pergunta */
 .perguntaLinha {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
 }
 
 /* avatar */
 .avatarMini {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
+  border: 0.5px solid var(--acadia-gold-dim);
 }
 
 /* conteúdo da pergunta */
@@ -55,68 +93,91 @@
 
 .perguntaTexto {
   margin: 2px 0 8px;
-  color: #333;
+  color: var(--acadia-ink);
+  font-weight: 500;
+  font-size: 15px;
 }
 
 /* resposta resumida */
 .respostaCurta {
-  color: #555;
+  color: #5c5850;
   margin-top: 8px;
-  line-height: 1.4;
+  line-height: 1.6;
+  font-size: 13px;
 }
 
 /* data */
 .data {
-  font-size: 12px;
-  color: #888;
-  margin-top: 10px;
+  font-size: 10px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--acadia-muted);
+  margin-top: 12px;
   display: block;
 }
 
 /* modal */
 .modalOverlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.65);
+  inset: 0;
+  background: rgba(20, 19, 15, 0.55);
+  backdrop-filter: blur(6px);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 999;
+  animation: fadeIn 0.25s ease both;
 }
 
 .modal {
-  background: #fff;
-  padding: 24px;
-  border-radius: 12px;
+  background: var(--acadia-card);
+  border: 0.5px solid var(--acadia-gold-dim);
+  padding: 30px;
+  border-radius: 14px;
   width: 90%;
   max-width: 600px;
   max-height: 80vh;
   overflow-y: auto;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
+  animation: fadeUp 0.35s var(--ease-lux) both;
 }
 
 .modal h3 {
-  margin-top: 10px;
-  margin-bottom: 6px;
+  font-family: var(--font-serif);
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--acadia-ink);
+  margin: 14px 0 6px;
+  letter-spacing: 0.4px;
+}
+
+.modal h3:first-child {
+  margin-top: 0;
 }
 
 .modalTexto {
   margin-bottom: 12px;
-  line-height: 1.5;
-  color: #333;
+  line-height: 1.7;
+  color: #4a4840;
+  font-size: 14px;
 }
 
 .fechar {
-  background: #111;
-  color: #fff;
+  background: var(--acadia-ink);
+  color: var(--acadia-card);
   border: none;
-  padding: 10px 18px;
-  border-radius: 6px;
+  padding: 10px 22px;
+  border-radius: 8px;
   cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-family: var(--font-sans);
+  transition: transform 0.25s var(--ease-lux), box-shadow 0.25s var(--ease-lux);
 }
 
 .fechar:hover {
-  background: #333;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px rgba(20, 19, 15, 0.25);
 }

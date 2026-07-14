@@ -1,10 +1,10 @@
 .page {
-  padding: 32px 32px 48px;
+  padding: 40px 40px 56px;
   display: flex;
   flex-direction: column;
   gap: 28px;
-  max-width: 960px;
-  font-family: 'DM Sans', sans-serif;
+  max-width: 1020px;
+  font-family: var(--font-sans);
 }
 
 /* ── Header ── */
@@ -12,35 +12,37 @@
   display: flex;
   align-items: center;
   gap: 14px;
+  animation: fadeUp 0.6s var(--ease-lux) both;
 }
 
 .voltar {
   all: unset;
   box-sizing: border-box;
-  background: #f8f5ef;
-  border: 0.5px solid #d6d1c6;
-  border-radius: 8px;
-  width: 36px;
-  height: 36px;
+  background: var(--acadia-card);
+  border: var(--hairline);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   color: #4a4840;
-  transition: all 0.15s;
+  transition: all 0.25s var(--ease-lux);
   flex-shrink: 0;
 }
 
 .voltar:hover {
-  background: #ede9df;
-  color: #14130f;
+  border-color: var(--acadia-gold);
+  color: var(--acadia-ink);
+  transform: translateX(-3px);
 }
 
 .title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 26px;
+  font-family: var(--font-serif);
+  font-size: 30px;
   font-weight: 500;
-  color: #14130f;
+  color: var(--acadia-ink);
   letter-spacing: 0.5px;
   margin: 0;
 }
@@ -61,38 +63,52 @@
 
 /* ── Form Card ── */
 .formCard {
-  background: #f8f5ef;
-  border: 0.5px solid #d6d1c6;
-  border-radius: 10px;
-  padding: 28px;
+  background: var(--acadia-card);
+  border: var(--hairline);
+  border-radius: 12px;
+  padding: 30px;
   display: flex;
   flex-direction: column;
   gap: 24px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 0.6s var(--ease-lux) 0.1s both;
+}
+
+.formCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--acadia-gold), rgba(201, 185, 122, 0.15));
+  transform-origin: left;
+  animation: drawLine 0.9s var(--ease-lux) 0.3s both;
 }
 
 .formGrid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  gap: 18px;
 }
 
 .fieldGroup {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
 }
 
-/* Campo que ocupa as duas colunas */
 .fieldFull {
   grid-column: 1 / -1;
 }
 
 .fieldLabel {
   font-size: 9px;
-  letter-spacing: 2px;
+  letter-spacing: 2.2px;
   text-transform: uppercase;
-  color: #9a9180;
-  font-weight: 500;
+  color: var(--acadia-muted);
+  font-weight: 600;
 }
 
 .fieldUnit {
@@ -105,25 +121,26 @@
 .input {
   width: 100%;
   box-sizing: border-box;
-  padding: 12px 14px;
+  padding: 13px 15px;
   background: #fff;
-  border: 0.5px solid #d6d1c6;
-  border-radius: 6px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 20px;
+  border: var(--hairline);
+  border-radius: 8px;
+  font-family: var(--font-serif);
+  font-size: 24px;
   font-weight: 500;
-  color: #14130f;
+  color: var(--acadia-ink);
   outline: none;
-  transition: border-color 0.15s;
+  transition: border-color 0.25s, box-shadow 0.25s;
 }
 
 .input::placeholder {
-  color: #d6d1c6;
+  color: var(--acadia-line);
   font-weight: 400;
 }
 
 .input:focus {
-  border-color: #14130f;
+  border-color: var(--acadia-gold);
+  box-shadow: 0 0 0 3px rgba(201, 185, 122, 0.12);
 }
 
 .input::-webkit-outer-spin-button,
@@ -131,7 +148,11 @@
   -webkit-appearance: none;
 }
 
-/* Normaliza o date picker */
+.input[type="date"] {
+  font-family: var(--font-sans);
+  font-size: 15px;
+}
+
 .input[type="date"]::-webkit-calendar-picker-indicator {
   opacity: 0.4;
   cursor: pointer;
@@ -144,42 +165,63 @@
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 12px;
-  background: #14130f;
-  color: #f8f5ef;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 12px;
-  font-weight: 500;
-  letter-spacing: 1px;
+  padding: 14px;
+  background: var(--acadia-ink);
+  color: var(--acadia-card);
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background 0.15s;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s var(--ease-lux), box-shadow 0.3s var(--ease-lux);
+}
+
+.btnSalvar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--acadia-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-lux);
 }
 
 .btnSalvar:hover {
-  background: #2e2c28;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(20, 19, 15, 0.25);
+}
+
+.btnSalvar:hover::after {
+  transform: scaleX(1);
 }
 
 /* ── Resumo Card ── */
 .resumoCard {
-  background: #f8f5ef;
-  border: 0.5px solid #d6d1c6;
-  border-radius: 10px;
-  padding: 22px;
+  background: var(--acadia-card);
+  border: var(--hairline);
+  border-radius: 12px;
+  padding: 24px;
   display: flex;
   flex-direction: column;
   gap: 16px;
+  animation: fadeUp 0.6s var(--ease-lux) 0.2s both;
 }
 
 .resumoTitulo {
   font-size: 9px;
   letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: #9a9180;
-  font-weight: 500;
+  color: var(--acadia-muted);
+  font-weight: 600;
   padding-bottom: 12px;
-  border-bottom: 0.5px solid #d6d1c6;
+  border-bottom: var(--hairline);
   display: block;
 }
 
@@ -208,22 +250,23 @@
 }
 
 .resumoValor {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 18px;
-  font-weight: 600;
-  color: #14130f;
+  font-family: var(--font-serif);
+  font-size: 21px;
+  font-weight: 500;
+  color: var(--acadia-ink);
 }
 
 .resumoValor small {
+  font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 400;
-  color: #9a9180;
+  color: var(--acadia-muted);
 }
 
 /* ── Responsive ── */
 @media (max-width: 768px) {
   .page {
-    padding: 20px 16px 40px;
+    padding: 24px 16px 44px;
     gap: 20px;
   }
 
@@ -237,5 +280,9 @@
 
   .fieldFull {
     grid-column: 1;
+  }
+
+  .title {
+    font-size: 25px;
   }
 }

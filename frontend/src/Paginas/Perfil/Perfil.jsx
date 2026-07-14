@@ -20,7 +20,6 @@ const EstilosDeAvatar = [
 export function Perfil() {
   const navigate = useNavigate();
   const usuarioId = localStorage.getItem("usuarioId");
-  const token = localStorage.getItem("token");
 
   const [usuario, setUsuario] = useState(null);
   const [ultimaEvolucao, setUltimaEvolucao] = useState(null);
@@ -34,15 +33,15 @@ export function Perfil() {
 
   useEffect(() => {
     async function carregarDados() {
-      const u = await UsuarioAPI.obterAsync(usuarioId, token);
-      const historico = await EvolucaoAPI.historicoAsync(usuarioId, token);
+      const u = await UsuarioAPI.obterAsync(usuarioId);
+      const historico = await EvolucaoAPI.historicoAsync(usuarioId);
       setUsuario(u);
       setUltimaEvolucao(historico[0] ?? null);
       setNovoEstiloAvatar(u.avatarEstilo);
       setNovoSeed(u.avatarSeed);
     }
     carregarDados();
-  }, [usuarioId, token]);
+  }, [usuarioId]);
 
   function gerarSeed() {
     setNovoSeed(Math.random().toString(36).substring(2, 10));
@@ -58,7 +57,7 @@ export function Perfil() {
       usuarioId: usuario.usuarioId, nome: usuario.nome, email: usuario.email,
       alturaCm: usuario.alturaCm, dataNascimento: usuario.dataNascimento,
       avatarEstilo: novoEstiloAvatar, avatarSeed: novoSeed,
-    }, token);
+    });
     setUsuario({ ...usuario, avatarEstilo: novoEstiloAvatar, avatarSeed: novoSeed });
     setModalAvatar(false);
   }
@@ -88,7 +87,7 @@ export function Perfil() {
       avatarSeed: usuario.avatarSeed,
       avatarEstilo: usuario.avatarEstilo,
     };
-    await UsuarioAPI.atualizarAsync(payload, token);
+    await UsuarioAPI.atualizarAsync(payload);
     setUsuario({ ...usuario, ...payload });
     setModalEditarUsuario(false);
   }

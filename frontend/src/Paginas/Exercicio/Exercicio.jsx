@@ -14,7 +14,6 @@ export function Exercicios() {
   const [tamanhoPagina] = useState(4);
   const [totalPaginas, setTotalPaginas] = useState(0);
 
-  const token = localStorage.getItem("token");
   const navigate = useNavigate();
 
   async function carregarExercicios() {
@@ -22,13 +21,13 @@ export function Exercicios() {
       setCarregando(true);
 
       if (grupoSelecionado) {
-        const resultado = await ExercicioAPI.listarPorGrupoAsync(grupoSelecionado, token);
+        const resultado = await ExercicioAPI.listarPorGrupoAsync(grupoSelecionado);
         setExercicios(resultado);
         setTotalPaginas(1);
         return;
       }
 
-      const resultado = await ExercicioAPI.listarPaginadoAsync(pagina, tamanhoPagina, token);
+      const resultado = await ExercicioAPI.listarPaginadoAsync(pagina, tamanhoPagina);
       setExercicios(resultado.items);
       setTotalPaginas(resultado.totalPages);
     } catch {
@@ -40,6 +39,7 @@ export function Exercicios() {
 
   useEffect(() => {
     carregarExercicios();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- recarrega apenas quando página/grupo mudam
   }, [pagina, grupoSelecionado]);
 
   const exerciciosFiltrados = exercicios.filter((ex) => {

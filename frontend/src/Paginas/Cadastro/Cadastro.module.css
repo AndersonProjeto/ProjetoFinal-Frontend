@@ -1,28 +1,46 @@
+/* Cadastro na identidade Acadia: preto quente + dourado + serifa. */
 .container {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background-color: #1f1f20;
-  padding: 20px;
-  font-family: 'Segoe UI', system-ui, sans-serif;
-  
+  background: var(--acadia-ink);
+  background-image: radial-gradient(
+    ellipse at 50% -20%,
+    rgba(201, 185, 122, 0.12),
+    transparent 60%
+  );
+  padding: 28px 20px 70px;
+  font-family: var(--font-sans);
 }
 
 .card {
   width: 100%;
-  max-width: 440px;
+  max-width: 460px;
 }
 
-.header {
+.brand {
   text-align: center;
-  margin-bottom: 28px;
+  margin-bottom: 22px;
 }
 
-.title {
-  font-size: 26px;
-  font-weight: 500;
-  color: #f0ede8;
+.brandName {
+  font-family: var(--font-serif);
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--acadia-gold);
+  margin: 0;
+}
+
+.brandTagline {
+  display: block;
+  margin-top: 6px;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.28);
 }
 
 .avatarSection {
@@ -30,78 +48,70 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
-  margin-bottom: 28px;
-}
-
-.avatarWrapper {
-  position: relative;
-  width: 90px;
-  height: 90px;
+  margin-bottom: 24px;
 }
 
 .avatar {
-  width: 120px;
-  height: 120px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
-  border: 2px solid #4a4a50;
-  background-color: #414144;
+  border: 1.5px solid var(--acadia-gold-dim);
+  background-color: rgba(0, 0, 0, 0.4);
   display: block;
 }
 
 .estilos {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
   gap: 6px;
   justify-content: center;
-  max-width: 360px;
+  max-width: 380px;
 }
 
 .estiloBtn {
   font-size: 11px;
-  color: #c0bdbd;
-  background: #1a1a1a;
-  border: 1px solid #222222;
-  padding: 3px 10px;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.4);
+  border: 0.5px solid rgba(255, 255, 255, 0.14);
+  padding: 4px 11px;
   border-radius: 20px;
   cursor: pointer;
   white-space: nowrap;
-  width: fit-content;
+  font-family: inherit;
   transition: 0.15s;
 }
 
 .estiloBtn:hover {
-  background: #2a2a2a;
-  color: #f0ede8;
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.35);
 }
 
 .ativo {
-  background: #111 !important;
-  border-color: #f0ede8 !important;
-  color: #f0ede8 !important;
+  color: var(--acadia-gold) !important;
+  border-color: var(--acadia-gold) !important;
+  background: rgba(201, 185, 122, 0.1) !important;
 }
 
 .avatarBtn {
-  font-size: 13px;
-  color: #bfbfc0;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
   background: transparent;
   border: none;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  gap: 5px;
+  font-family: inherit;
   padding: 2px 0;
-  padding-left: 170px;
 }
 
 .avatarBtn:hover {
-  color: #f0ede8;
+  color: var(--acadia-gold);
 }
 
 .form {
- border-radius: 18px;
-  background: rgba(18, 18, 20, 0.78);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 14px;
+  background: rgba(24, 23, 18, 0.85);
+  border: 0.5px solid rgba(201, 185, 122, 0.25);
   box-shadow: 0 20px 70px rgba(0, 0, 0, 0.6);
   backdrop-filter: blur(10px);
   padding: 28px;
@@ -117,9 +127,10 @@
 }
 
 .label {
-  padding-left: 5px;
-  font-size: 14px;
-  color: #b5b5b8;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
 }
 
 .row {
@@ -130,27 +141,27 @@
 
 .input {
   width: 100%;
-  background: #2b2b2e;
-  border: 1px solid #4a4a50;
-  border-radius: 9px;
-  padding: 10px 12px;
+  background: rgba(0, 0, 0, 0.45);
+  border: 0.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  padding: 11px 12px;
   font-size: 14px;
-  color: #c0bdbd;;
+  color: #fff;
   outline: none;
   font-family: inherit;
-  transition: 0.2s;
+  transition: border-color 0.2s;
 }
 
 .input::placeholder {
-  color: #6a6a72;
+  color: rgba(255, 255, 255, 0.3);
 }
 
 .input:focus {
-  border-color: #000000;
+  border-color: var(--acadia-gold);
 }
 
 .input[type="date"]::-webkit-calendar-picker-indicator {
-  filter: invert(0.5);
+  filter: invert(0.6);
   cursor: pointer;
 }
 
@@ -162,73 +173,57 @@
 .submitBtn {
   margin-top: 6px;
   width: 100%;
-  background: #000000;
-  color: #fff;
-  border: none;
-  border-radius: 10px;
+  background: var(--acadia-gold);
+  color: var(--acadia-ink);
+  border: 0.5px solid var(--acadia-gold-dim);
+  border-radius: 8px;
   padding: 13px;
-  font-size: 15px;
-  font-weight: 500;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
   cursor: pointer;
   font-family: inherit;
-  transition: 0.2s;
+  transition: filter 0.2s;
 }
 
-.submitBtn:hover {
-  background: #111111;
+.submitBtn:hover:not(:disabled) {
+  filter: brightness(1.08);
 }
 
-.submitBtn:active {
-  background: #000000;
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: default;
 }
 
 .loginLink {
   text-align: center;
   font-size: 13px;
-  color: #9a9a9f;
+  color: rgba(255, 255, 255, 0.35);
   margin-top: 16px;
 }
 
-.loginLink span {
-  color: #3a7bd5;
-  cursor: pointer;
+.loginLink a {
+  color: var(--acadia-gold);
+  text-decoration: none;
+  font-weight: 500;
 }
 
-.loginLink span:hover {
+.loginLink a:hover {
   text-decoration: underline;
 }
 
-:global(.react-hot-toast) {
-  font-family: 'Segoe UI', system-ui, sans-serif;
-}
-
-:global(.react-hot-toast > div) {
-  background: #2b2b2e !important;
-  color: #f0ede8 !important;
-  border: 1px solid #4a4a50 !important;
-  border-radius: 10px !important;
-  padding: 12px 14px !important;
-}
-
-:global(.react-hot-toast [data-type="success"]) {
-  border-left: 4px solid #4ade80 !important;
-}
-
-:global(.react-hot-toast [data-type="error"]) {
-  border-left: 4px solid #f87171 !important;
-}
 .footerBar {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 50px;
-  background: #000;
-  color: #888;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 14px;
-  letter-spacing: 1px;
-  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.25);
+  border-top: 0.5px solid rgba(255, 255, 255, 0.06);
 }

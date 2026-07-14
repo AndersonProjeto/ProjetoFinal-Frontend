@@ -18,7 +18,6 @@ import {
 export function Dashboard() {
   const navigate = useNavigate();
   const usuarioId = localStorage.getItem("usuarioId");
-  const token = localStorage.getItem("token");
 
   const [usuario, setUsuario] = useState(null);
   const [resumo, setResumo] = useState(null);
@@ -28,17 +27,17 @@ export function Dashboard() {
   const [modalOpen, setModalOpen] = useState(false);
 
   useEffect(() => {
-    if (!usuarioId || !token) {
+    if (!usuarioId) {
       setLoading(false);
       return;
     }
 
     async function loadData() {
       try {
-        const u = await UsuarioAPI.obterAsync(usuarioId, token);
-        const r = await EvolucaoAPI.resumoAsync(usuarioId, token);
-        const t = await TreinoAPI.listarPorUsuarioAsync(usuarioId, token);
-        const h = await EvolucaoAPI.historicoAsync(usuarioId, token);
+        const u = await UsuarioAPI.obterAsync(usuarioId);
+        const r = await EvolucaoAPI.resumoAsync(usuarioId);
+        const t = await TreinoAPI.listarPorUsuarioAsync(usuarioId);
+        const h = await EvolucaoAPI.historicoAsync(usuarioId);
 
         const historicoFormatado = h
           .map((item) => ({
@@ -62,7 +61,7 @@ export function Dashboard() {
     }
 
     loadData();
-  }, [usuarioId, token]);
+  }, [usuarioId]);
 
   if (!usuarioId) return <p>Você precisa fazer login para acessar o painel.</p>;
   if (loading) return <p>Carregando...</p>;

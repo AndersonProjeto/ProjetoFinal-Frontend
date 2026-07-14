@@ -1,24 +1,36 @@
 .dashboardContainer {
-  padding: 32px 32px 48px;
+  padding: 40px 40px 56px;
   display: flex;
   flex-direction: column;
-  gap: 28px;
-  max-width: 960px;
+  gap: 30px;
+  max-width: 1020px;
 }
 
+/* ── Hero editorial ─────────────────────────────── */
 .header {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
+  animation: fadeUp 0.6s var(--ease-lux) both;
+}
+
+.header::before {
+  content: 'Seu panorama';
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--acadia-gold);
+  font-weight: 600;
 }
 
 .title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 26px;
+  font-family: var(--font-serif);
+  font-size: 34px;
   font-weight: 500;
-  color: #14130f;
+  color: var(--acadia-ink);
   letter-spacing: 0.5px;
   margin: 0;
+  line-height: 1.1;
 }
 
 .subtitle {
@@ -29,26 +41,43 @@
   letter-spacing: 0.2px;
 }
 
+/* fio dourado que se desenha sob o hero */
+.header::after {
+  content: '';
+  width: 64px;
+  height: 1.5px;
+  margin-top: 14px;
+  background: linear-gradient(90deg, var(--acadia-gold), transparent);
+  transform-origin: left;
+  animation: drawLine 0.9s var(--ease-lux) 0.2s both;
+}
+
+/* ── Cartões de métrica ─────────────────────────── */
 .cardsRow {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  background: #d6d1c6;
-  border: 0.5px solid #d6d1c6;
-  border-radius: 10px;
-  overflow: hidden;
-  gap: 0.5px;
+  gap: 14px;
 }
 
 .imcCard,
 .treinosCard,
 .faleComAcadiaCard {
-  background: #f8f5ef;
-  padding: 22px 24px;
+  background: var(--acadia-card);
+  border: var(--hairline);
+  border-radius: 12px;
+  padding: 24px 26px;
   cursor: pointer;
-  transition: background 0.15s;
   position: relative;
+  overflow: hidden;
+  transition: transform 0.35s var(--ease-lux), box-shadow 0.35s var(--ease-lux), border-color 0.35s;
+  animation: fadeUp 0.6s var(--ease-lux) both;
 }
 
+.imcCard          { animation-delay: 0.08s; }
+.treinosCard      { animation-delay: 0.16s; }
+.faleComAcadiaCard{ animation-delay: 0.24s; }
+
+/* fio dourado no topo, desenhado no hover */
 .imcCard::before,
 .treinosCard::before,
 .faleComAcadiaCard::before {
@@ -58,148 +87,192 @@
   left: 0;
   right: 0;
   height: 2px;
+  background: linear-gradient(90deg, var(--acadia-gold), rgba(201, 185, 122, 0.15));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-lux);
 }
-
-.imcCard::before     { background: #c9a84c; }
-.treinosCard::before { background: #8a7fa8; }
-.faleComAcadiaCard::before { background: #6b9e88; }
 
 .imcCard:hover,
 .treinosCard:hover,
 .faleComAcadiaCard:hover {
-  background: #f0ece3;
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--acadia-gold-dim);
+}
+
+.imcCard:hover::before,
+.treinosCard:hover::before,
+.faleComAcadiaCard:hover::before {
+  transform: scaleX(1);
 }
 
 .imcLabel,
 .treinosLabel,
 .faleComAcadiaLabel {
-  font-size: 12px;
-  letter-spacing: 1.5px;
+  font-size: 10px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
-  color: #7a7368;
-  font-weight: 500;
-  margin-bottom: 10px;
+  color: var(--acadia-muted);
+  font-weight: 600;
+  margin-bottom: 14px;
 }
 
 .imcValue,
 .treinosValue {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 32px;
+  font-family: var(--font-serif);
+  font-size: 46px;
   font-weight: 500;
-  padding-bottom: 16px;
-  color: #14130f;
+  padding-bottom: 10px;
+  color: var(--acadia-ink);
   line-height: 1;
+  animation: riseNum 0.7s var(--ease-lux) 0.35s both;
 }
 
 .faleComAcadiaValue {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 16px;
+  font-family: var(--font-sans);
+  font-size: 15px;
   font-weight: 400;
   color: #2e2c28;
-  line-height: 1.5;
+  line-height: 1.55;
 }
 
 .imcTag {
   display: inline-block;
-  font-size: 14px;
-  padding: 3px 9px;
-  border-radius: 2px;
-  margin-top: 8px;
-  letter-spacing: 0.4px;
-  background: #f5eedb;
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 4px 11px;
+  border-radius: 100px;
+  margin-top: 4px;
+  background: rgba(201, 185, 122, 0.14);
   color: #8a6f30;
-  border: 0.5px solid #d4b870;
+  border: 0.5px solid var(--acadia-gold-dim);
 }
 
 .iaArrow {
-  font-size: 13px;
-  color: #6b9e88;
-  margin-top: 6px;
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--acadia-gold);
+  margin-top: 12px;
   display: block;
+  transition: letter-spacing 0.3s var(--ease-lux);
 }
 
+.faleComAcadiaCard:hover .iaArrow {
+  letter-spacing: 2px;
+}
+
+/* ── Gráfico ─────────────────────────────────────── */
 .chartCard {
-  background: #f8f5ef;
-  border: 0.5px solid #d6d1c6;
-  border-radius: 10px;
-  padding: 24px;
+  background: var(--acadia-card);
+  border: var(--hairline);
+  border-radius: 12px;
+  padding: 26px 28px;
+  animation: fadeUp 0.6s var(--ease-lux) 0.3s both;
+  transition: box-shadow 0.35s var(--ease-lux);
+}
+
+.chartCard:hover {
+  box-shadow: var(--shadow-lift);
 }
 
 .chartHeader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
   padding-bottom: 14px;
-  border-bottom: 0.5px solid #d6d1c6;
+  border-bottom: var(--hairline);
 }
 
 .chartTitle {
-  font-size: 9px;
-  letter-spacing: 2.5px;
+  font-size: 10px;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  color: #9a9180;
+  color: var(--acadia-muted);
+  font-weight: 600;
 }
 
+/* ── Ações rápidas ───────────────────────────────── */
 .actionsRow {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 14px;
 }
 
 .actionCard {
-  background: #f8f5ef;
-  border: 0.5px solid #d6d1c6;
-  border-radius: 10px;
-  padding: 18px 20px;
+  background: var(--acadia-card);
+  border: var(--hairline);
+  border-radius: 12px;
+  padding: 20px 24px;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: background 0.15s;
   text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s var(--ease-lux), box-shadow 0.35s var(--ease-lux), border-color 0.35s;
+  animation: fadeUp 0.6s var(--ease-lux) both;
 }
 
+.actionCard:nth-child(1) { animation-delay: 0.38s; }
+.actionCard:nth-child(2) { animation-delay: 0.46s; }
+
 .actionCard:hover {
-  background: #f0ece3;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--acadia-gold-dim);
 }
 
 .actionLabel {
-  font-size: 14px;
+  font-family: var(--font-serif);
+  font-size: 18px;
   font-weight: 500;
-  color: #14130f;
-  letter-spacing: 0.2px;
+  color: var(--acadia-ink);
+  letter-spacing: 0.4px;
 }
 
 .actionDesc {
   font-size: 12px;
   color: #7a7368;
-  margin-top: 2px;
+  margin-top: 3px;
 }
 
 .actionArrow {
-  font-size: 18px;
-  color: #c9b97a;
+  font-size: 20px;
+  color: var(--acadia-gold);
+  transition: transform 0.35s var(--ease-lux);
 }
 
+.actionCard:hover .actionArrow {
+  transform: translateX(6px);
+}
+
+/* ── Modal IMC ───────────────────────────────────── */
 .modalOverlay {
   position: fixed;
   inset: 0;
-  background: rgba(20, 19, 15, 0.6);
+  background: rgba(20, 19, 15, 0.55);
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1000;
-  backdrop-filter: blur(2px);
+  backdrop-filter: blur(6px);
+  animation: fadeIn 0.25s ease both;
 }
 
 .modal {
   width: 90%;
   max-width: 480px;
-  background: #f8f5ef;
-  border: 0.5px solid #d6d1c6;
-  border-radius: 12px;
-  padding: 28px;
+  background: var(--acadia-card);
+  border: 0.5px solid var(--acadia-gold-dim);
+  border-radius: 14px;
+  padding: 30px;
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
+  animation: fadeUp 0.35s var(--ease-lux) both;
 }
 
 .modalHeader {
@@ -208,14 +281,14 @@
   justify-content: space-between;
   margin-bottom: 20px;
   padding-bottom: 14px;
-  border-bottom: 0.5px solid #d6d1c6;
+  border-bottom: var(--hairline);
 }
 
 .modalHeader h2 {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px;
+  font-family: var(--font-serif);
+  font-size: 22px;
   font-weight: 500;
-  color: #14130f;
+  color: var(--acadia-ink);
   margin: 0;
   letter-spacing: 0.5px;
 }
@@ -223,18 +296,19 @@
 .closeBtn {
   background: transparent;
   border: 0.5px solid #c0bab0;
-  color: #9a9180;
+  color: var(--acadia-muted);
   width: 30px;
   height: 30px;
-  border-radius: 6px;
+  border-radius: 50%;
   cursor: pointer;
   font-size: 12px;
-  transition: all 0.15s;
+  transition: all 0.25s var(--ease-lux);
 }
 
 .closeBtn:hover {
-  background: #ede9df;
-  color: #14130f;
+  border-color: var(--acadia-gold);
+  color: var(--acadia-ink);
+  transform: rotate(90deg);
 }
 
 .modalBody {
@@ -246,14 +320,17 @@
 }
 
 .modalBody b {
-  font-weight: 500;
-  color: #14130f;
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--acadia-ink);
 }
 
 .modalRow {
   display: flex;
   justify-content: space-between;
-  padding: 8px 0;
+  align-items: baseline;
+  padding: 9px 0;
   border-bottom: 0.5px solid #e8e4db;
 }
 
@@ -263,10 +340,10 @@
 
 .modalExplanation {
   margin-top: 14px;
-  padding: 14px 16px;
-  border: 0.5px solid #d6d1c6;
-  border-left: 2px solid #c9b97a;
-  border-radius: 4px;
+  padding: 16px 18px;
+  border: var(--hairline);
+  border-left: 2px solid var(--acadia-gold);
+  border-radius: 6px;
   background: #f3efe5;
   white-space: pre-line;
   line-height: 1.7;
@@ -277,7 +354,7 @@
 /* ── Responsive ──────────────────────────────────── */
 @media (max-width: 768px) {
   .dashboardContainer {
-    padding: 20px 16px 40px;
+    padding: 24px 16px 44px;
     gap: 20px;
   }
 
@@ -287,5 +364,9 @@
 
   .actionsRow {
     grid-template-columns: 1fr;
+  }
+
+  .title {
+    font-size: 28px;
   }
 }

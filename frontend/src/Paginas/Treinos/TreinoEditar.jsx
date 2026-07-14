@@ -9,7 +9,6 @@ import TreinoExercicioAPI from "../../client/TreinoExercicioAPI";
 export function TreinoEditar() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
 
   const [nomeTreino, setNomeTreino] = useState("");
   const [grupoMuscular, setGrupoMuscular] = useState("");
@@ -20,13 +19,13 @@ export function TreinoEditar() {
   useEffect(() => {
     async function carregarTreino() {
       try {
-        const treino = await TreinoAPI.obterAsync(id, token);
+        const treino = await TreinoAPI.obterAsync(id);
         setNomeTreino(treino.nomeTreino);
         setGrupoMuscular(treino.grupoMuscular || "");
-        const treinoExercicios = await TreinoExercicioAPI.listarPorTreinoAsync(id, token);
+        const treinoExercicios = await TreinoExercicioAPI.listarPorTreinoAsync(id);
         const completos = await Promise.all(
           treinoExercicios.map(async (te) => {
-            const exercicio = await ExercicioAPI.obterAsync(te.exercicioId, token);
+            const exercicio = await ExercicioAPI.obterAsync(te.exercicioId);
             return {
               treinoExercicioId: te.treinoExercicioId,
               exercicioId: te.exercicioId,
@@ -48,7 +47,7 @@ export function TreinoEditar() {
 
   useEffect(() => {
     if (!grupoMuscular) return;
-    ExercicioAPI.listarPorGrupoAsync(grupoMuscular, token).then(setExerciciosDisponiveis);
+    ExercicioAPI.listarPorGrupoAsync(grupoMuscular).then(setExerciciosDisponiveis);
   }, [grupoMuscular]);
 
   function adicionarExercicio(ex) {
@@ -73,20 +72,18 @@ export function TreinoEditar() {
 
   async function salvarEdicao() {
     try {
-      await TreinoAPI.atualizarAsync({ treinoId: id, nomeTreino }, token);
+      await TreinoAPI.atualizarAsync({ treinoId: id, nomeTreino });
       for (const treinoExercicioId of removidos) {
-        await TreinoExercicioAPI.deletarAsync(treinoExercicioId, token);
+        await TreinoExercicioAPI.deletarAsync(treinoExercicioId);
       }
       for (const ex of exerciciosTreino) {
         if (ex.treinoExercicioId) {
           await TreinoExercicioAPI.atualizarAsync(
-            { treinoExercicioId: ex.treinoExercicioId, series: ex.series, repeticoes: ex.repeticoes, descansoSegundos: ex.descansoSegundos },
-            token
+            { treinoExercicioId: ex.treinoExercicioId, series: ex.series, repeticoes: ex.repeticoes, descansoSegundos: ex.descansoSegundos }
           );
         } else {
           await TreinoExercicioAPI.adicionarAsync(
-            { treinoId: id, exercicioId: ex.exercicioId, series: ex.series, repeticoes: ex.repeticoes, descansoSegundos: ex.descansoSegundos },
-            token
+            { treinoId: id, exercicioId: ex.exercicioId, series: ex.series, repeticoes: ex.repeticoes, descansoSegundos: ex.descansoSegundos }
           );
         }
       }

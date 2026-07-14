@@ -12,31 +12,23 @@ const UsuarioAPI = {
     return response.data;
   },
 
-  async obterAsync(usuarioId, token) {
-    const response = await client.get(`/Usuarios/${usuarioId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  async obterAsync(usuarioId) {
+    const response = await client.get(`/Usuarios/${usuarioId}`);
     return response.data;
   },
 
-  async atualizarAsync(dados, token) {
-    const response = await client.put("/Usuarios", dados, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  async atualizarAsync(dados) {
+    const response = await client.put("/Usuarios", dados);
     return response.data;
   },
 
-  async alterarSenhaAsync(dados, token) {
-    const response = await client.patch("/Usuarios/alterar-senha", dados, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  async alterarSenhaAsync(dados) {
+    const response = await client.patch("/Usuarios/alterar-senha", dados);
     return response.data;
   },
 
-  async deletarAsync(id, token) {
-    const response = await client.delete(`/Usuarios/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  async deletarAsync(id) {
+    const response = await client.delete(`/Usuarios/${id}`);
     return response.data;
   },
 };

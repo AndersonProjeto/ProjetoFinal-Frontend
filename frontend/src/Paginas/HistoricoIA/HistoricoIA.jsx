@@ -6,7 +6,6 @@ import { SearchBar } from "../../Componentes/Pesquisa/Pesquisa";
 
 export function HistoricoIA() {
   const usuarioId = localStorage.getItem("usuarioId");
-  const token = localStorage.getItem("token");
 
   const [historico, setHistorico] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -16,10 +15,10 @@ export function HistoricoIA() {
   useEffect(() => {
     async function carregar() {
       try {
-        const dados = await IAAPI.listarInteracoesAsync(usuarioId, token);
+        const dados = await IAAPI.listarInteracoesAsync(usuarioId);
         setHistorico(dados);
 
-        const usuario = await UsuarioAPI.obterAsync(usuarioId, token);
+        const usuario = await UsuarioAPI.obterAsync(usuarioId);
         const url = `https://api.dicebear.com/7.x/${usuario.avatarEstilo}/svg?seed=${usuario.avatarSeed}`;
         setAvatarUrl(url);
       } catch (err) {
@@ -29,10 +28,10 @@ export function HistoricoIA() {
       }
     }
 
-    if (usuarioId && token) {
+    if (usuarioId) {
       carregar();
     }
-  }, [usuarioId, token]);
+  }, [usuarioId]);
 
 
   const historicoFiltrado = historico.filter((item) =>

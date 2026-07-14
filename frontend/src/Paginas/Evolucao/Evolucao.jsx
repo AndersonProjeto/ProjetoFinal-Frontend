@@ -6,47 +6,9 @@ import {
 import EvolucaoAPI from "../../client/EvolucaoAPI";
 import styles from "./Evolucao.module.css";
 
-export function Evolucao() {
-  const navigate = useNavigate();
-  const location = useLocation();
-  const token = localStorage.getItem("token");
-  const usuarioId = localStorage.getItem("usuarioId");
-
-  const [resumo, setResumo] = useState(null);
-  const [historico, setHistorico] = useState([]);
-  const [streak, setStreak] = useState(0);
-
-  useEffect(() => {
-    if (!token || !usuarioId) return;
-    async function carregar() {
-      const r = await EvolucaoAPI.resumoAsync(usuarioId, token);
-      const h = await EvolucaoAPI.historicoAsync(usuarioId, token);
-      setResumo(r);
-      setHistorico(h);
-      setStreak(calcularStreak(h));
-    }
-    carregar();
-  }, [token, usuarioId, location.state?.atualizou]);
-
-  const calcularStreak = (dados) => {
-    if (!dados?.length) return 0;
-    const dias = [...new Set(dados.map((h) => new Date(h.dataRegistro).toISOString().split("T")[0]))]
-      .sort((a, b) => new Date(b) - new Date(a));
-    let total = 1;
-    for (let i = 0; i < dias.length - 1; i++) {
-      const diff = (new Date(dias[i]) - new Date(dias[i + 1])) / (1000 * 60 * 60 * 24);
-      if (diff === 1) total++;
-      else break;
-    }
-    return total;
-  };
-
-  const montarDados = (campo) =>
-    historico.slice()
-      .sort((a, b) => new Date(a.dataRegistro) - new Date(b.dataRegistro))
-      .map((h) => ({ data: h.dataRegistro, valor: h[campo] ?? 0 }));
-
-  const Grafico = ({ titulo, dados, unidade }) => (
+// Cartão de gráfico (fora do componente para não ser recriado a cada render).
+function Grafico({ titulo, dados, unidade }) {
+  return (
     <div className={styles.graphCard}>
       <div className={styles.graphHeader}>
         <span className={styles.graphLabel}>{titulo}</span>
@@ -90,6 +52,47 @@ export function Evolucao() {
       </ResponsiveContainer>
     </div>
   );
+}
+
+// Dias consecutivos com registro de evolução (função pura, fora do componente).
+function calcularStreak(dados) {
+  if (!dados?.length) return 0;
+  const dias = [...new Set(dados.map((h) => new Date(h.dataRegistro).toISOString().split("T")[0]))]
+    .sort((a, b) => new Date(b) - new Date(a));
+  let total = 1;
+  for (let i = 0; i < dias.length - 1; i++) {
+    const diff = (new Date(dias[i]) - new Date(dias[i + 1])) / (1000 * 60 * 60 * 24);
+    if (diff === 1) total++;
+    else break;
+  }
+  return total;
+}
+
+export function Evolucao() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const usuarioId = localStorage.getItem("usuarioId");
+
+  const [resumo, setResumo] = useState(null);
+  const [historico, setHistorico] = useState([]);
+  const [streak, setStreak] = useState(0);
+
+  useEffect(() => {
+    if (!usuarioId) return;
+    async function carregar() {
+      const r = await EvolucaoAPI.resumoAsync(usuarioId);
+      const h = await EvolucaoAPI.historicoAsync(usuarioId);
+      setResumo(r);
+      setHistorico(h);
+      setStreak(calcularStreak(h));
+    }
+    carregar();
+  }, [usuarioId, location.state?.atualizou]);
+
+  const montarDados = (campo) =>
+    historico.slice()
+      .sort((a, b) => new Date(a.dataRegistro) - new Date(b.dataRegistro))
+      .map((h) => ({ data: h.dataRegistro, valor: h[campo] ?? 0 }));
 
   return (
     <div className={styles.container}>

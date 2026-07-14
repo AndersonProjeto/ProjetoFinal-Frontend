@@ -1,56 +1,42 @@
 import { client } from "./client";
 const EvolucaoAPI = {
-  async criarAsync(dados, token) {
-    const response = await client.post("/Evolucao", dados, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  async criarAsync(dados) {
+    const response = await client.post("/Evolucao", dados);
     return response.data;
   },
 
-  async atualizarAsync(dados, token) {
-    const response = await client.put("/Evolucao", dados, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  async atualizarAsync(dados) {
+    const response = await client.put("/Evolucao", dados);
     return response.data;
   },
 
-  async ultimaAsync(usuarioId, token) {
+  async ultimaAsync(usuarioId) {
     const response = await client.get(
-      `/Evolucao/usuario/${usuarioId}/ultima`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+      `/Evolucao/usuario/${usuarioId}/ultima`);
     return response.data;
   },
 
-  async resumoAsync(usuarioId, token) {
+  async resumoAsync(usuarioId) {
     const response = await client.get(
-      `/Evolucao/usuario/${usuarioId}/resumo`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+      `/Evolucao/usuario/${usuarioId}/resumo`);
     return response.data;
   },
 
-  async historicoAsync(usuarioId, token) {
+  async historicoAsync(usuarioId) {
   const response = await client.get(
-    `/Evolucao/usuario/${usuarioId}/historico`,
-    { headers: { Authorization: `Bearer ${token}` } }
-  );
+    `/Evolucao/usuario/${usuarioId}/historico`);
   return response.data;
 },
 
-  async pesoInicialAsync(usuarioId, token) {
+  async pesoInicialAsync(usuarioId) {
     const response = await client.get(
-      `/Evolucao/usuario/${usuarioId}/peso-inicial`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+      `/Evolucao/usuario/${usuarioId}/peso-inicial`);
     return response.data;
   },
 
-  async diferencaPesoAsync(usuarioId, token) {
+  async diferencaPesoAsync(usuarioId) {
     const response = await client.get(
-      `/Evolucao/usuario/${usuarioId}/diferenca-peso`,
-      { headers: { Authorization: `Bearer ${token}` } }
-    );
+      `/Evolucao/usuario/${usuarioId}/diferenca-peso`);
     return response.data;
   },
 };

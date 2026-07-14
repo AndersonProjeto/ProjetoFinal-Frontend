@@ -7,7 +7,6 @@ import ExercicioAPI from "../../client/ExercicioAPI";
 
 export function TreinoAdicionar() {
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
   const usuarioId = localStorage.getItem("usuarioId");
 
   const [nomeTreino, setNomeTreino] = useState("");
@@ -18,7 +17,7 @@ export function TreinoAdicionar() {
   useEffect(() => {
     if (!grupoMuscular) return;
     async function carregar() {
-      const dados = await ExercicioAPI.listarPorGrupoAsync(grupoMuscular, token);
+      const dados = await ExercicioAPI.listarPorGrupoAsync(grupoMuscular);
       setExerciciosDisponiveis(dados);
     }
     carregar();
@@ -50,15 +49,14 @@ export function TreinoAdicionar() {
       return;
     }
     try {
-      const treinoId = await TreinoAPI.criarAsync({ nomeTreino, usuarioId }, token);
+      const treinoId = await TreinoAPI.criarAsync({ nomeTreino, usuarioId });
       if (!treinoId || treinoId <= 0) {
         alert("Erro: treino inválido ou não criado corretamente.");
         return;
       }
       for (const ex of exerciciosTreino) {
         await TreinoExercicioAPI.adicionarAsync(
-          { treinoId, exercicioId: ex.exercicioId, series: ex.series, repeticoes: ex.repeticoes, descansoSegundos: ex.descansoSegundos },
-          token
+          { treinoId, exercicioId: ex.exercicioId, series: ex.series, repeticoes: ex.repeticoes, descansoSegundos: ex.descansoSegundos }
         );
       }
       navigate("/app/treinos");

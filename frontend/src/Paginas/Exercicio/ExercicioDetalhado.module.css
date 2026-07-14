@@ -1,5 +1,5 @@
 .page {
-  padding: 36px;
+  padding: 40px;
   min-height: 100vh;
 }
 
@@ -11,20 +11,22 @@
   align-items: start;
 }
 
-/* ── Coluna do vídeo (esquerda, maior) ───────────── */
+/* ── Coluna do vídeo ─────────────────────────────── */
 .videoCol {
   position: sticky;
   top: 36px;
+  animation: fadeUp 0.6s var(--ease-lux) both;
 }
 
 .videoWrapper {
   position: relative;
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 10px;
+  border-radius: 14px;
   overflow: hidden;
-  border: 0.5px solid #d6d1c6;
-  background: #14130f;
+  border: 0.5px solid var(--acadia-gold-dim);
+  background: var(--acadia-ink);
+  box-shadow: 0 20px 60px rgba(20, 19, 15, 0.18);
 }
 
 .iframe {
@@ -39,8 +41,8 @@
 .videoPlaceholder {
   width: 100%;
   aspect-ratio: 16 / 9;
-  border-radius: 10px;
-  border: 0.5px solid #d6d1c6;
+  border-radius: 14px;
+  border: 0.5px dashed #c0bab0;
   background: #f0ece3;
   display: flex;
   flex-direction: column;
@@ -51,33 +53,48 @@
 
 .placeholderIcon {
   font-size: 36px;
-  color: #c8c3b8;
+  color: var(--acadia-gold-dim);
 }
 
 .placeholderText {
   font-size: 14px;
-  color: #9a9180;
-  font-family: 'DM Sans', sans-serif;
+  color: var(--acadia-muted);
+  font-family: var(--font-sans);
 }
 
-/* ── Coluna de informações (direita, fixa) ───────── */
+/* ── Coluna de informações ───────────────────────── */
 .infoCol {
-  background: #f8f5ef;
-  border: 0.5px solid #d6d1c6;
-  border-radius: 10px;
-  padding: 28px;
+  background: var(--acadia-card);
+  border: var(--hairline);
+  border-radius: 14px;
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 0.6s var(--ease-lux) 0.12s both;
+}
+
+.infoCol::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--acadia-gold), rgba(201, 185, 122, 0.15));
+  transform-origin: left;
+  animation: drawLine 0.9s var(--ease-lux) 0.35s both;
 }
 
 /* ── Título ──────────────────────────────────────── */
 .title {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 26px;
+  font-family: var(--font-serif);
+  font-size: 28px;
   font-weight: 500;
-  color: #14130f;
+  color: var(--acadia-ink);
   letter-spacing: 0.5px;
   margin: 0 0 20px;
   padding-bottom: 16px;
-  border-bottom: 0.5px solid #d6d1c6;
+  border-bottom: var(--hairline);
 }
 
 /* ── Info rows ───────────────────────────────────── */
@@ -100,16 +117,16 @@
 
 .label {
   font-size: 10px;
-  letter-spacing: 2px;
+  letter-spacing: 2.2px;
   text-transform: uppercase;
-  color: #9a9180;
-  font-weight: 500;
+  color: var(--acadia-muted);
+  font-weight: 600;
 }
 
 .value {
   font-size: 15px;
   color: #2e2c28;
-  line-height: 1.65;
+  line-height: 1.7;
   font-weight: 400;
 }
 
@@ -119,22 +136,25 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 20px;
+  padding: 10px 22px;
   border: 0.5px solid #c8c3b8;
   background: transparent;
   color: #4a4840;
-  border-radius: 8px;
-  font-family: 'DM Sans', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
+  border-radius: 100px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
   cursor: pointer;
-  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  transition: all 0.25s var(--ease-lux);
 }
 
 .button:hover {
-  background: #f0ece3;
-  border-color: #c9b97a;
-  color: #14130f;
+  border-color: var(--acadia-gold);
+  color: var(--acadia-ink);
+  background: rgba(201, 185, 122, 0.08);
+  transform: translateX(-3px);
 }
 
 /* ── Loading ─────────────────────────────────────── */
@@ -148,8 +168,8 @@
 .spinner {
   width: 28px;
   height: 28px;
-  border: 2px solid #d6d1c6;
-  border-top-color: #c9b97a;
+  border: 2px solid var(--acadia-line);
+  border-top-color: var(--acadia-gold);
   border-radius: 50%;
   animation: spin 0.7s linear infinite;
 }
@@ -161,7 +181,7 @@
 /* ── Responsive ──────────────────────────────────── */
 @media (max-width: 900px) {
   .page {
-    padding: 20px 16px;
+    padding: 24px 16px;
   }
 
   .layout {
@@ -173,10 +193,10 @@
   }
 
   .infoCol {
-    padding: 22px 18px;
+    padding: 24px 18px;
   }
 
   .title {
-    font-size: 22px;
+    font-size: 23px;
   }
 }

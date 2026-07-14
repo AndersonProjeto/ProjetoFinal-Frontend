@@ -32,7 +32,6 @@ export function ExercicioDetalhado() {
   const [exercicio, setExercicio] = useState(exercicioResumido || null);
   const [carregando, setCarregando] = useState(true);
 
-  const token = localStorage.getItem("token");
 
   useEffect(() => {
     async function buscarCompleto() {
@@ -44,7 +43,7 @@ export function ExercicioDetalhado() {
 
       try {
         // Busca o exercício completo pela API — garante que videoUrl vem junto
-        const completo = await ExercicioAPI.obterAsync(id, token);
+        const completo = await ExercicioAPI.obterAsync(id);
         setExercicio(completo);
       } catch {
         // se falhar, usa o resumido que já temos do location.state
@@ -54,6 +53,7 @@ export function ExercicioDetalhado() {
     }
 
     buscarCompleto();
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- roda uma vez com o exercício vindo do location.state
   }, []);
 
   if (carregando) {
