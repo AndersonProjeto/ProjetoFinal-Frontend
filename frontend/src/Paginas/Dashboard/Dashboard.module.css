@@ -1,154 +1,315 @@
 .dashboardContainer {
-  padding: 24px;
+  padding: 40px 40px 56px;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 30px;
+  max-width: 1020px;
+  margin: 0 auto;
+}
+
+/* ── Hero editorial ─────────────────────────────── */
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  animation: fadeUp 0.6s var(--ease-lux) both;
+}
+
+.header::before {
+  content: 'Seu panorama';
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--acadia-gold);
+  font-weight: 600;
 }
 
 .title {
-  font-size: 28px;
-  font-weight: 700;
-  color: #000000;
+  font-family: var(--font-serif);
+  font-size: 44px;
+  font-weight: 600;
+  color: var(--acadia-ink);
+  letter-spacing: 0.3px;
   margin: 0;
+  line-height: 1.1;
 }
 
 .subtitle {
-  font-size: 16px;
-  color: #000000;
-  margin-top: 6px;
+  font-size: 17px;
+  font-weight: 400;
+  color: #5a5650;
+  margin: 0;
+  letter-spacing: 0.2px;
 }
 
-/* --------------------
-   CARDS EM LINHA
--------------------- */
+/* fio dourado que se desenha sob o hero */
+.header::after {
+  content: '';
+  width: 64px;
+  height: 1.5px;
+  margin-top: 14px;
+  background: linear-gradient(90deg, var(--acadia-gold), transparent);
+  transform-origin: left;
+  animation: drawLine 0.9s var(--ease-lux) 0.2s both;
+}
+
+/* ── Cartões de métrica ─────────────────────────── */
 .cardsRow {
-  display: flex;
-  gap: 16px;
-  align-items: stretch;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 14px;
 }
 
 .imcCard,
 .treinosCard,
 .faleComAcadiaCard {
-  width: 160px;
-  padding: 18px;
-  border-radius: 16px;
-  background: #ffffff;
-  border: 1px solid #1f1f1f;
+  background: var(--acadia-card);
+  border: var(--hairline);
+  border-radius: 12px;
+  padding: 24px 26px;
   cursor: pointer;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s var(--ease-lux), box-shadow 0.35s var(--ease-lux), border-color 0.35s;
+  animation: fadeUp 0.6s var(--ease-lux) both;
+}
+
+.imcCard          { animation-delay: 0.08s; }
+.treinosCard      { animation-delay: 0.16s; }
+.faleComAcadiaCard{ animation-delay: 0.24s; }
+
+/* fio dourado no topo, desenhado no hover */
+.imcCard::before,
+.treinosCard::before,
+.faleComAcadiaCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--acadia-gold), rgba(201, 185, 122, 0.15));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.5s var(--ease-lux);
+}
+
+.imcCard:hover,
+.treinosCard:hover,
+.faleComAcadiaCard:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--acadia-gold-dim);
+}
+
+.imcCard:hover::before,
+.treinosCard:hover::before,
+.faleComAcadiaCard:hover::before {
+  transform: scaleX(1);
 }
 
 .imcLabel,
 .treinosLabel,
 .faleComAcadiaLabel {
-  font-size: 18px;
-  color: #000000;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #5a5650;
+  font-weight: 700;
+  margin-bottom: 10px;
 }
 
 .imcValue,
-.treinosValue,
-.faleComAcadiaValue {
-  font-size: 34px;
-  font-weight: 700;
-  color: #000000;
+.treinosValue {
+  font-family: var(--font-serif);
+  font-size: 48px;
+  font-weight: 600;
+  padding-bottom: 16px;
+  color: var(--acadia-ink);
+  line-height: 1;
+  animation: riseNum 0.7s var(--ease-lux) 0.35s both;
+  font-variant-numeric: tabular-nums;
 }
 
-/* --------------------
-   GRÁFICO MENOR
--------------------- */
+.faleComAcadiaValue {
+  font-family: var(--font-sans);
+  font-size: 17px;
+  font-weight: 400;
+  color: #2e2c28;
+  line-height: 1.55;
+}
+
+.imcTag {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  padding: 4px 11px;
+  border-radius: 100px;
+  margin-top: 4px;
+  background: rgba(201, 185, 122, 0.14);
+  color: #8a6f30;
+  border: 0.5px solid var(--acadia-gold-dim);
+}
+
+.iaArrow {
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--acadia-gold);
+  margin-top: 12px;
+  display: block;
+  transition: letter-spacing 0.3s var(--ease-lux);
+}
+
+.faleComAcadiaCard:hover .iaArrow {
+  letter-spacing: 2px;
+}
+
+/* ── Gráfico ─────────────────────────────────────── */
 .chartCard {
-  width: 100%;
-  max-width: 520px;
-  padding: 18px;
-  border-radius: 16px;
-  background: #ffffff;
-  border: 1px solid #1f1f1f;
+  background: var(--acadia-card);
+  border: var(--hairline);
+  border-radius: 12px;
+  padding: 26px 28px;
+  animation: fadeUp 0.6s var(--ease-lux) 0.3s both;
+  transition: box-shadow 0.35s var(--ease-lux);
+}
+
+.chartCard:hover {
+  box-shadow: var(--shadow-lift);
+}
+
+.chartHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+  padding-bottom: 14px;
+  border-bottom: var(--hairline);
 }
 
 .chartTitle {
-  font-size: 16px;
+  font-size: 12px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #5a5650;
   font-weight: 700;
-  margin-bottom: 12px;
-  color: #000000;
 }
 
-/* MODAL */
-.modalOverlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.65);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+/* ── Ações rápidas ───────────────────────────────── */
+.actionsRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
 }
 
-.modal {
-  width: 90%;
-  max-width: 520px;
-  background: #ffffff;
-  border: 1px solid #1f1f1f;
-  border-radius: 18px;
-  padding: 18px;
-}
-
-.modalHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 12px;
-}
-
-.modalHeader h2 {
-  margin: 0;
-  color: #000000;
-}
-
-.closeBtn {
-  background: transparent;
-  border: 1px solid #2b2b2b;
-  color: #000000;
-  width: 34px;
-  height: 34px;
-  border-radius: 10px;
+.actionCard {
+  background: var(--acadia-card);
+  border: var(--hairline);
+  border-radius: 12px;
+  padding: 20px 24px;
   cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.35s var(--ease-lux), box-shadow 0.35s var(--ease-lux), border-color 0.35s;
+  animation: fadeUp 0.6s var(--ease-lux) both;
+}
+
+.actionCard:nth-child(1) { animation-delay: 0.38s; }
+.actionCard:nth-child(2) { animation-delay: 0.46s; }
+.actionCard:nth-child(3) { animation-delay: 0.54s; }
+
+.actionCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lift);
+  border-color: var(--acadia-gold-dim);
+}
+
+.actionLabel {
+  font-family: var(--font-serif);
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--acadia-ink);
+  letter-spacing: 0.4px;
+}
+
+.actionDesc {
+  font-size: 13px;
+  color: #5a5650;
+  margin-top: 3px;
+}
+
+.actionArrow {
+  font-size: 20px;
+  color: var(--acadia-gold);
+  transition: transform 0.35s var(--ease-lux);
+}
+
+.actionCard:hover .actionArrow {
+  transform: translateX(6px);
 }
 
 .modalBody {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  color: #000000;
-  font-size: 14px;
+  font-size: 13px;
+  color: #4a4840;
+}
+
+.modalBody b {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--acadia-ink);
+}
+
+.modalRow {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 9px 0;
+  border-bottom: 0.5px solid #e8e4db;
+}
+
+.modalRow:last-of-type {
+  border-bottom: none;
 }
 
 .modalExplanation {
-  margin-top: 12px;
-  padding: 12px;
-  border: 1px solid #555454;
-  border-radius: 14px;
-  background: #ffffff;
+  margin-top: 14px;
+  padding: 16px 18px;
+  border: var(--hairline);
+  border-left: 2px solid var(--acadia-gold);
+  border-radius: 6px;
+  background: #f3efe5;
   white-space: pre-line;
-  line-height: 1.6;
+  line-height: 1.7;
+  font-size: 13px;
+  color: #4a4840;
 }
 
-/* RESPONSIVO */
+/* ── Responsive ──────────────────────────────────── */
 @media (max-width: 768px) {
   .dashboardContainer {
-    padding: 16px;
+    padding: 24px 16px 44px;
+    gap: 20px;
   }
 
   .cardsRow {
-    flex-direction: column;
-    gap: 12px;
+    grid-template-columns: 1fr;
   }
 
-  .chartCard {
-    max-width: 90%;
+  .actionsRow {
+    grid-template-columns: 1fr;
   }
- 
+
+  .title {
+    font-size: 30px;
+  }
 }

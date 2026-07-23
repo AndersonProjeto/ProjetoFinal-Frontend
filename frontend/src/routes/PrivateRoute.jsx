@@ -1,10 +1,9 @@
 import { Navigate } from "react-router-dom";
+import { sessao } from "../client/sessao";
 
 export function PrivateRoute({ children }) {
-  const token = localStorage.getItem("token");
-
-  if (!token) {
-    return <Navigate to="/" />;
+  if (!sessao.autenticado()) {
+    return <Navigate to="/" replace />;
   }
 
   return children;

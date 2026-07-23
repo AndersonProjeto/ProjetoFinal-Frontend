@@ -1,16 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { FiPlus, FiEdit3, FiTrash2, FiArrowRight } from "react-icons/fi";
 import style from "./Treinos.module.css";
 import { SearchBar } from "../../Componentes/Pesquisa/Pesquisa";
+import { IconEdit, IconTrash, IconPlus } from "../../Componentes/Icones/Icones";
+import { Spinner } from "../../Componentes/Spinner/Spinner";
+import { formatarData } from "../../utils/formatarData";
+import { sessao } from "../../client/sessao";
 import TreinoAPI from "../../client/TreinoAPI";
-
-function formatarDataSemFuso(dataUtc) {
-  if (!dataUtc) return "Sem data";
-
-  const [ano, mes, dia] = dataUtc.split("T")[0].split("-");
-  return `${dia}/${mes}/${ano}`;
-}
 
 export function Treinos() {
   const [treinos, setTreinos] = useState([]);
@@ -18,13 +14,11 @@ export function Treinos() {
   const [carregando, setCarregando] = useState(true);
 
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
 
   async function carregarTreinos() {
     try {
       setCarregando(true);
-      const usuarioId = localStorage.getItem("usuarioId");
-      const resultado = await TreinoAPI.listarPorUsuarioAsync(usuarioId, token);
+      const resultado = await TreinoAPI.listarPorUsuarioAsync(sessao.usuarioId());
       setTreinos(resultado);
     } catch {
       alert("Erro ao carregar treinos.");
@@ -41,95 +35,96 @@ export function Treinos() {
     const termo = busca.toLowerCase();
     return (
       treino.nomeTreino?.toLowerCase().includes(termo) ||
-      formatarDataSemFuso(treino.dataCriacao).includes(termo)
+      formatarData(treino.dataCriacao, "Sem data").includes(termo)
     );
   });
 
   return (
     <div className={style.container}>
-      <div className={style.box}>
-        <h2 className={style.title}>Treinos</h2>
-
-        <div className={style.toolbar}>
-          <SearchBar
-            value={busca}
-            onChange={(e) => setBusca(e.target.value)}
-            placeholder="Buscar por nome ou data..."
-            width="100%"
-          />
-
-          <Link className={style.botao_novo} to="/app/treinos/novo">
-            <FiPlus /> Novo Treino
-          </Link>
+      <div className={style.header}>
+        <div>
+          <h1 className={style.title}>Treinos</h1>
+          <p className={style.subtitle}>Gerencie suas sessões de treinamento.</p>
         </div>
 
-        <div className={style.grid}>
-          {carregando ? (
-            <div className={style.loading}>
-              <div className={style.spinner} />
-            </div>
-          ) : treinosFiltrados.length > 0 ? (
-            treinosFiltrados.map((treino) => (
-              <div
-                key={treino.treinoId}
-                className={style.card}
-                onClick={() =>
-                navigate(`/app/treinos/detalhes/${treino.treinoId}`)
-                }
-              >
-                <div className={style.cardHeader}>
-                  <div>
-                    <h3 className={style.cardTitle}>{treino.nomeTreino}</h3>
-                    <span className={style.cardSubtitle}>
-                      Criado em: {formatarDataSemFuso(treino.dataCriacao)}
-                    </span>
-                  </div>
-
-                  <div className={style.acoes}>
-                    <button
-                      className={`${style.btnIcon} ${style.btnEdit}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                       navigate(`/app/treinos/editar/${treino.treinoId}`);
-                      }}
-                    >
-                      <FiEdit3 />
-                    </button>
-
-                    <button
-                      className={`${style.btnIcon} ${style.btnDelete}`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        if (window.confirm("Deseja excluir esse treino?")) {
-                          TreinoAPI.deletarAsync(treino.treinoId, token)
-                            .then(carregarTreinos)
-                            .catch(() =>
-                              alert("Erro ao excluir treino")
-                            );
-                        }
-                      }}
-                    >
-                      <FiTrash2 />
-                    </button>
-                  </div>
-                </div>
-
-                <p className={style.cardDescription}>
-                  {treino.quantidadeExercicios
-                    ? `${treino.quantidadeExercicios} exercícios`
-                    : "Clique para ver detalhes"}
-                </p>
-              </div>
-            ))
-         ) : (
-          <div className={style.mensagem_vazia}>
-            <h4>Nenhum treino encontrado</h4>
-            <p>Tente ajustar a busca ou criar um novo treino.</p>
-          </div>
-        )}
-
-        </div>
+        <Link className={style.botaoNovo} to="/app/treinos/novo">
+          <IconPlus size={14} stroke="#f8f5ef" />
+          Novo Treino
+        </Link>
       </div>
+
+      <div className={style.toolbar}>
+        <SearchBar
+          value={busca}
+          onChange={(e) => setBusca(e.target.value)}
+          placeholder="Buscar por nome ou data..."
+          width="100%"
+        />
+      </div>
+
+      {carregando ? (
+        <div className={style.loading}>
+          <Spinner size={26} />
+        </div>
+      ) : treinosFiltrados.length > 0 ? (
+        <div className={style.grid}>
+          {treinosFiltrados.map((treino) => (
+            <div
+              key={treino.treinoId}
+              className={style.card}
+              onClick={() => navigate(`/app/treinos/detalhes/${treino.treinoId}`)}
+            >
+              <div className={style.cardTop}>
+                <span className={style.cardLabel}>Treino</span>
+                <div className={style.acoes}>
+                  <button
+                    className={`${style.btnIcon} ${style.btnEdit}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      navigate(`/app/treinos/editar/${treino.treinoId}`);
+                    }}
+                    title="Editar"
+                  >
+                    <IconEdit size={14} stroke="#3a5fa0" />
+                  </button>
+                  <button
+                    className={`${style.btnIcon} ${style.btnDelete}`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      if (window.confirm("Deseja excluir esse treino?")) {
+                        TreinoAPI.deletarAsync(treino.treinoId)
+                          .then(carregarTreinos)
+                          .catch(() => alert("Erro ao excluir treino"));
+                      }
+                    }}
+                    title="Excluir"
+                  >
+                    <IconTrash size={14} stroke="#b94040" />
+                  </button>
+                </div>
+              </div>
+
+              <h3 className={style.cardTitle}>{treino.nomeTreino}</h3>
+
+              <div className={style.cardFooter}>
+                <span className={style.cardDate}>
+                  {formatarData(treino.dataCriacao, "Sem data")}
+                </span>
+                {treino.quantidadeExercicios != null && (
+                  <span className={style.cardBadge}>
+                    {treino.quantidadeExercicios} exercícios
+                  </span>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div className={style.vazio}>
+          <p className={style.vazioTitulo}>Nenhum treino encontrado</p>
+          <p className={style.vazioDesc}>Tente ajustar a busca ou crie um novo treino.</p>
+        </div>
+      )}
     </div>
   );
 }

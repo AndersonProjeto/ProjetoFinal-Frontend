@@ -1,0 +1,12 @@
+.spinner {
+  border: 2px solid var(--acadia-line);
+  border-top-color: var(--acadia-gold);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

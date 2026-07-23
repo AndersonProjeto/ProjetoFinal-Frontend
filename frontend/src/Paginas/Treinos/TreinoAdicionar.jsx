@@ -1,15 +1,18 @@
-import {useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "./TreinoAdicionar.module.css";
 import TreinoAPI from "../../client/TreinoAPI";
 import TreinoExercicioAPI from "../../client/TreinoExercicioAPI";
 import ExercicioAPI from "../../client/ExercicioAPI";
+import { sessao } from "../../client/sessao";
+import { SeletorGrupoMuscular } from "../../Componentes/SeletorGrupoMuscular/SeletorGrupoMuscular";
+import { ListaExercicios } from "../../Componentes/ListaExercicios/ListaExercicios";
+import { CardExercicio } from "../../Componentes/CardExercicio/CardExercicio";
+import { RodapeTreino } from "../../Componentes/RodapeTreino/RodapeTreino";
 
 export function TreinoAdicionar() {
   const navigate = useNavigate();
-
-  const token = localStorage.getItem("token");
-  const usuarioId = localStorage.getItem("usuarioId");
+  const usuarioId = sessao.usuarioId();
 
   const [nomeTreino, setNomeTreino] = useState("");
   const [grupoMuscular, setGrupoMuscular] = useState("");
@@ -18,30 +21,23 @@ export function TreinoAdicionar() {
 
   useEffect(() => {
     if (!grupoMuscular) return;
-
     async function carregar() {
-      const dados = await ExercicioAPI.listarPorGrupoAsync(grupoMuscular, token);
+      const dados = await ExercicioAPI.listarPorGrupoAsync(grupoMuscular);
       setExerciciosDisponiveis(dados);
     }
-
     carregar();
   }, [grupoMuscular]);
 
   function adicionarExercicio(ex) {
-    if (exerciciosTreino.some((e) => e.exercicioId === ex.exercicioId)) {
-      return;
-    }
-
+    if (exerciciosTreino.some((e) => e.exercicioId === ex.exercicioId)) return;
     setExerciciosTreino([
       ...exerciciosTreino,
-      {
-        exercicioId: ex.exercicioId,
-        nome: ex.nome,
-        series: 4,
-        repeticoes: 12,
-        descansoSegundos: 90,
-      },
+      { exercicioId: ex.exercicioId, nome: ex.nome, series: 4, repeticoes: 12, descansoSegundos: 90 },
     ]);
+  }
+
+  function removerExercicio(exercicioId) {
+    setExerciciosTreino(exerciciosTreino.filter((e) => e.exercicioId !== exercicioId));
   }
 
   function atualizarCampo(index, campo, valor) {
@@ -52,142 +48,91 @@ export function TreinoAdicionar() {
 
   const tempoTotal = exerciciosTreino.length * 20;
 
-async function salvarTreino() {
-  if (!nomeTreino || exerciciosTreino.length === 0) {
-    alert("Informe o nome e adicione exercícios");
-    return;
-  }
-
-  try {
-    const treinoCriado = await TreinoAPI.criarAsync(
-      {
-        nomeTreino,
-        usuarioId,
-      },
-      token
-    );
-    const treinoId = treinoCriado;
-
-    if (!treinoId || treinoId <= 0) {
-      alert("Erro: treino inválido ou não criado corretamente.");
+  async function salvarTreino() {
+    if (!nomeTreino || exerciciosTreino.length === 0) {
+      alert("Informe o nome e adicione exercícios");
       return;
     }
-
-    for (const ex of exerciciosTreino) {
-      await TreinoExercicioAPI.adicionarAsync(
-        {
-          treinoId,
-          exercicioId: ex.exercicioId,
-          series: ex.series,
-          repeticoes: ex.repeticoes,
-          descansoSegundos: ex.descansoSegundos,
-        },
-        token
-      );
+    try {
+      const treinoId = await TreinoAPI.criarAsync({ nomeTreino, usuarioId });
+      if (!treinoId || treinoId <= 0) {
+        alert("Erro: treino inválido ou não criado corretamente.");
+        return;
+      }
+      for (const ex of exerciciosTreino) {
+        await TreinoExercicioAPI.adicionarAsync(
+          { treinoId, exercicioId: ex.exercicioId, series: ex.series, repeticoes: ex.repeticoes, descansoSegundos: ex.descansoSegundos }
+        );
+      }
+      navigate("/app/treinos");
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao salvar treino");
     }
-
-    navigate("/app/treinos");
-  } catch (err) {
-    console.error(err);
-    alert("Erro ao salvar treino");
   }
-}
 
   return (
     <div className={style.page}>
+      {/* Coluna Esquerda — Seleção */}
       <div className={style.colunaEsquerda}>
-        <h2 className={style.title}>Novo Treino</h2>
+        <div className={style.colHeader}>
+          <h2 className={style.title}>Novo Treino</h2>
+          <p className={style.subtitle}>Configure e adicione exercícios.</p>
+        </div>
 
-        <input className={style.inputNome}
-          placeholder="Nome do treino"
-          value={nomeTreino}
-          onChange={(e) => setNomeTreino(e.target.value)}
-        />
+        <div className={style.fieldGroup}>
+          <label className={style.fieldLabel}>Nome do treino</label>
+          <input
+            className={style.input}
+            placeholder="Ex: Peito e Tríceps"
+            value={nomeTreino}
+            onChange={(e) => setNomeTreino(e.target.value)}
+          />
+        </div>
 
-        <select
+        <SeletorGrupoMuscular
+          label="Grupo muscular"
+          placeholder="Selecione..."
           value={grupoMuscular}
           onChange={(e) => setGrupoMuscular(e.target.value)}
-        >
-          <option value="">Selecione o grupo muscular</option>
-          <option value="Peito">Peito</option>
-          <option value="Costas">Costas</option>
-          <option value="Pernas">Pernas</option>
-          <option value="Ombros">Ombros</option>
-          <option value="Biceps">Biceps</option>
-          <option value="Triceps">Triceps</option>
-          <option value="Abdomen">Abdomen</option>
-        </select>
+        />
 
-        <div className={style.lista}>
-          {exerciciosDisponiveis.map((ex) => (
-            <div key={ex.exercicioId} className={style.exercicioLinha}>
-              <span>{ex.nome}</span>
-         <button
-          className={style.botaoAdicionar}
-          onClick={() => adicionarExercicio(ex)}
-        >
-          Adicionar
-        </button>
-
-            </div>
-          ))}
-        </div>
+        <ListaExercicios
+          exercicios={exerciciosDisponiveis}
+          exerciciosNoTreino={exerciciosTreino}
+          aoAdicionar={adicionarExercicio}
+        />
       </div>
 
+      {/* Coluna Direita — Treino montado */}
       <div className={style.colunaDireita}>
-        <h3 className={style.subTitle}>Exercícios do Treino</h3>
-
-        {exerciciosTreino.map((ex, index) => (
-          <div key={ex.exercicioId} className={style.cardExercicio}>
-            <strong>{ex.nome}</strong>
-
-            <div className={style.campos}>
-              <div className={style.campoItem}>
-                <label>SÉRIES</label>
-                <input
-                  type="number"
-                  value={ex.series}
-                  onChange={(e) =>
-                    atualizarCampo(index, "series", e.target.value)
-                  }
-                />
-              </div>
-
-              <div className={style.campoItem}>
-                <label>Repetições</label>
-                <input
-                  type="number"
-                  value={ex.repeticoes}
-                  onChange={(e) =>
-                    atualizarCampo(index, "repeticoes", e.target.value)
-                  }
-                />
-              </div>
-
-              <div className={style.campoItem}>
-                <label>PAUSA(s)</label>
-                <input
-                  type="number"
-                  value={ex.descansoSegundos}
-                  onChange={(e) =>
-                    atualizarCampo(index, "descansoSegundos", e.target.value)
-                  }
-                />
-              </div>
-            </div>
-
-            <div className={style.tempo}>
-              Tempo estimado: 20 minutos
-            </div>
-          </div>
-        ))}
-
-        <div className={style.footer}>
-          <span>Tempo total: {tempoTotal} min</span>
-          <button className={style.salvar} onClick={salvarTreino}>
-            Salvar Treino
-          </button>
+        <div className={style.colHeader}>
+          <h3 className={style.title}>Exercícios do Treino</h3>
+          <p className={style.subtitle}>{exerciciosTreino.length} exercício(s) — {tempoTotal} min estimados</p>
         </div>
+
+        <div className={style.cardsList}>
+          {exerciciosTreino.length === 0 ? (
+            <div className={style.vazio}>
+              <p>Adicione exercícios à esquerda para montar o treino.</p>
+            </div>
+          ) : (
+            exerciciosTreino.map((ex, index) => (
+              <CardExercicio
+                key={ex.exercicioId}
+                exercicio={ex}
+                aoRemover={removerExercicio}
+                aoAlterarCampo={(campo, valor) => atualizarCampo(index, campo, valor)}
+              />
+            ))
+          )}
+        </div>
+
+        <RodapeTreino
+          tempoTotal={tempoTotal}
+          textoBotao="Salvar Treino"
+          aoSalvar={salvarTreino}
+        />
       </div>
     </div>
   );

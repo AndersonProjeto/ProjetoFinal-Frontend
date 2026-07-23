@@ -2,20 +2,14 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import TreinoAPI from "../../client/TreinoAPI";
 import ExercicioAPI from "../../client/ExercicioAPI";
-import { FiArrowLeft } from "react-icons/fi";
 import style from "./TreinoDetalhe.module.css";
 import TreinoExercicioAPI from "../../client/TreinoExercicioAPI";
-
-function formatarData(dataUtc) {
-  if (!dataUtc) return "—";
-  const [ano, mes, dia] = dataUtc.split("T")[0].split("-");
-  return `${dia}/${mes}/${ano}`;
-}
+import { IconArrowLeft } from "../../Componentes/Icones/Icones";
+import { formatarData } from "../../utils/formatarData";
 
 export function TreinoDetalhe() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const token = localStorage.getItem("token");
 
   const [treino, setTreino] = useState(null);
   const [exercicios, setExercicios] = useState([]);
@@ -24,17 +18,17 @@ export function TreinoDetalhe() {
   useEffect(() => {
     async function carregar() {
       try {
-        const treinoDados = await TreinoAPI.obterAsync(id, token);
-        const treinoExercicios = await TreinoExercicioAPI.listarPorTreinoAsync(id, token);
+        const treinoDados = await TreinoAPI.obterAsync(id);
+        const treinoExercicios = await TreinoExercicioAPI.listarPorTreinoAsync(id);
 
+        // Mesma lógica do original que funciona
         const completos = await Promise.all(
           treinoExercicios.map(async (te) => {
-            const exercicioInfo = await ExercicioAPI.obterAsync(te.exercicioId, token);
-            
+            const exercicioInfo = await ExercicioAPI.obterAsync(te.exercicioId);
             return {
-              ...te,           
-              ...exercicioInfo, 
-              exercicioNome: exercicioInfo.nome, 
+              ...te,
+              exercicioNome: exercicioInfo.nome,
+              exercicioInfo,
             };
           })
         );
@@ -49,7 +43,7 @@ export function TreinoDetalhe() {
       }
     }
     carregar();
-  }, [id, token]);
+  }, [id]);
 
   if (carregando) return <p className={style.loading}>Carregando...</p>;
   if (!treino) return <p>Treino não encontrado</p>;
@@ -58,38 +52,59 @@ export function TreinoDetalhe() {
 
   return (
     <div className={style.page}>
+      {/* Header */}
       <div className={style.header}>
         <button className={style.voltar} onClick={() => navigate(-1)}>
-          <FiArrowLeft />
+          <IconArrowLeft />
         </button>
-
         <div>
           <h2 className={style.titulo}>{treino.nomeTreino}</h2>
-          <span className={style.subtitulo}>
-            Criado em {formatarData(treino.dataCriacao)}
-          </span>
+          <span className={style.subtitulo}>Criado em {formatarData(treino.dataCriacao)}</span>
         </div>
       </div>
 
+      {/* Resumo */}
       <div className={style.resumo}>
-        <span>{exercicios.length} exercícios</span>
-        <span>{tempoTotal} min estimados</span>
+        <div className={style.resumoItem}>
+          <span className={style.resumoLabel}>Exercícios</span>
+          <span className={style.resumoValor}>{exercicios.length}</span>
+        </div>
+        <div className={style.resumoDivider} />
+        <div className={style.resumoItem}>
+          <span className={style.resumoLabel}>Tempo estimado</span>
+          <span className={style.resumoValor}>{tempoTotal} min</span>
+        </div>
       </div>
 
+      {/* Lista — navigate usa os campos do ...te, igual ao original */}
       <div className={style.lista}>
-        {exercicios.map((ex) => (
-          <div 
-            key={ex.treinoExercicioId} 
+        {exercicios.map((ex, i) => (
+          <div
+            key={ex.treinoExercicioId}
             className={style.card}
-            onClick={() => navigate("/app/exercicios/detalhes", { state: ex })}
+            onClick={() =>
+              navigate("/app/exercicios/detalhes", {
+                state: {
+                  exercicioId: ex.exercicioId,
+                  nome: ex.exercicioNome,
+                  grupoMuscular: ex.exercicioInfo?.grupoMuscular,
+                  equipamento: ex.exercicioInfo?.equipamento,
+                  descricao: ex.exercicioInfo?.descricao,
+                  videoUrl: ex.exercicioInfo?.videoUrl,
+                },
+              })
+            }
           >
-            <strong>{ex.exercicioNome}</strong>
-
-            <div className={style.detalhes}>
-              <span>{ex.series} séries</span>
-              <span>{ex.repeticoes} reps</span>
-              <span>{ex.descansoSegundos}s pausa</span>
+            <div className={style.cardNumero}>{String(i + 1).padStart(2, "0")}</div>
+            <div className={style.cardCorpo}>
+              <strong className={style.cardNome}>{ex.exercicioNome}</strong>
+              <div className={style.detalhes}>
+                <span>{ex.series} séries</span>
+                <span>{ex.repeticoes} reps</span>
+                <span>{ex.descansoSegundos}s pausa</span>
+              </div>
             </div>
+            <span className={style.cardArrow}>→</span>
           </div>
         ))}
       </div>

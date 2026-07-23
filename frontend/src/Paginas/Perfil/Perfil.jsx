@@ -3,52 +3,39 @@ import styles from "./Perfil.module.css";
 import UsuarioAPI from "../../client/UsuarioAPI";
 import { useNavigate } from "react-router-dom";
 import EvolucaoAPI from "../../client/EvolucaoAPI";
-import { FiEdit2 } from "react-icons/fi";
+import { IconEdit } from "../../Componentes/Icones/Icones";
+import { sessao } from "../../client/sessao";
+import { Modal } from "../../Componentes/Modal/Modal";
+
+const EstilosDeAvatar = [
+  "avataaars", "adventurer", "big-smile", "bottts", "pixel-art", "lorelei",
+];
 
 export function Perfil() {
   const navigate = useNavigate();
-  const usuarioId = localStorage.getItem("usuarioId");
-  const token = localStorage.getItem("token");
+  const usuarioId = sessao.usuarioId();
 
   const [usuario, setUsuario] = useState(null);
   const [ultimaEvolucao, setUltimaEvolucao] = useState(null);
-
   const [modalAvatar, setModalAvatar] = useState(false);
   const [modalEditarUsuario, setModalEditarUsuario] = useState(false);
-
-  const EstilosDeAvatar = [
-    "avataaars",
-    "adventurer",
-    "big-smile",
-    "bottts",
-    "pixel-art",
-    "lorelei",
-  ];
-
   const [novoEstiloAvatar, setNovoEstiloAvatar] = useState("avataaars");
   const [novoSeed, setNovoSeed] = useState("");
-
   const [formUsuario, setFormUsuario] = useState({
-    nome: "",
-    email: "",
-    alturaCm: "",
-    dataNascimento: "",
+    nome: "", email: "", alturaCm: "", dataNascimento: "",
   });
 
   useEffect(() => {
     async function carregarDados() {
-      const usuario = await UsuarioAPI.obterAsync(usuarioId, token);
-      const historico = await EvolucaoAPI.historicoAsync(usuarioId, token);
-
-      setUsuario(usuario);
+      const u = await UsuarioAPI.obterAsync(usuarioId);
+      const historico = await EvolucaoAPI.historicoAsync(usuarioId);
+      setUsuario(u);
       setUltimaEvolucao(historico[0] ?? null);
-
-      setNovoEstiloAvatar(usuario.avatarEstilo);
-      setNovoSeed(usuario.avatarSeed);
+      setNovoEstiloAvatar(u.avatarEstilo);
+      setNovoSeed(u.avatarSeed);
     }
-
     carregarDados();
-  }, [usuarioId, token]);
+  }, [usuarioId]);
 
   function gerarSeed() {
     setNovoSeed(Math.random().toString(36).substring(2, 10));
@@ -60,25 +47,12 @@ export function Perfil() {
   }, [novoEstiloAvatar, novoSeed]);
 
   async function salvarAvatar() {
-    await UsuarioAPI.atualizarAsync(
-      {
-        usuarioId: usuario.usuarioId,
-        nome: usuario.nome,
-        email: usuario.email,
-        alturaCm: usuario.alturaCm,
-        dataNascimento: usuario.dataNascimento,
-        avatarEstilo: novoEstiloAvatar,
-        avatarSeed: novoSeed,
-      },
-      token
-    );
-
-    setUsuario({
-      ...usuario,
-      avatarEstilo: novoEstiloAvatar,
-      avatarSeed: novoSeed,
+    await UsuarioAPI.atualizarAsync({
+      usuarioId: usuario.usuarioId, nome: usuario.nome, email: usuario.email,
+      alturaCm: usuario.alturaCm, dataNascimento: usuario.dataNascimento,
+      avatarEstilo: novoEstiloAvatar, avatarSeed: novoSeed,
     });
-
+    setUsuario({ ...usuario, avatarEstilo: novoEstiloAvatar, avatarSeed: novoSeed });
     setModalAvatar(false);
   }
 
@@ -87,20 +61,14 @@ export function Perfil() {
       nome: usuario.nome ?? "",
       email: usuario.email ?? "",
       alturaCm: usuario.alturaCm ?? "",
-      dataNascimento: usuario.dataNascimento
-        ? usuario.dataNascimento.substring(0, 10)
-        : "",
+      dataNascimento: usuario.dataNascimento ? usuario.dataNascimento.substring(0, 10) : "",
     });
-
     setModalEditarUsuario(true);
   }
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setFormUsuario((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormUsuario((prev) => ({ ...prev, [name]: value }));
   }
 
   async function salvarUsuario() {
@@ -109,149 +77,145 @@ export function Perfil() {
       nome: formUsuario.nome || usuario.nome,
       email: formUsuario.email || usuario.email,
       alturaCm: Number(formUsuario.alturaCm) || usuario.alturaCm,
-      dataNascimento:
-        formUsuario.dataNascimento || usuario.dataNascimento,
+      dataNascimento: formUsuario.dataNascimento || usuario.dataNascimento,
       avatarSeed: usuario.avatarSeed,
       avatarEstilo: usuario.avatarEstilo,
     };
-
-    await UsuarioAPI.atualizarAsync(payload, token);
-
-    setUsuario({
-      ...usuario,
-      ...payload,
-    });
-
+    await UsuarioAPI.atualizarAsync(payload);
+    setUsuario({ ...usuario, ...payload });
     setModalEditarUsuario(false);
   }
 
-  if (!usuario) return <p>Carregando...</p>;
+  if (!usuario) return <p style={{ padding: 32, color: "#7a7368", fontFamily: "DM Sans" }}>Carregando...</p>;
 
   const avatarUrl = `https://api.dicebear.com/7.x/${usuario.avatarEstilo}/svg?seed=${usuario.avatarSeed}`;
 
   return (
-    <div className={styles.perfil}>
-      <div className={styles.avatarWrapper}>
-        <img src={avatarUrl} className={styles.avatar} />
-        <button
-          className={styles.editarAvatar}
-          onClick={() => setModalAvatar(true)}
-        >
-          <FiEdit2 />
+    <div className={styles.page}>
+
+      {/* Card principal */}
+      <div className={styles.card}>
+
+        {/* Avatar */}
+        <div className={styles.avatarWrapper}>
+          <img src={avatarUrl} className={styles.avatar} alt="avatar" />
+          <button className={styles.editarAvatarBtn} onClick={() => setModalAvatar(true)} title="Alterar avatar">
+            <IconEdit size={13} stroke="#9a9180" />
+          </button>
+        </div>
+
+        <h2 className={styles.nome}>{usuario.nome}</h2>
+        <p className={styles.email}>{usuario.email}</p>
+
+        <button className={styles.btnEditarPerfil} onClick={abrirModalEditarUsuario}>
+          Editar perfil
         </button>
-      </div>
 
-      <h2>{usuario.nome}</h2>
-      <p>{usuario.email}</p>
-
-      <button
-        className={styles.editarAvatar}
-        onClick={abrirModalEditarUsuario}
-      >
-        Editar perfil
-      </button>
-
-      <div className={styles.dados}>
-        <div>
-          <b>Altura:</b> {usuario.alturaCm} cm
-        </div>
-        <div>
-          <b>Peso atual:</b> {ultimaEvolucao?.pesoKg ?? "--"} kg
-        </div>
-        <div>
-          <b>Cintura:</b> {ultimaEvolucao?.cinturaCm ?? "--"} cm
-        </div>
-        <div>
-          <b>Braço:</b> {ultimaEvolucao?.bracoCm ?? "--"} cm
-        </div>
-        <div>
-          <b>Coxa:</b> {ultimaEvolucao?.coxaCm ?? "--"} cm
-        </div>
-      </div>
-
-      <div className={styles.iaPlaceholder}>
-        <h3>Histórico da IA</h3>
-        <p>Veja todas as perguntas e respostas que você já teve com a IA</p>
-        <button
-          onClick={() => navigate(`/app/ia/historico/${usuarioId}`)}
-        >
-          Ver histórico completo
-        </button>
-      </div>
-
-      {modalAvatar && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modal}>
-            <img src={previewUrl} className={styles.avatarPreview} />
-
-            <button onClick={gerarSeed}>Gerar outro</button>
-
-            <div className={styles.estilos}>
-              {EstilosDeAvatar.map((estilo) => (
-                <button
-                  key={estilo}
-                  onClick={() => setNovoEstiloAvatar(estilo)}
-                  className={
-                    estilo === novoEstiloAvatar
-                      ? styles.estiloAtivo
-                      : ""
-                  }
-                >
-                  {estilo}
-                </button>
-              ))}
-            </div>
-
-            <button onClick={salvarAvatar}>Salvar</button>
-            <button onClick={() => setModalAvatar(false)}>
-              Cancelar
-            </button>
+        {/* Métricas */}
+        <div className={styles.metricas}>
+          <div className={styles.metricaItem}>
+            <span className={styles.metricaLabel}>Altura</span>
+            <span className={styles.metricaValor}>{usuario.alturaCm} <small>cm</small></span>
+          </div>
+          <div className={styles.metricaItem}>
+            <span className={styles.metricaLabel}>Peso</span>
+            <span className={styles.metricaValor}>{ultimaEvolucao?.pesoKg ?? "—"} <small>kg</small></span>
+          </div>
+          <div className={styles.metricaItem}>
+            <span className={styles.metricaLabel}>Cintura</span>
+            <span className={styles.metricaValor}>{ultimaEvolucao?.cinturaCm ?? "—"} <small>cm</small></span>
+          </div>
+          <div className={styles.metricaItem}>
+            <span className={styles.metricaLabel}>Braço</span>
+            <span className={styles.metricaValor}>{ultimaEvolucao?.bracoCm ?? "—"} <small>cm</small></span>
+          </div>
+          <div className={styles.metricaItem}>
+            <span className={styles.metricaLabel}>Coxa</span>
+            <span className={styles.metricaValor}>{ultimaEvolucao?.coxaCm ?? "—"} <small>cm</small></span>
           </div>
         </div>
+
+        {/* Histórico IA */}
+        <div className={styles.iaCard} onClick={() => navigate(`/app/ia/historico/${usuarioId}`)}>
+          <div>
+            <div className={styles.iaLabel}>Histórico da IA</div>
+            <div className={styles.iaDesc}>Veja todas as perguntas e respostas com a AcadIA</div>
+          </div>
+          <span className={styles.iaArrow}>→</span>
+        </div>
+
+        {/* Relatório IA */}
+        <div className={styles.iaCard} onClick={() => navigate(`/app/relatorio`)}>
+          <div>
+            <div className={styles.iaLabel}>Relatório IA</div>
+            <div className={styles.iaDesc}>Veja sua análise de desempenho gerada pela AcadIA</div>
+          </div>
+          <span className={styles.iaArrow}>→</span>
+        </div>
+      </div>
+
+      {/* Modal Avatar */}
+      {modalAvatar && (
+        <Modal
+          titulo="Alterar Avatar"
+          aoFechar={() => setModalAvatar(false)}
+          maxWidth={420}
+          gap={16}
+        >
+          <img src={previewUrl} className={styles.avatarPreview} alt="preview" />
+
+          <button className={styles.btnGerar} onClick={gerarSeed}>Gerar outro</button>
+
+          <div className={styles.estilosLabel}>Estilo</div>
+          <div className={styles.estilos}>
+            {EstilosDeAvatar.map((estilo) => (
+              <button
+                key={estilo}
+                className={`${styles.estiloBtn} ${estilo === novoEstiloAvatar ? styles.estiloAtivo : ""}`}
+                onClick={() => setNovoEstiloAvatar(estilo)}
+              >
+                {estilo}
+              </button>
+            ))}
+          </div>
+
+          <div className={styles.modalFooter}>
+            <button className={styles.btnCancelar} onClick={() => setModalAvatar(false)}>Cancelar</button>
+            <button className={styles.btnSalvar} onClick={salvarAvatar}>Salvar</button>
+          </div>
+        </Modal>
       )}
 
+      {/* Modal Editar Perfil */}
       {modalEditarUsuario && (
-        <div className={styles.modalOverlay}>
-          <div className={styles.modal}>
-            <h3>Editar perfil</h3>
-
-            <input
-              type="text"
-              name="nome"
-              value={formUsuario.nome}
-              onChange={handleChange}
-              placeholder="Nome"
-            />
-
-            <input
-              type="email"
-              name="email"
-              value={formUsuario.email}
-              onChange={handleChange}
-              placeholder="Email"
-            />
-
-            <input
-              type="number"
-              name="alturaCm"
-              value={formUsuario.alturaCm}
-              onChange={handleChange}
-              placeholder="Altura (cm)"
-            />
-
-            <input
-              type="date"
-              name="dataNascimento"
-              value={formUsuario.dataNascimento}
-              onChange={handleChange}
-            />
-
-            <button onClick={salvarUsuario}>Salvar</button>
-            <button onClick={() => setModalEditarUsuario(false)}>
-              Cancelar
-            </button>
+        <Modal
+          titulo="Editar Perfil"
+          aoFechar={() => setModalEditarUsuario(false)}
+          maxWidth={420}
+          gap={16}
+        >
+          <div className={styles.formGroup}>
+            <label className={styles.formLabel}>Nome</label>
+            <input className={styles.formInput} type="text" name="nome" value={formUsuario.nome} onChange={handleChange} placeholder="Nome" />
           </div>
-        </div>
+          <div className={styles.formGroup}>
+            <label className={styles.formLabel}>E-mail</label>
+            <input className={styles.formInput} type="email" name="email" value={formUsuario.email} onChange={handleChange} placeholder="E-mail" />
+          </div>
+          <div className={styles.formGroup}>
+            <label className={styles.formLabel}>Altura (cm)</label>
+            <input className={styles.formInput} type="number" name="alturaCm" value={formUsuario.alturaCm} onChange={handleChange} placeholder="Altura" />
+          </div>
+          <div className={styles.formGroup}>
+            <label className={styles.formLabel}>Data de nascimento</label>
+            <input className={styles.formInput} type="date" name="dataNascimento" value={formUsuario.dataNascimento} onChange={handleChange} />
+          </div>
+
+          <div className={styles.modalFooter}>
+            <button className={styles.btnCancelar} onClick={() => setModalEditarUsuario(false)}>Cancelar</button>
+            <button className={styles.btnSalvar} onClick={salvarUsuario}>Salvar</button>
+          </div>
+        </Modal>
       )}
     </div>
   );

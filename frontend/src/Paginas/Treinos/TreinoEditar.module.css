@@ -1,122 +1,178 @@
-* {
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 .page {
-  min-height: 100vh;
   display: flex;
-  background: #ffffff;
-  color: #000000;
+  height: 100vh;
+  font-family: var(--font-sans);
+  background: var(--acadia-card);
+  overflow: hidden;
 }
 
+/* ── Colunas ── */
 .colunaEsquerda,
 .colunaDireita {
-  flex: 1;
-  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  padding: 34px 30px;
+  gap: 20px;
 }
 
 .colunaEsquerda {
-  border-right: 1px solid #e0e0e0;
+  width: 38%;
+  border-right: var(--hairline);
+  background: #f3efe6;
+  animation: fadeUp 0.5s var(--ease-lux) both;
 }
 
-h2,
-h3 {
-  margin-bottom: 16px;
-  font-size: 18px;
-  font-weight: 600;
+.colunaDireita {
+  width: 62%;
+  background: var(--acadia-card);
+  animation: fadeUp 0.5s var(--ease-lux) 0.1s both;
 }
 
-input
- {
-  width: 100%;
-  padding: 6px 8px;
-  margin-bottom: 10px;
-  font-size: 14px;
-  border: 1px solid #000;
-  background: #fff;
-  color: #000;
+.colunaEsquerda::-webkit-scrollbar,
+.colunaDireita::-webkit-scrollbar {
+  width: 3px;
+}
+.colunaEsquerda::-webkit-scrollbar-thumb,
+.colunaDireita::-webkit-scrollbar-thumb {
+  background: var(--acadia-gold-dim);
 }
 
-
-.exercicioLinha {
+/* ── Col Header ── */
+.colHeader {
   display: flex;
-  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  padding-bottom: 20px;
+  border-bottom: var(--hairline);
+}
+
+.colunaDireita .colHeader {
+  flex-direction: column;
+  gap: 4px;
+}
+
+.voltar {
+  background: var(--acadia-card);
+  border: var(--hairline);
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
   align-items: center;
-  padding: 6px 0;
-  border-bottom: 1px solid #eee;
+  justify-content: center;
+  cursor: pointer;
+  color: #4a4840;
+  transition: all 0.25s var(--ease-lux);
+  flex-shrink: 0;
+  margin-top: 2px;
 }
 
-.exercicioLinha span {
-  font-size: 14px;
+.voltar:hover {
+  border-color: var(--acadia-gold);
+  color: var(--acadia-ink);
+  transform: translateX(-3px);
 }
 
-.cardExercicio {
-  padding: 10px;
-  margin-bottom: 10px;
+.title {
+  font-family: var(--font-serif);
+  font-size: 24px;
+  font-weight: 500;
+  color: var(--acadia-ink);
+  letter-spacing: 0.4px;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: #7a7368;
+  margin: 4px 0 0;
+}
+
+/* ── Fields ── */
+.fieldGroup {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 7px;
 }
 
-.cardExercicio strong {
-  font-size: 14px;
-}
-
-.cardExercicio input {
-  width: 100%;
-  padding: 4px 6px;
-  font-size: 13px;
-}
-button {
-  padding: 4px 8px;
-  font-size: 12px;
-  border: 1px solid #000;
-  background: #000;
-  color: #fff;
-  cursor: pointer;
-}
-
-
-
-.cardExercicio button {
-  align-self: flex-start;
-}
-
-.colunaDireita > button {
-  margin-top: 16px;
-  padding: 6px 12px;
+.fieldLabel {
+  font-size: 9px;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: var(--acadia-muted);
   font-weight: 600;
 }
-.campoLinha {
+
+.input {
+  width: 100%;
+  padding: 11px 13px;
+  background: #fff;
+  border: var(--hairline);
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--acadia-ink);
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.input:focus {
+  border-color: var(--acadia-gold);
+  box-shadow: 0 0 0 3px rgba(201, 185, 122, 0.12);
+}
+
+.input::placeholder {
+  color: #b0a99e;
+}
+
+/* ── Cards Lista ── */
+.cardsList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+
+/* ── Vazio ── */
+.vazio {
+  flex: 1;
   display: flex;
   align-items: center;
-  gap: 8px;
-}
-
-.campoLinha span {
-  font-size: 12px;
-  width: 70px;
-}
-
-.campoLinha input {
-  width: 60px;
-  padding: 4px 6px;
-  font-size: 12px;
-}
-
-.botaoAdicionar {
-  all: unset;
-  padding: 4px 8px;
-  font-size: 16px;
-  border: 1px solid #000;
+  justify-content: center;
+  padding: 48px 24px;
+  text-align: center;
+  border: 0.5px dashed #c0bab0;
   border-radius: 12px;
-  background: #fff;
-  color: #000;
-  cursor: pointer;
 }
 
-.botaoAdicionar:hover {
-  background: #000;
-  color: #fff;
+.vazio p {
+  font-size: 13px;
+  color: var(--acadia-muted);
+  line-height: 1.6;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .page {
+    flex-direction: column;
+    height: auto;
+    overflow: visible;
+  }
+
+  .colunaEsquerda,
+  .colunaDireita {
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    padding: 24px 16px;
+  }
+
+  .colunaEsquerda {
+    border-right: none;
+    border-bottom: var(--hairline);
+  }
 }

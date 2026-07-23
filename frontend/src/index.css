@@ -1,7 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600&display=swap');
+
+/* ===== DESIGN TOKENS — identidade Acadia ===== */
+:root {
+  /* Cores */
+  --acadia-ink: #14130f;        /* preto quente (sidebar, textos fortes) */
+  --acadia-ink-soft: #2a2820;
+  --acadia-gold: #c9b97a;       /* dourado (marca, destaques) */
+  --acadia-gold-dim: rgba(201, 185, 122, 0.35);
+  --acadia-cream: #f0ede6;      /* fundo do app */
+  --acadia-card: #f8f5ef;       /* superfícies elevadas */
+  --acadia-line: #d6d1c6;       /* bordas suaves */
+  --acadia-muted: #9a9180;      /* texto secundário */
+  --acadia-danger: #b0563e;
+  --acadia-success: #6f7d5c;
+
+  /* Tipografia */
+  --font-serif: 'Cormorant Garamond', serif;
+  --font-sans: 'DM Sans', sans-serif;
+
+  /* Forma */
+  --radius: 10px;
+  --shadow-card: 0 8px 24px rgba(20, 19, 15, 0.08);
+}
+
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
-  background: #f5f5f5;
-  color: #000;
-  font-family: Arial, sans-serif;
+  background: var(--acadia-cream);
+  color: var(--acadia-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ===== CAMADA PREMIUM GLOBAL ===== */
+:root {
+  --ease-lux: cubic-bezier(0.22, 1, 0.36, 1);
+  --shadow-lift: 0 14px 40px rgba(20, 19, 15, 0.10), 0 2px 8px rgba(20, 19, 15, 0.05);
+  --hairline: 0.5px solid var(--acadia-line);
+}
+
+/* Seleção de texto dourada */
+::selection {
+  background: rgba(201, 185, 122, 0.35);
+  color: var(--acadia-ink);
+}
+
+/* Scrollbar fina e discreta */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(20, 19, 15, 0.18);
+  border-radius: 8px;
+  border: 3px solid var(--acadia-cream);
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(201, 185, 122, 0.8);
+}
+
+/* Foco acessível na cor da marca */
+:focus-visible {
+  outline: 2px solid var(--acadia-gold);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Keyframes globais (referenciáveis pelos CSS modules) */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes drawLine {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+@keyframes riseNum {
+  from { opacity: 0; transform: translateY(8px); filter: blur(2px); }
+  to   { opacity: 1; transform: translateY(0); filter: blur(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ===== TOAST (react-hot-toast, montado globalmente no main.jsx) ===== */
+.toast-custom {
+  background: var(--acadia-card) !important;
+  color: var(--acadia-ink) !important;
+  border: 0.5px solid var(--acadia-line) !important;
+  border-radius: var(--radius) !important;
+  padding: 14px 16px !important;
+  min-width: 260px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow-card) !important;
+  font-family: var(--font-sans);
+  position: relative;
+  overflow: hidden;
+  animation: toastSlideIn 0.3s ease forwards;
+}
+
+.toast-custom [data-icon] {
+  color: var(--acadia-gold) !important;
+}
+
+.toast-custom span {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.toast-custom button {
+  margin-left: auto;
+  background: transparent;
+  border: none;
+  color: var(--acadia-muted);
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.toast-custom button:hover {
+  color: var(--acadia-ink);
+}
+
+.toast-custom::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  width: 100%;
+  background: var(--acadia-gold);
+  animation: toastProgress 4s linear forwards;
+}
+
+@keyframes toastProgress {
+  from { width: 100%; }
+  to   { width: 0; }
+}
+
+@keyframes toastSlideIn {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes toastSlideOut {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(40px); }
+}
+
+.react-hot-toast-exit .toast-custom {
+  animation: toastSlideOut 0.25s ease forwards;
 }

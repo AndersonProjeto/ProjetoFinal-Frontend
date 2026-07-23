@@ -1,67 +1,189 @@
 .page {
-  padding: 32px;
-  display: flex;
-  justify-content: center;
+  padding: 40px;
+  min-height: 100vh;
 }
 
-.card {
-  width: min(800px, 100%);
-  background: #ffffff;
-  border-radius: 18px;
-  padding: 28px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-}
-
-.title {
-  font-size: 28px;
-  font-weight: 700;
-  margin-bottom: 18px;
-  color: #222;
-}
-
-.info {
+/* ── Layout duas colunas ─────────────────────────── */
+.layout {
   display: grid;
-  gap: 16px;
-  margin-top: 14px;
+  grid-template-columns: 1fr 500px;
+  gap: 30px;
+  align-items: start;
+}
+
+/* ── Coluna do vídeo ─────────────────────────────── */
+.videoCol {
+  position: sticky;
+  top: 36px;
+  animation: fadeUp 0.6s var(--ease-lux) both;
+}
+
+.videoWrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 0.5px solid var(--acadia-gold-dim);
+  background: var(--acadia-ink);
+  box-shadow: 0 20px 60px rgba(20, 19, 15, 0.18);
+}
+
+.iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.videoPlaceholder {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 14px;
+  border: 0.5px dashed #c0bab0;
+  background: #f0ece3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+
+.placeholderIcon {
+  font-size: 36px;
+  color: var(--acadia-gold-dim);
+}
+
+.placeholderText {
+  font-size: 14px;
+  color: var(--acadia-muted);
+  font-family: var(--font-sans);
+}
+
+/* ── Coluna de informações ───────────────────────── */
+.infoCol {
+  background: var(--acadia-card);
+  border: var(--hairline);
+  border-radius: 14px;
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeUp 0.6s var(--ease-lux) 0.12s both;
+}
+
+.infoCol::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--acadia-gold), rgba(201, 185, 122, 0.15));
+  transform-origin: left;
+  animation: drawLine 0.9s var(--ease-lux) 0.35s both;
+}
+
+/* ── Título ──────────────────────────────────────── */
+.title {
+  font-family: var(--font-serif);
+  font-size: 28px;
+  font-weight: 500;
+  color: var(--acadia-ink);
+  letter-spacing: 0.5px;
+  margin: 0 0 20px;
+  padding-bottom: 16px;
+  border-bottom: var(--hairline);
+}
+
+/* ── Info rows ───────────────────────────────────── */
+.info {
+  display: flex;
+  flex-direction: column;
 }
 
 .row {
-  padding: 14px 16px;
-  border: 1px solid #eee;
-  border-radius: 14px;
-  background: #fafafa;
+  padding: 16px 0;
+  border-bottom: 0.5px solid #e8e4db;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.row:last-child {
+  border-bottom: none;
 }
 
 .label {
-  display: block;
-  font-size: 13px;
+  font-size: 10px;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: var(--acadia-muted);
   font-weight: 600;
-  color: #777;
 }
 
 .value {
-  display: block;
-  margin-top: 6px;
-  font-size: 16px;
-  color: #333;
-  line-height: 1.4;
+  font-size: 15px;
+  color: #2e2c28;
+  line-height: 1.7;
+  font-weight: 400;
 }
 
+/* ── Botão Voltar ────────────────────────────────── */
 .button {
-  margin-top: 18px;
-  padding: 6px 10px;   
-  border: none;
-  background: #000000;
-  color: #fff;
-  border-radius: 10px;
-  cursor: pointer;
+  margin-top: 24px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 22px;
+  border: 0.5px solid #c8c3b8;
+  background: transparent;
+  color: #4a4840;
+  border-radius: 100px;
+  font-family: var(--font-sans);
+  font-size: 11px;
   font-weight: 600;
-  font-size: 13px;    
-  width: fit-content; 
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.25s var(--ease-lux);
 }
-
 
 .button:hover {
-  filter: brightness(0.95);
-  transform: translateY(-1px);
+  border-color: var(--acadia-gold);
+  color: var(--acadia-ink);
+  background: rgba(201, 185, 122, 0.08);
+  transform: translateX(-3px);
+}
+
+/* ── Loading ─────────────────────────────────────── */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 80px;
+}
+
+/* ── Responsive ──────────────────────────────────── */
+@media (max-width: 900px) {
+  .page {
+    padding: 24px 16px;
+  }
+
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .videoCol {
+    position: static;
+  }
+
+  .infoCol {
+    padding: 24px 18px;
+  }
+
+  .title {
+    font-size: 23px;
+  }
 }

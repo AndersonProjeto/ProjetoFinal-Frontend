@@ -1,68 +1,237 @@
-.container{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
-.h1{
-    font-family:Georgia, 'Times New Roman', Times, serif;
-}
-.input{
-    background-color: black;
-    color: rgb(255, 255, 255);
-}
-.h1{
-    padding: 20px;
-}
-.botao{
-    margin-top: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-}
-.avatar {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  border: 2px solid #fff;
-  margin-bottom: 12px;
+/* Cadastro na identidade Acadia: preto quente + dourado + serifa. */
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background: var(--acadia-ink);
+  background-image: radial-gradient(
+    ellipse at 50% -20%,
+    rgba(201, 185, 122, 0.12),
+    transparent 60%
+  );
+  padding: 28px 20px 70px;
+  font-family: var(--font-sans);
 }
 
-.avatarPrincipal {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    border: 2px solid white;
-    margin-bottom: 15px;
+.card {
+  width: 100%;
+  max-width: 460px;
 }
 
-.avatarGrid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-    margin-top: 12px;
-    margin-bottom: 10px;
+.brand {
+  text-align: center;
+  margin-bottom: 22px;
 }
 
-.avatarContainer {
+.brandName {
+  font-family: var(--font-serif);
+  font-size: 30px;
+  font-weight: 600;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: var(--acadia-gold);
+  margin: 0;
+}
+
+.brandTagline {
+  display: block;
+  margin-top: 6px;
+  font-size: 10px;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.avatarSection {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 10px;
+  gap: 12px;
+  margin-bottom: 24px;
 }
-.avatarBtn {
-  background: transparent;
-  color: #fff;
-  border: 1px solid #444;
-  padding: 6px 14px;
-  border-radius: 90px;
+
+.avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  border: 1.5px solid var(--acadia-gold-dim);
+  background-color: rgba(0, 0, 0, 0.4);
+  display: block;
+}
+
+.estilos {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  max-width: 380px;
+}
+
+.estiloBtn {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  background: rgba(0, 0, 0, 0.4);
+  border: 0.5px solid rgba(255, 255, 255, 0.14);
+  padding: 4px 11px;
+  border-radius: 20px;
   cursor: pointer;
-  font-size: 12px;
-  margin-bottom: 10px;
-  width: 30%;
+  white-space: nowrap;
+  font-family: inherit;
+  transition: 0.15s;
 }
+
+.estiloBtn:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+.ativo {
+  color: var(--acadia-gold) !important;
+  border-color: var(--acadia-gold) !important;
+  background: rgba(201, 185, 122, 0.1) !important;
+}
+
+.avatarBtn {
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.4);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  padding: 2px 0;
+}
+
 .avatarBtn:hover {
-  background: #111;
+  color: var(--acadia-gold);
+}
+
+.form {
+  border-radius: 14px;
+  background: rgba(24, 23, 18, 0.85);
+  border: 0.5px solid rgba(201, 185, 122, 0.25);
+  box-shadow: 0 20px 70px rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(10px);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.input {
+  width: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  border: 0.5px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  padding: 11px 12px;
+  font-size: 14px;
+  color: #fff;
+  outline: none;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.3);
+}
+
+.input:focus {
+  border-color: var(--acadia-gold);
+}
+
+.input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(0.6);
+  cursor: pointer;
+}
+
+.input[type="number"]::-webkit-inner-spin-button,
+.input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+}
+
+.submitBtn {
+  margin-top: 6px;
+  width: 100%;
+  background: var(--acadia-gold);
+  color: var(--acadia-ink);
+  border: 0.5px solid var(--acadia-gold-dim);
+  border-radius: 8px;
+  padding: 13px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-family: inherit;
+  transition: filter 0.2s;
+}
+
+.submitBtn:hover:not(:disabled) {
+  filter: brightness(1.08);
+}
+
+.submitBtn:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.loginLink {
+  text-align: center;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.35);
+  margin-top: 16px;
+}
+
+.loginLink a {
+  color: var(--acadia-gold);
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.loginLink a:hover {
+  text-decoration: underline;
+}
+
+.footerBar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: rgba(255, 255, 255, 0.25);
+  border-top: 0.5px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  /* Data de nascimento e altura lado a lado ficam ilegíveis no celular. */
+  .row {
+    grid-template-columns: 1fr;
+  }
 }

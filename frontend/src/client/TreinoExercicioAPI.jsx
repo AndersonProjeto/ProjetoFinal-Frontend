@@ -1,38 +1,28 @@
 import { client } from "./client";
 
 const TreinoExercicioAPI = {
-  async adicionarAsync(dados, token) {
-    const response = await client.post("/TreinoExercicio", dados, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  async adicionarAsync(dados) {
+    const response = await client.post("/TreinoExercicio", dados);
     return response.data;
   },
 
-  async atualizarAsync(dados, token) {
-    const response = await client.put("/TreinoExercicio", dados, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  async atualizarAsync(dados) {
+    const response = await client.put("/TreinoExercicio", dados);
     return response.data;
   },
 
-  async deletarAsync(treinoExercicioId, token) {
-    const response = await client.delete(`/TreinoExercicio/${treinoExercicioId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  async deletarAsync(treinoExercicioId) {
+    const response = await client.delete(`/TreinoExercicio/${treinoExercicioId}`);
     return response.data;
   },
 
-  async obterAsync(treinoExercicioId, token) {
-    const response = await client.get(`/TreinoExercicio/${treinoExercicioId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  async obterAsync(treinoExercicioId) {
+    const response = await client.get(`/TreinoExercicio/${treinoExercicioId}`);
     return response.data;
   },
 
-  async listarPorTreinoAsync(treinoId, token) {
-    const response = await client.get(`/TreinoExercicio/treino/${treinoId}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+  async listarPorTreinoAsync(treinoId) {
+    const response = await client.get(`/TreinoExercicio/treino/${treinoId}`);
     return response.data;
   },
 };
