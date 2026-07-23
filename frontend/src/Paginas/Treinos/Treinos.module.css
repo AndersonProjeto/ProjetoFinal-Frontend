@@ -4,6 +4,7 @@
   flex-direction: column;
   gap: 26px;
   max-width: 1020px;
+  margin: 0 auto;
 }
 
 /* ── Header ── */
