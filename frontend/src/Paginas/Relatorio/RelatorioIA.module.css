@@ -252,7 +252,13 @@
   color: #6b6560;
 }
 
-.cardIcon { font-size: 18px; }
+/* Ícones de traço fino, alinhados à linguagem de fios de 0.5px do resto do app. */
+.cardIcon {
+  font-size: 18px;
+  color: var(--acadia-gold);
+  stroke-width: 1.6;
+  flex-shrink: 0;
+}
 
 /* ── IMC ── */
 .imcBloco {
@@ -267,6 +273,7 @@
   font-weight: 600;
   color: #14130f;
   line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
 
 .imcLabel {
@@ -318,6 +325,7 @@
   font-size: 18px;
   font-weight: 600;
   color: #14130f;
+  font-variant-numeric: tabular-nums;
 }
 
 /* ── Destaque positivo ── */
@@ -372,6 +380,7 @@
   font-size: 32px;
   font-weight: 600;
   color: #14130f;
+  font-variant-numeric: tabular-nums;
 }
 
 .evolucaoArrow {
@@ -391,6 +400,7 @@
   font-size: 16px;
   font-weight: 600;
   color: #14130f;
+  font-variant-numeric: tabular-nums;
 }
 
 .positivo { color: #1a5c38; }
@@ -462,7 +472,15 @@
   gap: 10px;
 }
 
-.secaoIcon { font-size: 18px; }
+.secaoIcon {
+  font-size: 18px;
+  stroke-width: 1.6;
+  flex-shrink: 0;
+}
+
+/* Cor semântica, reaproveitando os tons já usados nas setas de tendência. */
+.secaoIconAtencao { color: #c0432a; }
+.secaoIconRec { color: #2e7d52; }
 
 .secaoTitulo {
   font-family: 'Cormorant Garamond', serif;
@@ -555,6 +573,7 @@
   line-height: 1;
   flex-shrink: 0;
   min-width: 36px;
+  font-variant-numeric: tabular-nums;
 }
 
 .acaoPratica {

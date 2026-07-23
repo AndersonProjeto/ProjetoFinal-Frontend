@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import ExercicioAPI from "../../client/ExercicioAPI";
 import style from "./ExercicioDetalhado.module.css";
+import { Spinner } from "../../Componentes/Spinner/Spinner";
 
 function getEmbedUrl(url) {
   if (!url) return null;
@@ -60,7 +61,7 @@ export function ExercicioDetalhado() {
     return (
       <div className={style.page}>
         <div className={style.loading}>
-          <div className={style.spinner} />
+          <Spinner />
         </div>
       </div>
     );

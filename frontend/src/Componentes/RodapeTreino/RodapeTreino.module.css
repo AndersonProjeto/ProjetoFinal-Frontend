@@ -1,0 +1,76 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 20px;
+  border-top: var(--hairline);
+  margin-top: auto;
+  background: var(--acadia-card);
+  position: sticky;
+  bottom: 0;
+}
+
+.footerTempo {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  color: #7a7368;
+}
+
+.btnSalvar {
+  padding: 12px 28px;
+  background: var(--acadia-ink);
+  color: var(--acadia-card);
+  border: none;
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.3s var(--ease-lux), box-shadow 0.3s var(--ease-lux);
+}
+
+.btnSalvar::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--acadia-gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease-lux);
+}
+
+.btnSalvar:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 8px 24px rgba(20, 19, 15, 0.25);
+}
+
+.btnSalvar:hover::after {
+  transform: scaleX(1);
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  /* Tempo total + botão não cabem lado a lado em telas estreitas. */
+  .footer {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+    padding-bottom: 4px;
+  }
+
+  .footerTempo {
+    text-align: center;
+  }
+
+  .btnSalvar {
+    width: 100%;
+    padding: 14px 20px;
+  }
+}

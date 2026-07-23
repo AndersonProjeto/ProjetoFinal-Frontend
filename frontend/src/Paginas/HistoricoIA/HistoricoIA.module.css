@@ -137,52 +137,6 @@
 
 .loading { padding: 48px; text-align: center; color: #9a9180; font-size: 14px; }
 
-.modalOverlay {
-  position: fixed; inset: 0;
-  background: rgba(20, 19, 15, 0.55);
-  display: flex; align-items: center; justify-content: center;
-  z-index: 1000;
-  backdrop-filter: blur(6px);
-  animation: fadeIn 0.25s ease both;
-}
-
-.modal {
-  width: 90%; max-width: 580px; max-height: 80vh;
-  overflow-y: auto;
-  background: var(--acadia-card);
-  border: 0.5px solid var(--acadia-gold-dim);
-  border-radius: 14px;
-  padding: 30px;
-  display: flex; flex-direction: column; gap: 18px;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
-  animation: fadeUp 0.35s var(--ease-lux) both;
-}
-
-.modalHeader {
-  display: flex; align-items: center; justify-content: space-between;
-  padding-bottom: 14px;
-  border-bottom: 0.5px solid #d6d1c6;
-}
-
-.modalTitulo {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 20px; font-weight: 500; color: #14130f; margin: 0; letter-spacing: 0.4px;
-}
-
-.closeBtn {
-  all: unset; box-sizing: border-box;
-  border: 0.5px solid #c0bab0; color: var(--acadia-muted);
-  width: 28px; height: 28px; border-radius: 50%;
-  display: inline-flex; align-items: center; justify-content: center;
-  cursor: pointer; font-size: 11px; transition: all 0.25s var(--ease-lux);
-}
-
-.closeBtn:hover {
-  border-color: var(--acadia-gold);
-  color: var(--acadia-ink);
-  transform: rotate(90deg);
-}
-
 .modalBloco { display: flex; flex-direction: column; gap: 10px; }
 
 .modalTexto {

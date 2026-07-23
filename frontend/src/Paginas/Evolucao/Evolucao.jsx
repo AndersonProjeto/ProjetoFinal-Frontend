@@ -5,6 +5,7 @@ import {
 } from "recharts";
 import EvolucaoAPI from "../../client/EvolucaoAPI";
 import styles from "./Evolucao.module.css";
+import { sessao } from "../../client/sessao";
 
 // Cartão de gráfico (fora do componente para não ser recriado a cada render).
 function Grafico({ titulo, dados, unidade }) {
@@ -71,7 +72,7 @@ function calcularStreak(dados) {
 export function Evolucao() {
   const navigate = useNavigate();
   const location = useLocation();
-  const usuarioId = localStorage.getItem("usuarioId");
+  const usuarioId = sessao.usuarioId();
 
   const [resumo, setResumo] = useState(null);
   const [historico, setHistorico] = useState([]);

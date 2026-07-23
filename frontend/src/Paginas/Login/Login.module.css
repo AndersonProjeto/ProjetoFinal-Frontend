@@ -5,6 +5,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 28px 20px 70px;
   background: var(--acadia-ink);
   background-image: radial-gradient(
     ellipse at 50% -20%,
@@ -15,7 +16,8 @@
 }
 
 .box {
-  width: 380px;
+  width: 100%;
+  max-width: 380px;
   padding: 40px 34px 32px;
   border-radius: 14px;
   background: rgba(24, 23, 18, 0.85);
@@ -149,4 +151,15 @@
   letter-spacing: 2px;
   color: rgba(255, 255, 255, 0.25);
   border-top: 0.5px solid rgba(255, 255, 255, 0.06);
+}
+
+/* ── Responsive ── */
+@media (max-width: 480px) {
+  .box {
+    padding: 32px 22px 26px;
+  }
+
+  .brandName {
+    font-size: 30px;
+  }
 }

@@ -227,3 +227,11 @@
   color: rgba(255, 255, 255, 0.25);
   border-top: 0.5px solid rgba(255, 255, 255, 0.06);
 }
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  /* Data de nascimento e altura lado a lado ficam ilegíveis no celular. */
+  .row {
+    grid-template-columns: 1fr;
+  }
+}

@@ -3,15 +3,9 @@ import styles from "./Perfil.module.css";
 import UsuarioAPI from "../../client/UsuarioAPI";
 import { useNavigate } from "react-router-dom";
 import EvolucaoAPI from "../../client/EvolucaoAPI";
-
-function IconEdit() {
-  return (
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#9a9180" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-      <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-    </svg>
-  );
-}
+import { IconEdit } from "../../Componentes/Icones/Icones";
+import { sessao } from "../../client/sessao";
+import { Modal } from "../../Componentes/Modal/Modal";
 
 const EstilosDeAvatar = [
   "avataaars", "adventurer", "big-smile", "bottts", "pixel-art", "lorelei",
@@ -19,7 +13,7 @@ const EstilosDeAvatar = [
 
 export function Perfil() {
   const navigate = useNavigate();
-  const usuarioId = localStorage.getItem("usuarioId");
+  const usuarioId = sessao.usuarioId();
 
   const [usuario, setUsuario] = useState(null);
   const [ultimaEvolucao, setUltimaEvolucao] = useState(null);
@@ -106,7 +100,7 @@ export function Perfil() {
         <div className={styles.avatarWrapper}>
           <img src={avatarUrl} className={styles.avatar} alt="avatar" />
           <button className={styles.editarAvatarBtn} onClick={() => setModalAvatar(true)} title="Alterar avatar">
-            <IconEdit />
+            <IconEdit size={13} stroke="#9a9180" />
           </button>
         </div>
 
@@ -162,70 +156,66 @@ export function Perfil() {
 
       {/* Modal Avatar */}
       {modalAvatar && (
-        <div className={styles.modalOverlay} onClick={() => setModalAvatar(false)}>
-          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.modalHeader}>
-              <h3 className={styles.modalTitulo}>Alterar Avatar</h3>
-              <button className={styles.closeBtn} onClick={() => setModalAvatar(false)}>✕</button>
-            </div>
+        <Modal
+          titulo="Alterar Avatar"
+          aoFechar={() => setModalAvatar(false)}
+          maxWidth={420}
+          gap={16}
+        >
+          <img src={previewUrl} className={styles.avatarPreview} alt="preview" />
 
-            <img src={previewUrl} className={styles.avatarPreview} alt="preview" />
+          <button className={styles.btnGerar} onClick={gerarSeed}>Gerar outro</button>
 
-            <button className={styles.btnGerar} onClick={gerarSeed}>Gerar outro</button>
-
-            <div className={styles.estilosLabel}>Estilo</div>
-            <div className={styles.estilos}>
-              {EstilosDeAvatar.map((estilo) => (
-                <button
-                  key={estilo}
-                  className={`${styles.estiloBtn} ${estilo === novoEstiloAvatar ? styles.estiloAtivo : ""}`}
-                  onClick={() => setNovoEstiloAvatar(estilo)}
-                >
-                  {estilo}
-                </button>
-              ))}
-            </div>
-
-            <div className={styles.modalFooter}>
-              <button className={styles.btnCancelar} onClick={() => setModalAvatar(false)}>Cancelar</button>
-              <button className={styles.btnSalvar} onClick={salvarAvatar}>Salvar</button>
-            </div>
+          <div className={styles.estilosLabel}>Estilo</div>
+          <div className={styles.estilos}>
+            {EstilosDeAvatar.map((estilo) => (
+              <button
+                key={estilo}
+                className={`${styles.estiloBtn} ${estilo === novoEstiloAvatar ? styles.estiloAtivo : ""}`}
+                onClick={() => setNovoEstiloAvatar(estilo)}
+              >
+                {estilo}
+              </button>
+            ))}
           </div>
-        </div>
+
+          <div className={styles.modalFooter}>
+            <button className={styles.btnCancelar} onClick={() => setModalAvatar(false)}>Cancelar</button>
+            <button className={styles.btnSalvar} onClick={salvarAvatar}>Salvar</button>
+          </div>
+        </Modal>
       )}
 
       {/* Modal Editar Perfil */}
       {modalEditarUsuario && (
-        <div className={styles.modalOverlay} onClick={() => setModalEditarUsuario(false)}>
-          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.modalHeader}>
-              <h3 className={styles.modalTitulo}>Editar Perfil</h3>
-              <button className={styles.closeBtn} onClick={() => setModalEditarUsuario(false)}>✕</button>
-            </div>
-
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Nome</label>
-              <input className={styles.formInput} type="text" name="nome" value={formUsuario.nome} onChange={handleChange} placeholder="Nome" />
-            </div>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>E-mail</label>
-              <input className={styles.formInput} type="email" name="email" value={formUsuario.email} onChange={handleChange} placeholder="E-mail" />
-            </div>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Altura (cm)</label>
-              <input className={styles.formInput} type="number" name="alturaCm" value={formUsuario.alturaCm} onChange={handleChange} placeholder="Altura" />
-            </div>
-            <div className={styles.formGroup}>
-              <label className={styles.formLabel}>Data de nascimento</label>
-              <input className={styles.formInput} type="date" name="dataNascimento" value={formUsuario.dataNascimento} onChange={handleChange} />
-            </div>
-
-            <div className={styles.modalFooter}>
-              <button className={styles.btnCancelar} onClick={() => setModalEditarUsuario(false)}>Cancelar</button>
-              <button className={styles.btnSalvar} onClick={salvarUsuario}>Salvar</button>
-            </div>
+        <Modal
+          titulo="Editar Perfil"
+          aoFechar={() => setModalEditarUsuario(false)}
+          maxWidth={420}
+          gap={16}
+        >
+          <div className={styles.formGroup}>
+            <label className={styles.formLabel}>Nome</label>
+            <input className={styles.formInput} type="text" name="nome" value={formUsuario.nome} onChange={handleChange} placeholder="Nome" />
           </div>
-        </div>
+          <div className={styles.formGroup}>
+            <label className={styles.formLabel}>E-mail</label>
+            <input className={styles.formInput} type="email" name="email" value={formUsuario.email} onChange={handleChange} placeholder="E-mail" />
+          </div>
+          <div className={styles.formGroup}>
+            <label className={styles.formLabel}>Altura (cm)</label>
+            <input className={styles.formInput} type="number" name="alturaCm" value={formUsuario.alturaCm} onChange={handleChange} placeholder="Altura" />
+          </div>
+          <div className={styles.formGroup}>
+            <label className={styles.formLabel}>Data de nascimento</label>
+            <input className={styles.formInput} type="date" name="dataNascimento" value={formUsuario.dataNascimento} onChange={handleChange} />
+          </div>
+
+          <div className={styles.modalFooter}>
+            <button className={styles.btnCancelar} onClick={() => setModalEditarUsuario(false)}>Cancelar</button>
+            <button className={styles.btnSalvar} onClick={salvarUsuario}>Salvar</button>
+          </div>
+        </Modal>
       )}
     </div>
   );

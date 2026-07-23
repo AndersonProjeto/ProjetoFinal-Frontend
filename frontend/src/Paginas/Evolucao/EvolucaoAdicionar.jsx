@@ -2,15 +2,8 @@ import { useEffect, useState } from "react";
 import styles from "./EvolucaoAdicionar.module.css";
 import EvolucaoAPI from "../../client/EvolucaoAPI";
 import { useNavigate } from "react-router-dom";
-
-function IconArrowLeft() {
-  return (
-    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="19" y1="12" x2="5" y2="12"/>
-      <polyline points="12 19 5 12 12 5"/>
-    </svg>
-  );
-}
+import { IconArrowLeft } from "../../Componentes/Icones/Icones";
+import { sessao } from "../../client/sessao";
 
 function hojeFormatado() {
   const hoje = new Date();
@@ -22,7 +15,7 @@ function hojeFormatado() {
 
 export function EvolucaoAdicionar() {
   const navigate = useNavigate();
-  const usuarioId = localStorage.getItem("usuarioId");
+  const usuarioId = sessao.usuarioId();
 
   const [peso, setPeso] = useState("");
   const [cintura, setCintura] = useState("");
@@ -63,7 +56,7 @@ export function EvolucaoAdicionar() {
       {/* Header */}
       <div className={styles.header}>
         <button className={styles.voltar} onClick={() => navigate(-1)}>
-          <IconArrowLeft />
+          <IconArrowLeft size={15} />
         </button>
         <div>
           <h1 className={styles.title}>Registrar Evolução</h1>

@@ -1,0 +1,33 @@
+.fieldGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.fieldLabel {
+  font-size: 9px;
+  letter-spacing: 2.2px;
+  text-transform: uppercase;
+  color: var(--acadia-muted);
+  font-weight: 600;
+}
+
+.select {
+  width: 100%;
+  padding: 11px 13px;
+  background: #fff;
+  border: var(--hairline);
+  border-radius: 8px;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  color: var(--acadia-ink);
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+.select:focus {
+  border-color: var(--acadia-gold);
+  box-shadow: 0 0 0 3px rgba(201, 185, 122, 0.12);
+}

@@ -255,6 +255,7 @@
   font-size: 21px;
   font-weight: 500;
   color: var(--acadia-ink);
+  font-variant-numeric: tabular-nums;
 }
 
 .resumoValor small {

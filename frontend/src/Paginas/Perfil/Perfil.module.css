@@ -171,6 +171,7 @@
   display: flex;
   align-items: baseline;
   gap: 4px;
+  font-variant-numeric: tabular-nums;
 }
 
 .metricaValor small {
@@ -225,72 +226,6 @@
 
 .iaCard:hover .iaArrow {
   transform: translateX(6px);
-}
-
-/* ── Modal ── */
-.modalOverlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(20, 19, 15, 0.55);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-  backdrop-filter: blur(6px);
-  animation: fadeIn 0.25s ease both;
-}
-
-.modal {
-  width: 90%;
-  max-width: 420px;
-  background: var(--acadia-card);
-  border: 0.5px solid var(--acadia-gold-dim);
-  border-radius: 14px;
-  padding: 30px;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.35);
-  animation: fadeUp 0.35s var(--ease-lux) both;
-}
-
-.modalHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-bottom: 14px;
-  border-bottom: var(--hairline);
-}
-
-.modalTitulo {
-  font-family: var(--font-serif);
-  font-size: 22px;
-  font-weight: 500;
-  color: var(--acadia-ink);
-  margin: 0;
-  letter-spacing: 0.4px;
-}
-
-.closeBtn {
-  all: unset;
-  box-sizing: border-box;
-  border: 0.5px solid #c0bab0;
-  color: var(--acadia-muted);
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 11px;
-  transition: all 0.25s var(--ease-lux);
-}
-
-.closeBtn:hover {
-  border-color: var(--acadia-gold);
-  color: var(--acadia-ink);
-  transform: rotate(90deg);
 }
 
 .avatarPreview {

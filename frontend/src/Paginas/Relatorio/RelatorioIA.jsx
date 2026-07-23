@@ -1,18 +1,16 @@
 import { useState, useEffect } from "react";
 import { client } from "../../client/client";
 import styles from "./RelatorioIA.module.css";
-
-function IconRelatorio() {
-  return (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-      <polyline points="14 2 14 8 20 8"/>
-      <line x1="16" y1="13" x2="8" y2="13"/>
-      <line x1="16" y1="17" x2="8" y2="17"/>
-      <polyline points="10 9 9 9 8 9"/>
-    </svg>
-  );
-}
+import { IconRelatorio } from "../../Componentes/Icones/Icones";
+import { sessao } from "../../client/sessao";
+import {
+  LuActivity,
+  LuTrendingUp,
+  LuTriangleAlert,
+  LuCircleCheck,
+  LuDumbbell,
+  LuTarget,
+} from "react-icons/lu";
 
 function IconTendencia({ valor }) {
   if (valor < 0) return (
@@ -33,7 +31,7 @@ function IconTendencia({ valor }) {
 }
 
 export function RelatorioIA() {
-  const usuarioId = localStorage.getItem("usuarioId");
+  const usuarioId = sessao.usuarioId();
 
   const [relatorio, setRelatorio] = useState(null);
   const [carregando, setCarregando] = useState(false);
@@ -96,7 +94,7 @@ export function RelatorioIA() {
           {carregando ? (
             <span className={styles.loadingDots}>Analisando<span className={styles.dots}>...</span></span>
           ) : (
-            <><IconRelatorio />{gerado ? "Novo Relatório" : "Gerar Relatório"}</>
+            <><IconRelatorio size={18} />{gerado ? "Novo Relatório" : "Gerar Relatório"}</>
           )}
         </button>
       </div>
@@ -105,7 +103,8 @@ export function RelatorioIA() {
 
       {!r && !exibirSkeleton && !erro && (
         <div className={styles.emptyState}>
-          <span className={styles.emptyIcon}>◎</span>
+          {/* Mesmo ícone do botão que gera o relatório: o vazio antecipa a ação. */}
+          <span className={styles.emptyIcon}><IconRelatorio size={34} /></span>
           <p className={styles.emptyTitulo}>Nenhum relatório gerado</p>
           <p className={styles.emptyDesc}>
             Clique em "Gerar Relatório" para receber uma análise completa da sua evolução com recomendações personalizadas.
@@ -139,7 +138,7 @@ export function RelatorioIA() {
               <div className={styles.card}>
                 <div className={styles.cardHeader}>
                   <span className={styles.cardLabel}>Resumo Atual</span>
-                  <span className={styles.cardIcon}>📊</span>
+                  <LuActivity className={styles.cardIcon} aria-hidden />
                 </div>
 
                 <div className={styles.imcBloco}>
@@ -172,7 +171,7 @@ export function RelatorioIA() {
               <div className={styles.card}>
                 <div className={styles.cardHeader}>
                   <span className={styles.cardLabel}>Evolução</span>
-                  <span className={styles.cardIcon}>📈</span>
+                  <LuTrendingUp className={styles.cardIcon} aria-hidden />
                 </div>
 
                 <div className={styles.evolucaoBloco}>
@@ -218,7 +217,7 @@ export function RelatorioIA() {
           {r.pontosDeAtencao?.length > 0 && (
             <div className={styles.secao}>
               <div className={styles.secaoHeader}>
-                <span className={styles.secaoIcon}>⚠️</span>
+                <LuTriangleAlert className={`${styles.secaoIcon} ${styles.secaoIconAtencao}`} aria-hidden />
                 <span className={styles.secaoTitulo}>Pontos de Atenção</span>
               </div>
               <div className={styles.listaCards}>
@@ -242,7 +241,7 @@ export function RelatorioIA() {
           {r.recomendacoes?.length > 0 && (
             <div className={styles.secao}>
               <div className={styles.secaoHeader}>
-                <span className={styles.secaoIcon}>✅</span>
+                <LuCircleCheck className={`${styles.secaoIcon} ${styles.secaoIconRec}`} aria-hidden />
                 <span className={styles.secaoTitulo}>Recomendações</span>
               </div>
               <div className={styles.listaCards}>
@@ -271,7 +270,7 @@ export function RelatorioIA() {
               <div className={styles.card}>
                 <div className={styles.cardHeader}>
                   <span className={styles.cardLabel}>Relação com Treinos</span>
-                  <span className={styles.cardIcon}>🏋️</span>
+                  <LuDumbbell className={styles.cardIcon} aria-hidden />
                 </div>
                 <p className={styles.treinoAnalise}>{r.relacaoComTreinos.analise}</p>
                 {r.relacaoComTreinos.sugestoes?.length > 0 && (
@@ -288,7 +287,7 @@ export function RelatorioIA() {
               <div className={`${styles.card} ${styles.cardObjetivo}`}>
                 <div className={styles.cardHeader}>
                   <span className={styles.cardLabel}>Próximo Objetivo</span>
-                  <span className={styles.cardIcon}>🎯</span>
+                  <LuTarget className={styles.cardIcon} aria-hidden />
                 </div>
                 <p className={styles.objetivoTexto}>{r.proximoObjetivo}</p>
               </div>

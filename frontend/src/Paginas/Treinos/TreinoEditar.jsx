@@ -5,6 +5,10 @@ import style from "./TreinoEditar.module.css";
 import TreinoAPI from "../../client/TreinoAPI";
 import ExercicioAPI from "../../client/ExercicioAPI";
 import TreinoExercicioAPI from "../../client/TreinoExercicioAPI";
+import { SeletorGrupoMuscular } from "../../Componentes/SeletorGrupoMuscular/SeletorGrupoMuscular";
+import { ListaExercicios } from "../../Componentes/ListaExercicios/ListaExercicios";
+import { CardExercicio } from "../../Componentes/CardExercicio/CardExercicio";
+import { RodapeTreino } from "../../Componentes/RodapeTreino/RodapeTreino";
 
 export function TreinoEditar() {
   const { id } = useParams();
@@ -120,44 +124,18 @@ export function TreinoEditar() {
           />
         </div>
 
-        <div className={style.fieldGroup}>
-          <label className={style.fieldLabel}>Adicionar exercícios</label>
-          <select
-            className={style.select}
-            value={grupoMuscular}
-            onChange={(e) => setGrupoMuscular(e.target.value)}
-          >
-            <option value="">Selecione o grupo muscular...</option>
-            <option value="Peito">Peito</option>
-            <option value="Costas">Costas</option>
-            <option value="Pernas">Pernas</option>
-            <option value="Ombros">Ombros</option>
-            <option value="Biceps">Bíceps</option>
-            <option value="Triceps">Tríceps</option>
-            <option value="Abdomen">Abdômen</option>
-          </select>
-        </div>
+        <SeletorGrupoMuscular
+          label="Adicionar exercícios"
+          placeholder="Selecione o grupo muscular..."
+          value={grupoMuscular}
+          onChange={(e) => setGrupoMuscular(e.target.value)}
+        />
 
-        {exerciciosDisponiveis.length > 0 && (
-          <div className={style.listaExercicios}>
-            <span className={style.listaLabel}>Exercícios disponíveis</span>
-            {exerciciosDisponiveis.map((ex) => {
-              const adicionado = exerciciosTreino.some((e) => e.exercicioId === ex.exercicioId);
-              return (
-                <div key={ex.exercicioId} className={style.exercicioLinha}>
-                  <span className={style.exercicioNome}>{ex.nome}</span>
-                  <button
-                    className={`${style.btnAdicionar} ${adicionado ? style.btnAdicionado : ""}`}
-                    onClick={() => adicionarExercicio(ex)}
-                    disabled={adicionado}
-                  >
-                    {adicionado ? "✓" : "+"}
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        )}
+        <ListaExercicios
+          exercicios={exerciciosDisponiveis}
+          exerciciosNoTreino={exerciciosTreino}
+          aoAdicionar={adicionarExercicio}
+        />
       </div>
 
       {/* Coluna Direita */}
@@ -174,52 +152,21 @@ export function TreinoEditar() {
             </div>
           ) : (
             exerciciosTreino.map((ex, index) => (
-              <div key={ex.exercicioId} className={style.cardExercicio}>
-                <div className={style.cardExHeader}>
-                  <strong className={style.cardExNome}>{ex.nome}</strong>
-                  <button className={style.btnRemover} onClick={() => removerExercicio(ex.exercicioId)}>✕</button>
-                </div>
-
-                <div className={style.campos}>
-                  <div className={style.campoItem}>
-                    <label className={style.campoLabel}>Séries</label>
-                    <input
-                      className={style.campoInput}
-                      type="number"
-                      value={ex.series}
-                      onChange={(e) => atualizarCampo(index, "series", e.target.value)}
-                    />
-                  </div>
-                  <div className={style.campoItem}>
-                    <label className={style.campoLabel}>Repetições</label>
-                    <input
-                      className={style.campoInput}
-                      type="number"
-                      value={ex.repeticoes}
-                      onChange={(e) => atualizarCampo(index, "repeticoes", e.target.value)}
-                    />
-                  </div>
-                  <div className={style.campoItem}>
-                    <label className={style.campoLabel}>Pausa (s)</label>
-                    <input
-                      className={style.campoInput}
-                      type="number"
-                      value={ex.descansoSegundos}
-                      onChange={(e) => atualizarCampo(index, "descansoSegundos", e.target.value)}
-                    />
-                  </div>
-                </div>
-              </div>
+              <CardExercicio
+                key={ex.exercicioId}
+                exercicio={ex}
+                aoRemover={removerExercicio}
+                aoAlterarCampo={(campo, valor) => atualizarCampo(index, campo, valor)}
+              />
             ))
           )}
         </div>
 
-        <div className={style.footer}>
-          <span className={style.footerTempo}>Tempo total: {tempoTotal} min</span>
-          <button className={style.btnSalvar} onClick={salvarEdicao}>
-            Salvar Alterações
-          </button>
-        </div>
+        <RodapeTreino
+          tempoTotal={tempoTotal}
+          textoBotao="Salvar Alterações"
+          aoSalvar={salvarEdicao}
+        />
       </div>
     </div>
   );

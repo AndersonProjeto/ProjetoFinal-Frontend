@@ -4,19 +4,13 @@ import ReactMarkdown from "react-markdown";
 import styles from "./ChatIA.module.css";
 import UsuarioAPI from "../../client/UsuarioAPI";
 import { useNavigate } from "react-router-dom";
-
-function IconSend() {
-  return (
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#f8f5ef" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <line x1="22" y1="2" x2="11" y2="13"/>
-      <polygon points="22 2 15 22 11 13 2 9 22 2"/>
-    </svg>
-  );
-}
+import { IconSend } from "../../Componentes/Icones/Icones";
+import { LuMessageCircle } from "react-icons/lu";
+import { sessao } from "../../client/sessao";
 
 export function ChatIA() {
   const navigate = useNavigate();
-  const usuarioId = localStorage.getItem("usuarioId");
+  const usuarioId = sessao.usuarioId();
 
   const [mensagem, setMensagem] = useState("");
   const [chat, setChat] = useState([]);
@@ -110,7 +104,7 @@ export function ChatIA() {
         <div className={styles.chatArea} ref={chatRef}>
           {!carregando && chat.length === 0 && (
             <div className={styles.emptyChat}>
-              <span className={styles.emptyIcon}>◎</span>
+              <span className={styles.emptyIcon}><LuMessageCircle /></span>
               <p className={styles.emptyTitulo}>Nenhuma conversa ainda</p>
               <p className={styles.emptyDesc}>Faça sua primeira pergunta sobre treino, nutrição ou evolução.</p>
             </div>
@@ -155,7 +149,7 @@ export function ChatIA() {
             onKeyDown={(e) => e.key === "Enter" && enviar()}
           />
           <button className={styles.btnEnviar} onClick={enviar} disabled={carregando}>
-            <IconSend />
+            <IconSend size={16} stroke="#f8f5ef" />
           </button>
         </div>
 

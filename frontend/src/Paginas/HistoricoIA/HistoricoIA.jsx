@@ -3,9 +3,11 @@ import styles from "./HistoricoIA.module.css";
 import IAAPI from "../../client/IAAPI";
 import UsuarioAPI from "../../client/UsuarioAPI";
 import { SearchBar } from "../../Componentes/Pesquisa/Pesquisa";
+import { sessao } from "../../client/sessao";
+import { Modal } from "../../Componentes/Modal/Modal";
 
 export function HistoricoIA() {
-  const usuarioId = localStorage.getItem("usuarioId");
+  const usuarioId = sessao.usuarioId();
 
   const [historico, setHistorico] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -88,36 +90,35 @@ export function HistoricoIA() {
       </div>
 
       {selecionado && (
-        <div className={styles.modalOverlay} onClick={() => setSelecionado(null)}>
-          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.modalHeader}>
-              <h3 className={styles.modalTitulo}>Interação completa</h3>
-              <button className={styles.closeBtn} onClick={() => setSelecionado(null)}>✕</button>
+        <Modal
+          titulo="Interação completa"
+          aoFechar={() => setSelecionado(null)}
+          maxWidth={580}
+          gap={18}
+          scroll
+        >
+          <div className={styles.modalBloco}>
+            <div className={styles.blocoHeader}>
+              <img src={avatarUrl} alt="Avatar" className={styles.avatarMini} />
+              <span className={styles.blocoLabel}>Pergunta</span>
             </div>
-
-            <div className={styles.modalBloco}>
-              <div className={styles.blocoHeader}>
-                <img src={avatarUrl} alt="Avatar" className={styles.avatarMini} />
-                <span className={styles.blocoLabel}>Pergunta</span>
-              </div>
-              <p className={styles.modalTexto}>{selecionado.pergunta}</p>
-            </div>
-
-            <div className={styles.divisor} />
-
-            <div className={styles.modalBloco}>
-              <div className={styles.blocoHeader}>
-                <div className={styles.iaIcone}>IA</div>
-                <span className={styles.blocoLabel}>Resposta</span>
-              </div>
-              <p className={styles.modalTexto}>{selecionado.resposta}</p>
-            </div>
-
-            <div className={styles.modalFooter}>
-              <button className={styles.fechar} onClick={() => setSelecionado(null)}>Fechar</button>
-            </div>
+            <p className={styles.modalTexto}>{selecionado.pergunta}</p>
           </div>
-        </div>
+
+          <div className={styles.divisor} />
+
+          <div className={styles.modalBloco}>
+            <div className={styles.blocoHeader}>
+              <div className={styles.iaIcone}>IA</div>
+              <span className={styles.blocoLabel}>Resposta</span>
+            </div>
+            <p className={styles.modalTexto}>{selecionado.resposta}</p>
+          </div>
+
+          <div className={styles.modalFooter}>
+            <button className={styles.fechar} onClick={() => setSelecionado(null)}>Fechar</button>
+          </div>
+        </Modal>
       )}
     </div>
   );

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import ExercicioAPI from "../../client/ExercicioAPI";
 import style from "./Exercicio.module.css";
 import { SearchBar } from "../../Componentes/Pesquisa/Pesquisa";
+import { Spinner } from "../../Componentes/Spinner/Spinner";
 
 export function Exercicios() {
   const [exercicios, setExercicios] = useState([]);
@@ -85,7 +86,7 @@ export function Exercicios() {
         <div className={style.grid}>
           {carregando ? (
             <div className={style.loading}>
-              <div className={style.spinner} />
+              <Spinner />
             </div>
           ) : exerciciosFiltrados.length > 0 ? (
             exerciciosFiltrados.map((exercicio) => (

@@ -1,0 +1,120 @@
+.cardExercicio {
+  background: #fff;
+  border: var(--hairline);
+  border-radius: 12px;
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  transition: border-color 0.25s, box-shadow 0.25s var(--ease-lux);
+  animation: fadeUp 0.4s var(--ease-lux) both;
+}
+
+.cardExercicio:hover {
+  border-color: var(--acadia-gold-dim);
+  box-shadow: 0 6px 20px rgba(20, 19, 15, 0.06);
+}
+
+.cardExHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cardExNome {
+  font-weight: 600;
+  color: var(--acadia-ink);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-size: 11px;
+}
+
+.btnRemover {
+  background: transparent;
+  border: var(--hairline);
+  border-radius: 50%;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--acadia-muted);
+  font-size: 10px;
+  transition: all 0.25s var(--ease-lux);
+}
+
+.btnRemover:hover {
+  color: var(--acadia-danger);
+  border-color: var(--acadia-danger);
+  transform: rotate(90deg);
+}
+
+.campos {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+}
+
+.campoItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.campoLabel {
+  font-size: 9px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: var(--acadia-muted);
+  font-weight: 600;
+}
+
+.campoInput {
+  width: 100%;
+  padding: 9px 6px;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--acadia-ink);
+  background: var(--acadia-card);
+  border: var(--hairline);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+  font-variant-numeric: tabular-nums;
+}
+
+.campoInput:focus {
+  border-color: var(--acadia-gold);
+  box-shadow: 0 0 0 3px rgba(201, 185, 122, 0.12);
+}
+
+.campoInput::-webkit-outer-spin-button,
+.campoInput::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .cardExercicio {
+    padding: 14px 15px;
+  }
+
+  /* Três campos numéricos lado a lado ficam apertados no celular:
+     reduz o número e o respiro em vez de empilhar, para não alongar o card. */
+  .campos {
+    gap: 7px;
+  }
+
+  .campoInput {
+    font-size: 18px;
+    padding: 8px 4px;
+  }
+
+  .campoLabel {
+    font-size: 8px;
+    letter-spacing: 1px;
+  }
+}

@@ -105,8 +105,7 @@
   font-weight: 600;
 }
 
-.input,
-.select {
+.input {
   width: 100%;
   padding: 11px 13px;
   background: #fff;
@@ -121,8 +120,7 @@
   -webkit-appearance: none;
 }
 
-.input:focus,
-.select:focus {
+.input:focus {
   border-color: var(--acadia-gold);
   box-shadow: 0 0 0 3px rgba(201, 185, 122, 0.12);
 }
@@ -131,181 +129,12 @@
   color: #b0a99e;
 }
 
-/* ── Lista Exercícios ── */
-.listaExercicios {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.listaLabel {
-  font-size: 9px;
-  letter-spacing: 2.2px;
-  text-transform: uppercase;
-  color: var(--acadia-muted);
-  font-weight: 600;
-  margin-bottom: 8px;
-  display: block;
-}
-
-.exercicioLinha {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 10px 13px;
-  background: var(--acadia-card);
-  border: 0.5px solid #e8e4db;
-  border-radius: 8px;
-  transition: all 0.2s var(--ease-lux);
-}
-
-.exercicioLinha:hover {
-  border-color: var(--acadia-gold-dim);
-  transform: translateX(2px);
-}
-
-.exercicioNome {
-  font-size: 13px;
-  color: #2e2c28;
-}
-
-.btnAdicionar {
-  width: 27px;
-  height: 27px;
-  border-radius: 50%;
-  border: 0.5px solid var(--acadia-ink);
-  background: transparent;
-  color: var(--acadia-ink);
-  font-size: 16px;
-  line-height: 1;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.25s var(--ease-lux);
-  flex-shrink: 0;
-}
-
-.btnAdicionar:hover:not(:disabled) {
-  background: var(--acadia-ink);
-  color: var(--acadia-gold);
-  transform: scale(1.1);
-}
-
-.btnAdicionado {
-  background: var(--acadia-ink);
-  color: var(--acadia-gold);
-  border-color: var(--acadia-gold-dim);
-  cursor: default;
-  font-size: 12px;
-}
-
 /* ── Cards Lista ── */
 .cardsList {
   display: flex;
   flex-direction: column;
   gap: 10px;
   flex: 1;
-}
-
-/* ── Card Exercício ── */
-.cardExercicio {
-  background: #fff;
-  border: var(--hairline);
-  border-radius: 12px;
-  padding: 18px 20px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  transition: border-color 0.25s, box-shadow 0.25s var(--ease-lux);
-  animation: fadeUp 0.4s var(--ease-lux) both;
-}
-
-.cardExercicio:hover {
-  border-color: var(--acadia-gold-dim);
-  box-shadow: 0 6px 20px rgba(20, 19, 15, 0.06);
-}
-
-.cardExHeader {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.cardExNome {
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--acadia-ink);
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-}
-
-.btnRemover {
-  background: transparent;
-  border: var(--hairline);
-  border-radius: 50%;
-  width: 25px;
-  height: 25px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  color: var(--acadia-muted);
-  font-size: 10px;
-  transition: all 0.25s var(--ease-lux);
-}
-
-.btnRemover:hover {
-  color: var(--acadia-danger);
-  border-color: var(--acadia-danger);
-  transform: rotate(90deg);
-}
-
-/* ── Campos numéricos ── */
-.campos {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 10px;
-}
-
-.campoItem {
-  display: flex;
-  flex-direction: column;
-  gap: 4px;
-}
-
-.campoLabel {
-  font-size: 9px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--acadia-muted);
-  font-weight: 600;
-}
-
-.campoInput {
-  width: 100%;
-  padding: 9px 6px;
-  text-align: center;
-  font-family: var(--font-serif);
-  font-size: 22px;
-  font-weight: 500;
-  color: var(--acadia-ink);
-  background: var(--acadia-card);
-  border: var(--hairline);
-  border-radius: 8px;
-  outline: none;
-  transition: border-color 0.25s, box-shadow 0.25s;
-}
-
-.campoInput:focus {
-  border-color: var(--acadia-gold);
-  box-shadow: 0 0 0 3px rgba(201, 185, 122, 0.12);
-}
-
-.campoInput::-webkit-outer-spin-button,
-.campoInput::-webkit-inner-spin-button {
-  -webkit-appearance: none;
 }
 
 /* ── Vazio ── */
@@ -324,64 +153,6 @@
   font-size: 13px;
   color: var(--acadia-muted);
   line-height: 1.6;
-}
-
-/* ── Footer ── */
-.footer {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 20px;
-  border-top: var(--hairline);
-  margin-top: auto;
-  background: var(--acadia-card);
-  position: sticky;
-  bottom: 0;
-}
-
-.footerTempo {
-  font-family: var(--font-serif);
-  font-size: 16px;
-  color: #7a7368;
-}
-
-.btnSalvar {
-  padding: 12px 28px;
-  background: var(--acadia-ink);
-  color: var(--acadia-card);
-  border: none;
-  border-radius: 8px;
-  font-family: var(--font-sans);
-  font-size: 11px;
-  font-weight: 600;
-  letter-spacing: 1.8px;
-  text-transform: uppercase;
-  cursor: pointer;
-  position: relative;
-  overflow: hidden;
-  transition: transform 0.3s var(--ease-lux), box-shadow 0.3s var(--ease-lux);
-}
-
-.btnSalvar::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: var(--acadia-gold);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s var(--ease-lux);
-}
-
-.btnSalvar:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 8px 24px rgba(20, 19, 15, 0.25);
-}
-
-.btnSalvar:hover::after {
-  transform: scaleX(1);
 }
 
 /* ── Responsive ── */

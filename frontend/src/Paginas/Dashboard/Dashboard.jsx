@@ -4,6 +4,8 @@ import EvolucaoAPI from "../../client/EvolucaoAPI";
 import TreinoAPI from "../../client/TreinoAPI";
 import styles from "./Dashboard.module.css";
 import { useNavigate, Link } from "react-router-dom";
+import { sessao } from "../../client/sessao";
+import { Modal } from "../../Componentes/Modal/Modal";
 
 import {
   LineChart,
@@ -17,7 +19,7 @@ import {
 
 export function Dashboard() {
   const navigate = useNavigate();
-  const usuarioId = localStorage.getItem("usuarioId");
+  const usuarioId = sessao.usuarioId();
 
   const [usuario, setUsuario] = useState(null);
   const [resumo, setResumo] = useState(null);
@@ -166,37 +168,36 @@ export function Dashboard() {
 
       {/* IMC Modal */}
       {modalOpen && (
-        <div className={styles.modalOverlay} onClick={() => setModalOpen(false)}>
-          <div className={styles.modal} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.modalHeader}>
-              <h2>Índice de Massa Corporal</h2>
-              <button className={styles.closeBtn} onClick={() => setModalOpen(false)}>✕</button>
+        <Modal
+          titulo="Índice de Massa Corporal"
+          aoFechar={() => setModalOpen(false)}
+          maxWidth={480}
+          gap={20}
+        >
+          <div className={styles.modalBody}>
+            <div className={styles.modalRow}>
+              <span>Altura</span>
+              <b>{usuario?.alturaCm ?? "--"} cm</b>
             </div>
-            <div className={styles.modalBody}>
-              <div className={styles.modalRow}>
-                <span>Altura</span>
-                <b>{usuario?.alturaCm ?? "--"} cm</b>
-              </div>
-              <div className={styles.modalRow}>
-                <span>Peso atual</span>
-                <b>{resumo?.pesoAtual ?? "--"} kg</b>
-              </div>
-              <div className={styles.modalRow}>
-                <span>IMC</span>
-                <b>{resumo?.imc?.toFixed(2) ?? "--"}</b>
-              </div>
-              <div className={styles.modalRow}>
-                <span>Classificação</span>
-                <b>{resumo?.imcClassificacao ?? "--"}</b>
-              </div>
-              {resumo?.imcExplicacao && (
-                <div className={styles.modalExplanation}>
-                  {resumo.imcExplicacao}
-                </div>
-              )}
+            <div className={styles.modalRow}>
+              <span>Peso atual</span>
+              <b>{resumo?.pesoAtual ?? "--"} kg</b>
             </div>
+            <div className={styles.modalRow}>
+              <span>IMC</span>
+              <b>{resumo?.imc?.toFixed(2) ?? "--"}</b>
+            </div>
+            <div className={styles.modalRow}>
+              <span>Classificação</span>
+              <b>{resumo?.imcClassificacao ?? "--"}</b>
+            </div>
+            {resumo?.imcExplicacao && (
+              <div className={styles.modalExplanation}>
+                {resumo.imcExplicacao}
+              </div>
+            )}
           </div>
-        </div>
+        </Modal>
       )}
     </div>
   );

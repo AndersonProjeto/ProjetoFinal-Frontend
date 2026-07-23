@@ -101,6 +101,7 @@
   color: var(--acadia-ink);
   line-height: 1;
   animation: riseNum 0.7s var(--ease-lux) 0.4s both;
+  font-variant-numeric: tabular-nums;
 }
 
 .resumoDivider {
@@ -149,6 +150,7 @@
   color: var(--acadia-gold);
   min-width: 34px;
   line-height: 1;
+  font-variant-numeric: tabular-nums;
 }
 
 .cardCorpo {
