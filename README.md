@@ -39,8 +39,32 @@ O frontend é responsável por:
 
 ##  Passo a Passo para Executar o Projeto
 
-1. Clonar o repositório
-git clone https://github.com/seu-repositorio/ProjetoFinal-Frontend.git
+```bash
+git clone https://github.com/AndersonProjeto/ProjetoFinal-Frontend.git
+cd ProjetoFinal-Frontend/frontend
+
+cp .env.example .env   # ajuste VITE_API_URL se a API não estiver em localhost:5121
+npm install
+npm run dev            # sobe em http://localhost:5173
+```
+
+---
+
+## ⚙️ Configuração
+
+| Variável | Padrão | O que é |
+| --- | --- | --- |
+| `VITE_API_URL` | `http://localhost:5121/api` | URL base da API, **com o sufixo `/api`** |
+
+O Vite lê variáveis `VITE_*` **no momento do build**, não em tempo de execução.
+Se a variável não existir quando a Vercel buildar, o bundle publicado sai
+apontando para `localhost:5121` e o site não conversa com backend nenhum —
+cadastre-a em *Settings > Environment Variables* e refaça o deploy.
+
+A porta `5173` já é a origem liberada por padrão no CORS do backend. Ao publicar,
+adicione o domínio da Vercel em `Cors__Origens__0` no Railway.
+
+---
 
 Telas 
 
